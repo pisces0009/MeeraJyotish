@@ -277,6 +277,6 @@ const htmlContent = `
 `
 
 // Write the HTML content to a file
-fs.writeFileSync('panchang.html', htmlContent)
+fs.writeFileSync('index.html', htmlContent)
 
 console.log('HTML file generated successfully.')
