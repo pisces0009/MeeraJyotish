@@ -24,6 +24,9 @@ jobs:
       - name: 🧪 Test
         run: npm run wdio
 
+      - name: 📂 Create Logs Directory
+        run: mkdir -p logs
+
       - name: 📦 Upload Logs
         uses: actions/upload-artifact@v4
         if: failure()
