@@ -4,7 +4,7 @@ on:
   push:
   pull_request:
   schedule:
-    - cron: '50 15 * * *' # This cron expression runs the job daily at 15:25 UTC
+    - cron: '54 15 * * *' # This cron expression runs the job daily at 15:25 UTC
 
 jobs:
   build:
