@@ -1,9 +1,10 @@
 name: CI
 
 on:
-  
+  push:
+  pull_request:
   schedule:
-    - cron: '25 15 * * *' # This cron expression runs the job daily at midnight UTC
+    - cron: '45 15 * * *' # This cron expression runs the job daily at 15:25 UTC
 
 jobs:
   build:
