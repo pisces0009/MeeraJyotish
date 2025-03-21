@@ -72,6 +72,7 @@ export const config: WebdriverIO.Config = {
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
     logLevel: 'info',
+    outputDir: './logs', // Specify the directory for logs
     //
     // Set specific log levels per logger
     // loggers:
