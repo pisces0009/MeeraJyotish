@@ -1,92 +1,108 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panchang Details</title>
+    <title>Meera Jyotish</title>
     <style>
         body {
-            background-image: url('images/pink.jpg');
+            background-image: url('./images/pink.jpg'); /* Replace with the path to your background image */
             background-size: cover;
-            color: white; /* Change the text color as desired */
+            background-position: center;
+            background-repeat: no-repeat;
             font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
+            height: 100vh; /* Ensure the body takes the full height of the viewport */
+            margin: 0; /* Remove default margin */
         }
-        .panchang-container {
+        .header {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 3em;
+            color: #fefcfc;
+        }
+        .button-container {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        .button {
+            margin: 0 20px;
+            text-align: center;
+        }
+        .button img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%; /* Make the image circular */
+        }
+        .button p {
+            margin-top: 10px;
+            font-size: 1.5em;
+            color: #f7f5f5;
+        }
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
             align-items: center;
         }
-        .panchang-detail {
-            display: inline-block;
-            margin: 7px 0;
-            font-size: 1.2em;
-            text-align: left; /* Align text to the left */
-            width: 100%; /* Ensure all text starts from the same point */
-            
+        .home-button a {
+            text-decoration: none;
+            font-size: 1.1em;
+            color:#050000;
+            display: flex;
+            align-items: center;
         }
-        h1 {
-            font-size: 2em;
-            text-align: left; /* Align text to the left */
-            margin-left: 10px;
+        .home-button img {
+            width: 60px;
+            height: 60px;
+            margin-left: 8px;
         }
         .additional-text {
-            font-weight: bold;
-            color: black; /* Change the color as desired */
-            font-size: 1.2em;
-            text-align: left; /* Align text to the left */
-            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #f7f5f5;
         }
-         .circle-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
+        .circle-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 100%;
             object-fit: cover;
             margin-left: 5px;
-            margin-top: -70px;
+            margin-top: -20px;
         }
-        .flex-container {
-            display: flex;
-            align-items: center;
-        }
-            
     </style>
 </head>
 <body>
-    
-     
-     <h1>||ॐ|| पंचांग ||卐||</h1>
-     <div class="additional-text">
-        <p><strong>21 Mar 2025</strong></p>
+    <div class="home-button">
+        <a href="index.html">
+            <img src="./images/home.png" alt="Home Icon">
+        </a>
     </div>
-    <div class="panchang-container">
-        <div class="panchang-detail"><strong>वार: शुक्रवार</strong></div>
-        <div class="panchang-detail"><strong>शके 1946 क्रोधी संवत्सर, फाल्गुन, कृष्ण पक्ष, सप्तमी</strong></div>
-        <div class="panchang-detail"><strong>तिथी: सप्तमी - 04:23, मार्च 22 तक | अष्टमी</strong></div>
-        <div class="panchang-detail"><strong>अयन: उत्तरायण</strong></div>
-        <div class="panchang-detail"><strong>ऋतु: वसन्त</strong></div>
-        <div class="panchang-detail"><strong>नक्षत्र: ज्येष्ठा - 01:46, मार्च 22 तक</strong></div>
-        <div class="panchang-detail"><strong>करण: विष्टि - 15:38 तक | बव - 04:23, मार्च 22 तक</strong></div>
-        <div class="panchang-detail"><strong>योग: सिद्धि - 18:42 तक</strong></div>
-        <div class="panchang-detail"><strong>राशी: वृश्चिक - 01:46, मार्च 22 तक</strong></div>
-        <div class="panchang-detail"><strong>दिनमान: 12 घण्टे 07 मिनट्स 55 सेकण्ड्स</strong></div>
-        <div class="panchang-detail"><strong>राहू काळ: 11:15 से 12:46</strong></div>
-        <div class="panchang-detail"><strong>दिनविशेष: जेष्ठा वर्ज्य</strong></div>
-        <div class="additional-text"><strong>गोचर</strong></div>
-        <div class="panchang-detail"><strong>सूर्य: मीन</strong><strong>, गुरु: वृषभ</strong><strong>, शनि: कुम्भ</strong></div></div>
+    <div class="header">
         
     </div>
-    
-    <div class="additional-text">
-    
-        <p><strong>ज्योतिषाचार्य</strong></p>
-            <div class="flex-container">
-            <p>डॉ सौ.मीरा.बी.काळे (वेदांग ज्योतिष)</p>
-            <img src="images/aai1.png" alt="Circle Image" class="circle-image">
+    <div class="button-container">
+        <div class="button">
+            <a href="panchang.html">
+                <img src="./images/1icon.webp" alt="Daily Panchang Details">
+                <p><strong>दैनिक पंचांग</strong></p>
+            </a>
+        </div>
+        <div class="button">
+            <a href="RashiBhavishya.html">
+                <img src="./images/2icon.png" alt="Daily Rashi Bhavishya">
+                <p><strong>दैनिक राशी भविष्य</strong></p>
+            </a>
         </div>
     </div>
-     
+    <div class="additional-text">
+        <p><strong>ज्योतिषाचार्य</strong></p>
+        <img src="images/aai1.png" alt="Circle Image" class="circle-image">
+        <p><strong>डॉ सौ.मीरा.बी.काळे (वेदांग ज्योतिष केंद्र)</strong></p>
+        <p>Mob: +91 9371998641</p>
+    </div>
 </body>
 </html>
