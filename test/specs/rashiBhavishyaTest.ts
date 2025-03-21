@@ -27,28 +27,9 @@ let meenRashiName: string;
 let meenRashiFal: string;
 let getDateAndDay: string;
 
-async function navigateWithRetry(url: string, retries: number = 3) {
-    for (let i = 0; i < retries; i++) {
-        try {
-            await browser.url(url);
-            await browser.pause(500);
-            return;
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Navigation attempt ${i + 1} failed: ${error.message}`);
-            } else {
-                console.error(`Navigation attempt ${i + 1} failed: ${error}`);
-            }
-            if (i === retries - 1) {
-                throw error;
-            }
-        }
-    }
-}
-
 describe('get all rashi bhavishya', () => {
     before(async () => {
-        await navigateWithRetry('https://www.drikpanchang.com/astrology/prediction/mesha-rashi/mesha-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/mesha-rashi/mesha-rashi-daily-rashiphal.html?lang=mr&ck=1')
         await browser.pause(500)
         getDateAndDay = await rashiBhavishya.dayAndDate.getText(); 
     })
@@ -61,88 +42,101 @@ describe('get all rashi bhavishya', () => {
     });
 
     it('should get vrishabha rashi daily details', async () => {
-        await navigateWithRetry('https://www.drikpanchang.com/astrology/prediction/vrishabha-rashi/vrishabha-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/vrishabha-rashi/vrishabha-rashi-daily-rashiphal.html?lang=mr&ck=1')
         vrishabhaRashiName = await rashiBhavishya.rashiName.getText();
         vrishabhaRashiFal = await rashiBhavishya.rashiFal.getText();
+        await browser.refresh()
         await browser.pause(200)
     });
 
     it('should get mithuna rashi daily details', async () => {
         //mithun rashi
-        await navigateWithRetry('https://www.drikpanchang.com/astrology/prediction/mithuna-rashi/mithuna-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/mithuna-rashi/mithuna-rashi-daily-rashiphal.html?lang=mr&ck=1')
         mithunaRashiName = await rashiBhavishya.rashiName.getText();
         mithunaRashiFal = await rashiBhavishya.rashiFal.getText();
+        await browser.refresh()
         await browser.pause(200)
+
     });
 
     it('should get karka rashi daily details', async () => {
         //karka rashi
-        await navigateWithRetry('https://www.drikpanchang.com/astrology/prediction/karka-rashi/karka-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/karka-rashi/karka-rashi-daily-rashiphal.html?lang=mr&ck=1')
         karkaRashiName = await rashiBhavishya.rashiName.getText();
         karkaRashiFal = await rashiBhavishya.rashiFal.getText();
+        await browser.refresh()
         await browser.pause(200)
+        
     });
 
     it('should get simha rashi daily details', async () => {
         //simha rashi
-        await navigateWithRetry('https://www.drikpanchang.com/astrology/prediction/simha-rashi/simha-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/simha-rashi/simha-rashi-daily-rashiphal.html?lang=mr&ck=1')
         simhaRashiName = await rashiBhavishya.rashiName.getText();
         simhaRashiFal = await rashiBhavishya.rashiFal.getText();
+        await browser.refresh()
         await browser.pause(200)
+
     });
 
     it('should get kanya rashi daily details', async () => {
         //kanaya rashi
-        await navigateWithRetry('https://www.drikpanchang.com/astrology/prediction/kanya-rashi/kanya-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/kanya-rashi/kanya-rashi-daily-rashiphal.html?lang=mr&ck=1')
         kanyaRashiName = await rashiBhavishya.rashiName.getText();
         kanyaRashiFal = await rashiBhavishya.rashiFal.getText();
+        await browser.refresh()
         await browser.pause(200)
     });
 
     it('should get tula rashi daily details', async () => {
         //tula rashi
-        await navigateWithRetry('https://www.drikpanchang.com/astrology/prediction/tula-rashi/tula-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/tula-rashi/tula-rashi-daily-rashiphal.html?lang=mr&ck=1')
         tulaRashiName = await rashiBhavishya.rashiName.getText();
         tulaRashiFal = await rashiBhavishya.rashiFal.getText();
+        await browser.refresh()
         await browser.pause(200)
     });
 
     it('should get vrishchika rashi daily details', async () => {
         //vrishchika rashi
-        await navigateWithRetry('https://www.drikpanchang.com/astrology/prediction/vrishchika-rashi/vrishchika-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/vrishchika-rashi/vrishchika-rashi-daily-rashiphal.html?lang=mr&ck=1')
         vrishchikaRashiName = await rashiBhavishya.rashiName.getText();
         vrishchikaRashiFal = await rashiBhavishya.rashiFal.getText();
+        await browser.refresh()
         await browser.pause(200)
     });
 
     it('should get dhanu rashi daily details', async () => {
         //dhanu rashi
-        await navigateWithRetry('https://www.drikpanchang.com/astrology/prediction/dhanu-rashi/dhanu-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/dhanu-rashi/dhanu-rashi-daily-rashiphal.html?lang=mr&ck=1')
         dhanuRashiName = await rashiBhavishya.rashiName.getText();
         dhanuRashiFal = await rashiBhavishya.rashiFal.getText();
+        await browser.refresh()
         await browser.pause(200)
     });
 
     it('should get makar rashi daily details', async () => {
         //makar rashi
-        await navigateWithRetry('https://www.drikpanchang.com/astrology/prediction/makara-rashi/makara-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/makara-rashi/makara-rashi-daily-rashiphal.html?lang=mr&ck=1')
         makarRashiName = await rashiBhavishya.rashiName.getText();
         makarRashiFal = await rashiBhavishya.rashiFal.getText();
+        await browser.refresh()
         await browser.pause(200)
     });
 
     it('should get kumbha rashi daily details', async () => {
         //kumbha rashi
-        await navigateWithRetry('https://www.drikpanchang.com/astrology/prediction/kumbha-rashi/kumbha-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/kumbha-rashi/kumbha-rashi-daily-rashiphal.html?lang=mr&ck=1')
         kumbhaRashiName = await rashiBhavishya.rashiName.getText();       
         kumbhaRashiFal = await rashiBhavishya.rashiFal.getText();
+        await browser.refresh()
         await browser.pause(200)
     });
 
     it('should get meen rashi daily details', async () =>
     {
         //meen rashi
-        await navigateWithRetry('https://www.drikpanchang.com/astrology/prediction/meena-rashi/meena-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/meena-rashi/meena-rashi-daily-rashiphal.html?lang=mr&ck=1')
         await browser.pause(200)    
         meenRashiName = await rashiBhavishya.rashiName.getText();
         meenRashiFal = await rashiBhavishya.rashiFal.getText();

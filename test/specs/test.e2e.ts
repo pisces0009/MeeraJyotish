@@ -56,17 +56,17 @@ function getSpecialDetails(date: string): string {
 describe('get all panchang details', () => {
     before(async () => {
         // Clear all saved data
-        // const filesToDelete = [
-        //     'tithi.json', 'nakshatra.json', 'yoga.json', 'karan.json', 'var.json',
-        //     'rahuKaal.json', 'rassi.json', 'savastar.json', 'dinmaan.json', 'rutu.json',
-        //     'aayan.json', 'sunGochaar.json', 'guruGochaar.json', 'shaniGochaar.json'
-        // ];
-        // filesToDelete.forEach(file => {
-        //     const filePath = path.join(__dirname, file);
-        //     if (fs.existsSync(filePath)) {
-        //         fs.unlinkSync(filePath);
-        //     }
-        // });
+        const filesToDelete = [
+            'tithi.json', 'nakshatra.json', 'yoga.json', 'karan.json', 'var.json',
+            'rahuKaal.json', 'rassi.json', 'savastar.json', 'dinmaan.json', 'rutu.json',
+            'aayan.json', 'sunGochaar.json', 'guruGochaar.json', 'shaniGochaar.json'
+        ];
+        filesToDelete.forEach(file => {
+            const filePath = path.join(__dirname, file);
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+            }
+        });
 
         await browser.url('https://www.drikpanchang.com/panchang/day-panchang.html?lang=hi&geoname-id=1275339&time-format=24hour')
         await browser.pause(1000)
