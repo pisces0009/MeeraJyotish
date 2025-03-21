@@ -242,8 +242,8 @@ const htmlContent = `
             height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            margin-left: 5px;
-            margin-top: -70px;
+            margin-left: 275px;
+            margin-top: -130px;
         }
         .flex-container {
             display: flex;
@@ -305,8 +305,8 @@ const htmlContent = `
     <div class="additional-text">
     
         <p><strong>ज्योतिषाचार्य</strong></p>
+        <p>डॉ सौ.मीरा.बी.काळे (वेदांग ज्योतिष)</p>
             <div class="flex-container">
-            <p>डॉ सौ.मीरा.बी.काळे (वेदांग ज्योतिष)</p>
             <img src="images/aai1.png" alt="Circle Image" class="circle-image">
         </div>
     </div>
