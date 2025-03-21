@@ -25,11 +25,13 @@ let kumbhaRashiName: string;
 let kumbhaRashiFal: string;
 let meenRashiName: string;
 let meenRashiFal: string;
+let getDateAndDay: string;
 
 describe('get all rashi bhavishya', () => {
     before(async () => {
         await browser.url('https://www.drikpanchang.com/astrology/prediction/mesha-rashi/mesha-rashi-daily-rashiphal.html?lang=mr&ck=1')
         await browser.pause(500)
+        getDateAndDay = await rashiBhavishya.dayAndDate.getText(); 
     })
 
     it('should get mesh rashi daily details', async () => {
@@ -160,10 +162,38 @@ describe('get all rashi bhavishya', () => {
                     object-fit: cover;
                     margin-bottom: 20px;
                 }
+
+                         .home-button {
+            position: absolute;
+            top: 10px;
+            left: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .home-button a {
+            text-decoration: none;
+            font-size: 1.1em;
+            color:#050000;
+            display: flex;
+            align-items: center;
+        }
+        .home-button img {
+            width: 40px;
+            height: 40px;
+            margin-left: 8px;
+        }
             </style>
         </head>
         <body>
+
+        <div class="home-button">
+        <a href="index.html">
+            <img src="./images/home.png" alt="Home Icon">
+        </a>
+         </div>
+
             <h1>राशि भविष्य</h1>
+            <div class="rashi-detail"><strong>${getDateAndDay}</strong></div>
             <img src="./images/rashiIcons/mesh.jpg" alt="Rashi Icon" class="rashi-icon">
             <div class="rashi-container">
                 <div class="rashi-detail"><strong>${rashiName}</strong></div>

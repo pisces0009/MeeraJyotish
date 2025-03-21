@@ -8,6 +8,9 @@ class RashiBhavishya extends Page {
     /**
      * define selectors using getter methods
      */
+    get dayAndDate() {
+        return $('/html/body/div[4]/div[3]/div[3]/div[1]/div[2]/div')
+    }
  get rashiName() { 
     return $('/html/body/div[4]/div[3]/div[3]/div[1]/div[2]/h2')
   }

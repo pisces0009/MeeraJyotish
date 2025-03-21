@@ -235,11 +235,36 @@ const htmlContent = `
             display: flex;
             align-items: center;
         }
+
+         .home-button {
+            position: absolute;
+            top: 7px;
+            left: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .home-button a {
+            text-decoration: none;
+            font-size: 1.1em;
+            color:#050000;
+            display: flex;
+            align-items: center;
+        }
+        .home-button img {
+            width: 40px;
+            height: 40px;
+            margin-left: -5px;
+        }
             
     </style>
 </head>
 <body>
     
+    <div class="home-button">
+        <a href="index.html">
+            <img src="./images/home.png" alt="Home Icon">
+        </a>
+    </div>
      
      <h1>||ॐ|| पंचांग ||卐||</h1>
      <div class="additional-text">
