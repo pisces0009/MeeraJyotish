@@ -40,7 +40,7 @@ describe('get all rashi bhavishya', () => {
         rashiFal = await rashiBhavishya.rashiFal.getText();
         console.log(rashiFal);
         await browser.refresh()
-        await browser.pause(200)
+        //await browser.pause(200)
     });
 
     it('should get vrishabha rashi daily details', async () => {
@@ -48,7 +48,7 @@ describe('get all rashi bhavishya', () => {
         vrishabhaRashiName = await rashiBhavishya.rashiName.getText();
         vrishabhaRashiFal = await rashiBhavishya.rashiFal.getText();
         await browser.refresh()
-        await browser.pause(200)
+        //await browser.pause(200)
     });
 
     it('should get mithuna rashi daily details', async () => {
@@ -57,7 +57,7 @@ describe('get all rashi bhavishya', () => {
         mithunaRashiName = await rashiBhavishya.rashiName.getText();
         mithunaRashiFal = await rashiBhavishya.rashiFal.getText();
         await browser.refresh()
-        await browser.pause(200)
+        //await browser.pause(200)
 
     });
 
@@ -67,7 +67,7 @@ describe('get all rashi bhavishya', () => {
         karkaRashiName = await rashiBhavishya.rashiName.getText();
         karkaRashiFal = await rashiBhavishya.rashiFal.getText();
         await browser.refresh()
-        await browser.pause(200)
+        //await browser.pause(200)
         
     });
 
@@ -77,7 +77,7 @@ describe('get all rashi bhavishya', () => {
         simhaRashiName = await rashiBhavishya.rashiName.getText();
         simhaRashiFal = await rashiBhavishya.rashiFal.getText();
         await browser.refresh()
-        await browser.pause(200)
+        //await browser.pause(200)
 
     });
 
@@ -87,7 +87,7 @@ describe('get all rashi bhavishya', () => {
         kanyaRashiName = await rashiBhavishya.rashiName.getText();
         kanyaRashiFal = await rashiBhavishya.rashiFal.getText();
         await browser.refresh()
-        await browser.pause(200)
+        //await browser.pause(200)
     });
 
     it('should get tula rashi daily details', async () => {
@@ -96,7 +96,7 @@ describe('get all rashi bhavishya', () => {
         tulaRashiName = await rashiBhavishya.rashiName.getText();
         tulaRashiFal = await rashiBhavishya.rashiFal.getText();
         await browser.refresh()
-        await browser.pause(200)
+        //await browser.pause(200)
     });
 
     it('should get vrishchika rashi daily details', async () => {
@@ -105,7 +105,7 @@ describe('get all rashi bhavishya', () => {
         vrishchikaRashiName = await rashiBhavishya.rashiName.getText();
         vrishchikaRashiFal = await rashiBhavishya.rashiFal.getText();
         await browser.refresh()
-        await browser.pause(200)
+        //await browser.pause(200)
     });
 
     it('should get dhanu rashi daily details', async () => {
@@ -114,7 +114,7 @@ describe('get all rashi bhavishya', () => {
         dhanuRashiName = await rashiBhavishya.rashiName.getText();
         dhanuRashiFal = await rashiBhavishya.rashiFal.getText();
         await browser.refresh()
-        await browser.pause(200)
+        //await browser.pause(200)
     });
 
     it('should get makar rashi daily details', async () => {
@@ -123,7 +123,7 @@ describe('get all rashi bhavishya', () => {
         makarRashiName = await rashiBhavishya.rashiName.getText();
         makarRashiFal = await rashiBhavishya.rashiFal.getText();
         await browser.refresh()
-        await browser.pause(200)
+        //await browser.pause(200)
     });
 
     it('should get kumbha rashi daily details', async () => {
@@ -132,7 +132,7 @@ describe('get all rashi bhavishya', () => {
         kumbhaRashiName = await rashiBhavishya.rashiName.getText();       
         kumbhaRashiFal = await rashiBhavishya.rashiFal.getText();
         await browser.refresh()
-        await browser.pause(200)
+        //await browser.pause(200)
     });
 
     it('should get meen rashi daily details', async () =>
