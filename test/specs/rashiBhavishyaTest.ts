@@ -39,6 +39,8 @@ describe('get all rashi bhavishya', () => {
         console.log(rashiName);
         rashiFal = await rashiBhavishya.rashiFal.getText();
         console.log(rashiFal);
+        await browser.refresh()
+        await browser.pause(200)
     });
 
     it('should get vrishabha rashi daily details', async () => {
