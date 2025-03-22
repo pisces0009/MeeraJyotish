@@ -228,7 +228,7 @@ const htmlContent = `
         h1 {
             font-size: 2em;
             text-align: left; /* Align text to the left */
-            margin-left: 10px;
+            margin-left: 55px;
         }
         .additional-text {
             font-weight: bold;
