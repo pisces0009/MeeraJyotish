@@ -14,6 +14,91 @@
             height: 100vh; /* Ensure the body takes the full height of the viewport */
             margin: 0; /* Remove default margin */
         }
+
+        .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        color: rgb(255, 255, 255);
+        text-align: center;
+        }
+
+        .top-header {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0;
+            padding: 20px;
+            font-size: 2.5em;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px rgb(0, 0, 0, 0.1);
+            animation: glow 1s ease-in-out infinite alternate;
+        }
+
+        @media (max-width: 768px) {
+            .top-header{
+                font-size: 2em;
+                padding: 15px;
+            }
+        }
+        @media (max-width: 480px) {
+            .top-header{
+                font-size: 1.5em;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+        h1 {
+            font-size: 2em;
+            color: #fefcfc;
+        }
+
+
+
+        p {
+            font-size: 1em;
+        }
+
+        }
+
+        /* glowing text*/
+
+        .glow {
+        font-size: 20px;
+        color: #fff;
+        text-align: center;
+        animation: glow 1s ease-in-out infinite alternate;
+        }
+
+        @-webkit-keyframes glow {
+        from {
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+        }
+
+        to {
+        text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+        }
+        }
+
+        @keyframes glow {
+        from {
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+        }
+
+        to {
+        text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+        }
+        }
+
+        /* END glowing text*/
+
+
         .header {
             text-align: center;
             margin-top: 20px;
@@ -81,9 +166,12 @@
             <img src="./images/home.png" alt="Home Icon">
         </a>
     </div> -->
-    <div class="header">
-    || वेदांग ज्योतिष केंद्र ||
-    </div>
+    <div class="container">
+    <h1 class="top-header">
+        || वेदांग ज्योतिष केंद्र ||  
+    </h1>
+
+
     <div class="button-container">
         <div class="button">
             <a href="panchang.html">
@@ -104,5 +192,6 @@
         <p><strong>डॉ सौ.मीरा.बी.काळे </strong></p>
         <p>Mob: +91 9371998641</p>
     </div>
+</div>
 </body>
 </html>
