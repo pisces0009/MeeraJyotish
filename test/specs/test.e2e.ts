@@ -207,7 +207,7 @@ const htmlContent = `
         body {
             background-image: url('${backgroundImage}');
             background-size: cover;
-            color: white; /* Change the text color as desired */
+            color: black; /* Change the text color as desired */
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
@@ -232,7 +232,7 @@ const htmlContent = `
         }
         .additional-text {
             font-weight: bold;
-            color: black; /* Change the color as desired */
+            color: red; /* Change the color as desired */
             font-size: 1.2em;
             text-align: left; /* Align text to the left */
             width: 100%;
