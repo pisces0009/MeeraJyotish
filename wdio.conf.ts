@@ -53,14 +53,14 @@ export const config: WebdriverIO.Config = {
     //
     capabilities: [{
         browserName: 'chrome',
-        // 'goog:chromeOptions': {
-        //     args: [
-        //         '--headless',
-        //         '--disable-gpu',
-        //         '--no-sandbox',
-        //         '--disable-dev-shm-usage'
-        //     ]
-        // }
+        'goog:chromeOptions': {
+            args: [
+                '--headless',
+                '--disable-gpu',
+                '--no-sandbox',
+                '--disable-dev-shm-usage'
+            ]
+        }
     }],
 
     //

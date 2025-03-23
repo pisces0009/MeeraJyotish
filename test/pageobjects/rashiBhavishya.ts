@@ -20,7 +20,7 @@ class RashiBhavishya extends Page {
   }
 
   get vrishabhaRashi() {
-    return $('/html/body/div[4]/div[3]/div[1]/a[2]')
+    return $('/html/body/div[4]/div[3]/div[3]/div[8]/a[2]')
   }
   get mithunRashi() {
     return $('//img[@alt="Mithuna Rashifal"]')
