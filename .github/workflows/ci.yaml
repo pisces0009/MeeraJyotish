@@ -4,7 +4,10 @@ on:
   #push:
   #pull_request:
   schedule:
-    - cron: '0 18 * * *' # This cron expression runs the job daily at 15:25 UTC
+    - cron: '30 18 * * *' # This cron expression runs the job daily at 15:25 UTC
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -43,4 +46,3 @@ jobs:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
