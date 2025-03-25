@@ -45,4 +45,4 @@ jobs:
           git commit -m "Automated commit by GitHub Actions"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          G_TOKEN: ${{ secrets.G_TOKEN }}
