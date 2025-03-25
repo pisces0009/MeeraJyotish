@@ -2,6 +2,26 @@ import panchangDetails from '../pageobjects/panchangDetails'
 import * as fs from 'fs'
 import * as path from 'path'
 
+// Function to delete all JSON files
+function deleteJsonFiles() {
+    const jsonFiles = [
+        'tithi.json', 'nakshatra.json', 'yoga.json', 'karan.json', 'var.json',
+        'rahuKaal.json', 'rassi.json', 'savastar.json', 'dinmaan.json', 'rutu.json',
+        'aayan.json', 'sunGochaar.json', 'guruGochaar.json', 'shaniGochaar.json'
+    ];
+
+    jsonFiles.forEach(file => {
+        const filePath = path.join(file);
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+            console.log(`Deleted file: ${file}`);
+        }
+    });
+}
+
+// Call the function to delete JSON files
+deleteJsonFiles();
+
 // Function to format the date in DD MMM YYYY format
 function formatDate(date: Date): string {
     const options = { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' } as const;
@@ -319,3 +339,4 @@ const htmlContent = `
 fs.writeFileSync('panchang.html', htmlContent)
 
 console.log('HTML file generated successfully.')
+
