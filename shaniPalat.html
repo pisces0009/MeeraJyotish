@@ -10,18 +10,23 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
+            margin: 0;
         }
         .rashi-container {
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-bottom: 20px;
         }
         .rashi-detail {
             margin: 10px 0;
-            font-size: 1.5em;
+            font-size: 1.2em;
+            text-align: left;
+            max-width: 600px;
         }
         h1 {
             font-size: 2em;
+            margin-bottom: 20px;
         }
         .rashi-icon {
             width: 100px;
@@ -29,26 +34,38 @@
             object-fit: cover;
             margin-bottom: 20px;
         }
-
-                 .home-button {
-    position: absolute;
-    top: 10px;
-    left: 5px;
-    display: flex;
-    align-items: center;
-}
-.home-button a {
-    text-decoration: none;
-    font-size: 1.1em;
-    color:#050000;
-    display: flex;
-    align-items: center;
-}
-.home-button img {
-    width: 40px;
-    height: 40px;
-    margin-left: 8px;
-}
+        .home-button {
+            position: absolute;
+            top: 10px;
+            left: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .home-button a {
+            text-decoration: none;
+            font-size: 1.1em;
+            color: #050000;
+            display: flex;
+            align-items: center;
+        }
+        .home-button img {
+            width: 40px;
+            height: 40px;
+            margin-left: 8px;
+        }
+        @media (max-width: 768px) {
+            .rashi-detail {
+                font-size: 1em;
+                padding: 0 10px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            .rashi-icon {
+                width: 80px;
+                height: 80px;
+            }
+        }
     </style>
 </head>
 <body>
