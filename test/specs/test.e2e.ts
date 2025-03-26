@@ -104,50 +104,98 @@ describe('get all panchang details', () => {
         const shaniGochaar = await panchangDetails.shaniGochaar.getText(); 
         await browser.closeWindow();
         await browser.switchWindow('https://www.drikpanchang.com/panchang/day-panchang.html?lang=hi&geoname-id=1275339&time-format=24hour');
+
+        // Function to clear old data in a JSON file
+function clearJsonFile(filePath: string) {
+    if (fs.existsSync(filePath)) {
+        fs.writeFileSync(filePath, '{}'); // Overwrite with an empty JSON object
+        console.log(`Cleared old data in file: ${filePath}`);
+    }
+}
+
         // Store tithi in a JSON file
-        const data = { tithi }
-        fs.writeFileSync('tithi.json', JSON.stringify(data, null, 2))
-       
-        //store nakshatra in a JSON file
-        const data1 = { nakshatra }
-        fs.writeFileSync('nakshatra.json', JSON.stringify(data1, null, 2))
-        //store yoga in a JSON file
-        const data2 = { yoga }
-        fs.writeFileSync('yoga.json', JSON.stringify(data2, null, 2))
-        //store karan in a JSON file
-        const data3 = { karan }
-        fs.writeFileSync('karan.json', JSON.stringify(data3, null, 2))
-        //store var in a JSON file
-        const data4 = { var1 }
-        fs.writeFileSync('var.json', JSON.stringify(data4, null, 2))
-        //store rahuKaal in a JSON file
-        const data5 = { rahuKaal }
-        fs.writeFileSync('rahuKaal.json', JSON.stringify(data5, null, 2))
-        //store rassi in a JSON file
-        const data6 = { rassi }
-        fs.writeFileSync('rassi.json', JSON.stringify(data6, null, 2))
-        //store savastar in a JSON file
-        const data7 = { savastar }
-        fs.writeFileSync('savastar.json', JSON.stringify(data7, null, 2))
-        //store dinmaan in a JSON file
-        const data8 = { dinmaan }  
-        fs.writeFileSync('dinmaan.json', JSON.stringify(data8, null, 2))
-        //store rutu in a JSON file
-        const data9 = { rutu }
-        fs.writeFileSync('rutu.json', JSON.stringify(data9, null, 2))
-        //store aayan in a JSON file
-        const data10 = { aayan }
-        fs.writeFileSync('aayan.json', JSON.stringify(data10, null, 2))
-        //store sunGochaar in a JSON file                                   
-        const data11 = { sunGochaar }
-        fs.writeFileSync('sunGochaar.json', JSON.stringify(data11, null, 2))
-        //store guruGochaar in a JSON file
-        const data12 = { guruGochaar }
-        fs.writeFileSync('guruGochaar.json', JSON.stringify(data12, null, 2))
-        //store shaniGochaar in a JSON file
-        const data13 = { shaniGochaar } 
-        fs.writeFileSync('shaniGochaar.json', JSON.stringify(data13, null, 2))
-        
+const tithiFilePath = 'tithi.json';
+clearJsonFile(tithiFilePath);
+const data = { tithi };
+fs.writeFileSync(tithiFilePath, JSON.stringify(data, null, 2));
+
+// Store nakshatra in a JSON file
+const nakshatraFilePath = 'nakshatra.json';
+clearJsonFile(nakshatraFilePath);
+const data1 = { nakshatra };
+fs.writeFileSync(nakshatraFilePath, JSON.stringify(data1, null, 2));
+
+// Store yoga in a JSON file
+const yogaFilePath = 'yoga.json';
+clearJsonFile(yogaFilePath);
+const data2 = { yoga };
+fs.writeFileSync(yogaFilePath, JSON.stringify(data2, null, 2));
+
+// Store karan in a JSON file
+const karanFilePath = 'karan.json';
+clearJsonFile(karanFilePath);
+const data3 = { karan };
+fs.writeFileSync(karanFilePath, JSON.stringify(data3, null, 2));
+
+// Store var in a JSON file
+const varFilePath = 'var.json';
+clearJsonFile(varFilePath);
+const data4 = { var1 };
+fs.writeFileSync(varFilePath, JSON.stringify(data4, null, 2));
+
+// Store rahuKaal in a JSON file
+const rahuKaalFilePath = 'rahuKaal.json';
+clearJsonFile(rahuKaalFilePath);
+const data5 = { rahuKaal };
+fs.writeFileSync(rahuKaalFilePath, JSON.stringify(data5, null, 2));
+
+// Store rassi in a JSON file
+const rassiFilePath = 'rassi.json';
+clearJsonFile(rassiFilePath);
+const data6 = { rassi };
+fs.writeFileSync(rassiFilePath, JSON.stringify(data6, null, 2));
+
+// Store savastar in a JSON file
+const savastarFilePath = 'savastar.json';
+clearJsonFile(savastarFilePath);
+const data7 = { savastar };
+fs.writeFileSync(savastarFilePath, JSON.stringify(data7, null, 2));
+
+// Store dinmaan in a JSON file
+const dinmaanFilePath = 'dinmaan.json';
+clearJsonFile(dinmaanFilePath);
+const data8 = { dinmaan };
+fs.writeFileSync(dinmaanFilePath, JSON.stringify(data8, null, 2));
+
+// Store rutu in a JSON file
+const rutuFilePath = 'rutu.json';
+clearJsonFile(rutuFilePath);
+const data9 = { rutu };
+fs.writeFileSync(rutuFilePath, JSON.stringify(data9, null, 2));
+
+// Store aayan in a JSON file
+const aayanFilePath = 'aayan.json';
+clearJsonFile(aayanFilePath);
+const data10 = { aayan };
+fs.writeFileSync(aayanFilePath, JSON.stringify(data10, null, 2));
+
+// Store sunGochaar in a JSON file
+const sunGochaarFilePath = 'sunGochaar.json';
+clearJsonFile(sunGochaarFilePath);
+const data11 = { sunGochaar };
+fs.writeFileSync(sunGochaarFilePath, JSON.stringify(data11, null, 2));
+
+// Store guruGochaar in a JSON file
+const guruGochaarFilePath = 'guruGochaar.json';
+clearJsonFile(guruGochaarFilePath);
+const data12 = { guruGochaar };
+fs.writeFileSync(guruGochaarFilePath, JSON.stringify(data12, null, 2));
+
+// Store shaniGochaar in a JSON file
+const shaniGochaarFilePath = 'shaniGochaar.json';
+clearJsonFile(shaniGochaarFilePath);
+const data13 = { shaniGochaar };
+fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
     })
 })
 
