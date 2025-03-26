@@ -30,7 +30,7 @@ let getDateAndDay: string;
 describe('get all rashi bhavishya', () => {
     before(async () => {
         await browser.url('https://www.drikpanchang.com/astrology/prediction/mesha-rashi/mesha-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        await browser.pause(200)
+        await browser.pause(500)
         getDateAndDay = await rashiBhavishya.dayAndDate.getText(); 
     })
 
