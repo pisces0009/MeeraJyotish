@@ -30,7 +30,7 @@ let getDateAndDay: string;
 describe('get all rashi bhavishya', () => {
     before(async () => {
         await browser.url('https://www.drikpanchang.com/astrology/prediction/mesha-rashi/mesha-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        await browser.pause(300)
+        //await browser.pause(300)
         getDateAndDay = await rashiBhavishya.dayAndDate.getText(); 
     })
 
@@ -44,7 +44,7 @@ describe('get all rashi bhavishya', () => {
         
         //vrishabha rashi
         await browser.url('https://www.drikpanchang.com/astrology/prediction/vrishabha-rashi/vrishabha-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        await browser.pause(200)
+        //await browser.pause(100)
         vrishabhaRashiName = await rashiBhavishya.rashiName.getText();
         vrishabhaRashiFal = await rashiBhavishya.rashiFal.getText();
         //await browser.refresh()
@@ -52,7 +52,7 @@ describe('get all rashi bhavishya', () => {
    
         //mithun rashi
         await browser.url('https://www.drikpanchang.com/astrology/prediction/mithuna-rashi/mithuna-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        await browser.pause(200)
+        //await browser.pause(100)
         mithunaRashiName = await rashiBhavishya.rashiName.getText();
         mithunaRashiFal = await rashiBhavishya.rashiFal.getText();
         //await browser.refresh()
@@ -60,7 +60,7 @@ describe('get all rashi bhavishya', () => {
 
         //karka rashi
         await browser.url('https://www.drikpanchang.com/astrology/prediction/karka-rashi/karka-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        await browser.pause(200)
+        //await browser.pause(100)
         karkaRashiName = await rashiBhavishya.rashiName.getText();
         karkaRashiFal = await rashiBhavishya.rashiFal.getText();
         //await browser.refresh()
@@ -68,7 +68,7 @@ describe('get all rashi bhavishya', () => {
         
         //simha rashi
         await browser.url('https://www.drikpanchang.com/astrology/prediction/simha-rashi/simha-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        await browser.pause(200)
+        //await browser.pause(100)
         simhaRashiName = await rashiBhavishya.rashiName.getText();
         simhaRashiFal = await rashiBhavishya.rashiFal.getText();
         //await browser.refresh()
@@ -76,7 +76,7 @@ describe('get all rashi bhavishya', () => {
 
         //kanaya rashi
         await browser.url('https://www.drikpanchang.com/astrology/prediction/kanya-rashi/kanya-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        await browser.pause(200)
+        //await browser.pause(100)
         kanyaRashiName = await rashiBhavishya.rashiName.getText();
         kanyaRashiFal = await rashiBhavishya.rashiFal.getText();
         //await browser.refresh()
@@ -84,7 +84,7 @@ describe('get all rashi bhavishya', () => {
    
         //tula rashi
         await browser.url('https://www.drikpanchang.com/astrology/prediction/tula-rashi/tula-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        await browser.pause(200)
+        //await browser.pause(200)
         tulaRashiName = await rashiBhavishya.rashiName.getText();
         tulaRashiFal = await rashiBhavishya.rashiFal.getText();
         //await browser.refresh()
@@ -92,7 +92,7 @@ describe('get all rashi bhavishya', () => {
    
         //vrishchika rashi
         await browser.url('https://www.drikpanchang.com/astrology/prediction/vrishchika-rashi/vrishchika-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        await browser.pause(200)
+        //await browser.pause(200)
         vrishchikaRashiName = await rashiBhavishya.rashiName.getText();
         vrishchikaRashiFal = await rashiBhavishya.rashiFal.getText();
         //await browser.refresh()
@@ -100,7 +100,7 @@ describe('get all rashi bhavishya', () => {
   
         //dhanu rashi
         await browser.url('https://www.drikpanchang.com/astrology/prediction/dhanu-rashi/dhanu-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        await browser.pause(200)
+        //await browser.pause(200)
         dhanuRashiName = await rashiBhavishya.rashiName.getText();
         dhanuRashiFal = await rashiBhavishya.rashiFal.getText();
         //await browser.refresh()
@@ -108,7 +108,7 @@ describe('get all rashi bhavishya', () => {
    
         //makar rashi
         await browser.url('https://www.drikpanchang.com/astrology/prediction/makara-rashi/makara-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        await browser.pause(200)
+        //await browser.pause(200)
         makarRashiName = await rashiBhavishya.rashiName.getText();
         makarRashiFal = await rashiBhavishya.rashiFal.getText();
         //await browser.refresh()
@@ -116,7 +116,7 @@ describe('get all rashi bhavishya', () => {
     
         //kumbha rashi
         await browser.url('https://www.drikpanchang.com/astrology/prediction/kumbha-rashi/kumbha-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        await browser.pause(200)
+        //await browser.pause(200)
         kumbhaRashiName = await rashiBhavishya.rashiName.getText();       
         kumbhaRashiFal = await rashiBhavishya.rashiFal.getText();
         //await browser.refresh()
@@ -124,7 +124,7 @@ describe('get all rashi bhavishya', () => {
    
         //meen rashi
         await browser.url('https://www.drikpanchang.com/astrology/prediction/meena-rashi/meena-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        await browser.pause(200)    
+        //await browser.pause(200)    
         meenRashiName = await rashiBhavishya.rashiName.getText();
         meenRashiFal = await rashiBhavishya.rashiFal.getText();
     });
