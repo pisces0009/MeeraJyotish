@@ -29,6 +29,13 @@ let getDateAndDay: string;
 
 describe('get all rashi bhavishya', () => {
     before(async () => {
+         // Clear the old data in the HTML file
+         const filePath = 'RashiBhavishya.html';
+         if (fs.existsSync(filePath)) {
+             fs.writeFileSync(filePath, ''); // Clear the file by overwriting it with an empty string
+             console.log('Old data cleared from RashiBhavishya.html');
+         }
+
         await browser.url('https://www.drikpanchang.com/astrology/prediction/mesha-rashi/mesha-rashi-daily-rashiphal.html?lang=mr&ck=1')
         //await browser.pause(300)
         getDateAndDay = await rashiBhavishya.dayAndDate.getText(); 
