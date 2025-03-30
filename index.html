@@ -108,7 +108,7 @@
         .button-container {
             display: flex;
             justify-content: center;
-            margin-top: 50px;
+            margin-top: 20px;
         }
         .button {
             margin: 0 20px;
@@ -158,6 +158,30 @@
             margin-left: 5px;
             margin-top: -20px;
         }
+
+        .floating-text {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        margin-bottom: 20px; /* Add spacing between the floating text and the buttons */
+    }
+
+    .floating-text p {
+        display: inline-block;
+        font-size: 1.9em;
+        color: #5d0303;
+        animation: floatText 10s linear infinite;
+    }
+
+    @keyframes floatText {
+        0% {
+            transform: translateX(100%);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+
     </style>
 </head>
 <body>
@@ -170,6 +194,11 @@
     <h1 class="top-header">
         || वेदांग ज्योतिष केंद्र ||  
     </h1>
+
+    <!-- Floating Text -->
+    <div class="floating-text">
+        <p><strong>🌟 गुढीपाडवा आणि नवीन वर्षाच्या हार्दिक शुभेच्छा! 🌟</strong></p>
+    </div>
 
     <div class="button-container">
         
