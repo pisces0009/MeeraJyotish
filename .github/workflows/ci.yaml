@@ -6,6 +6,8 @@ on:
   schedule:
     - cron: '30 18 * * *' # This cron expression runs the job daily at 15:25 UTC
     - cron: '40 18 * * *' 
+    - cron: '50 18 * * *'
+    - cron: '0 19 * * *'
 
 permissions:
   contents: write
