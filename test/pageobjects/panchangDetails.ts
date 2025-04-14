@@ -51,7 +51,7 @@ class PanchangDetails extends Page {
         return $('//div[contains(text(),"द्रिक अयन")]//following::div[1]');
     }
     get sunGochaar () {
-        return $('//*[@id="dp-planet-table"]/div/div[3]/div[1]//following::div[1]//strong');
+        return $('//*[@id="dp-planet-table"]/div/div[4]/div[1]//following::div[1]//strong');
     }
     get guruGochaar () {    
         return $('//*[@id="dp-planet-table"]/div/div[7]/div[1]//following::div[1]//strong');
