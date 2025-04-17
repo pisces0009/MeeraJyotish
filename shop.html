@@ -186,79 +186,21 @@
                 const block = document.createElement('div');
                 block.className = 'grid-item';
     
-                if (i === 1) {
-                    // Add image for Block 1
-                    const img = document.createElement('img');
-                    img.src = './images/manikstone.jpg'; // Replace with the actual path to your image
-                    img.alt = 'Manik';
-                    img.style.width = '50px'; // Adjust the size of the image
-                    img.style.height = '50px'; // Adjust the size of the image
-                    img.style.borderRadius = '50%'; // Make the image circular
-    
-                    const text = document.createElement('p');
-                    //text.textContent = 'Manik';
-                    text.style.marginTop = '80px';
-                    text.style.fontSize = '0.7em';
-                    text.style.color = 'white';
-    
-                    block.appendChild(img);
-                    block.appendChild(text);
-                } else if (i === 2) {
-                // Add image and text for Block 2
+            // Add pukraj.jpg to the first block
+            if (i === 1) {
+                const link = document.createElement('a');
+                link.href = './pukraj.html'; // Link to the new page
+
                 const img = document.createElement('img');
-                img.src = './images/pushkraj.jpg'; // Replace with the actual path to your image
-                img.alt = 'Pukhraj';
-                img.style.width = '50px'; // Adjust the size of the image
-                img.style.height = '50px'; // Adjust the size of the image
-                img.style.borderRadius = '50%'; // Make the image circular
+                img.src = './images/pukraj.jpg'; // Path to the image
+                img.alt = 'Pukraj';
+                img.style.width = '100%'; // Ensure the image fits the block
+                img.style.height = '100%'; // Ensure the image fits the block
+                img.style.objectFit = 'cover'; // Maintain aspect ratio
 
-                const text = document.createElement('p');
-                //text.textContent = 'Pukhraj';
-                text.style.marginTop = '10px';
-                text.style.fontSize = '1.2em';
-                text.style.color = 'white';
-
-                block.appendChild(img);
-                block.appendChild(text);
-            } else if (i === 3) {
-                // Add image and text for Block 3 (Neelam)
-                const img = document.createElement('img');
-                img.src = './images/pannastone.jpg'; // Replace with the actual path to your image
-                img.alt = 'Neelam';
-                img.style.width = '50px'; // Adjust the size of the image
-                img.style.height = '50px'; // Adjust the size of the image
-                img.style.borderRadius = '50%'; // Make the image circular
-
-                const text = document.createElement('p');
-                //text.textContent = 'Neelam';
-                text.style.marginTop = '10px';
-                text.style.fontSize = '1.2em';
-                text.style.color = 'white';
-
-                block.appendChild(img);
-                block.appendChild(text);
-            } else if (i === 4) {
-                // Add image and text for Block 3 (Neelam)
-                const img = document.createElement('img');
-                img.src = './images/motistone.jpg'; // Replace with the actual path to your image
-                img.alt = 'Moti';
-                img.style.width = '50px'; // Adjust the size of the image
-                img.style.height = '50px'; // Adjust the size of the image
-                img.style.borderRadius = '50%'; // Make the image circular
-
-                const text = document.createElement('p');
-                //text.textContent = 'Neelam';
-                text.style.marginTop = '10px';
-                text.style.fontSize = '1.2em';
-                text.style.color = 'white';
-
-                block.appendChild(img);
-                block.appendChild(text);
-            } else {
-                // Add default text for other blocks
-                block.textContent = `Block ${i}`;
+                link.appendChild(img);
+                block.appendChild(link);
             }
-
     
                 grid.appendChild(block);
             }
