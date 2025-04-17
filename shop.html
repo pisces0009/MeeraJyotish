@@ -75,14 +75,14 @@
             display: none; /* Initially hidden */
             margin-top: 20px;
             display: grid;
-            grid-template-columns: repeat(3, 443px); /* 3 columns of 443px each */
+            grid-template-columns: repeat(3, 1fr); /* Always 3 columns */
             gap: 20px;
             justify-content: center;
         }
 
         .grid-item {
-            width: 443px;
-            height: 250px;
+            width: 443px; /* Fixed width for desktop */
+            height: 250px; /* Fixed height for desktop */
             background-color: rgba(255, 255, 255, 0.2);
             border: 1px solid white;
             display: flex;
@@ -93,6 +93,13 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .grid-item {
+                width: 300px; /* Adjust width for tablets */
+                height: 200px; /* Adjust height for tablets */
+            }
+        }
+
         @media (max-width: 768px) {
             .header {
                 font-size: 2em; /* Reduce header size on smaller screens */
@@ -111,12 +118,9 @@
                 font-size: 1em; /* Reduce text size */
             }
 
-            .grid-container {
-                grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
-            }
-
             .grid-item {
-                width: auto; /* Adjust width for smaller screens */
+                width: 250px; /* Adjust width for mobile */
+                height: 150px; /* Adjust height for mobile */
             }
         }
 
@@ -134,8 +138,9 @@
                 font-size: 0.9em; /* Further reduce text size */
             }
 
-            .grid-container {
-                grid-template-columns: 1fr; /* 1 column on very small screens */
+            .grid-item {
+                width: 200px; /* Further adjust width for very small screens */
+                height: 120px; /* Further adjust height for very small screens */
             }
         }
     </style>
