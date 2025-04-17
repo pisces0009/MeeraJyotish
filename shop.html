@@ -237,6 +237,23 @@
 
                 block.appendChild(img);
                 block.appendChild(text);
+            } else if (i === 4) {
+                // Add image and text for Block 3 (Neelam)
+                const img = document.createElement('img');
+                img.src = './images/motistone.jpg'; // Replace with the actual path to your image
+                img.alt = 'Moti';
+                img.style.width = '50px'; // Adjust the size of the image
+                img.style.height = '50px'; // Adjust the size of the image
+                img.style.borderRadius = '50%'; // Make the image circular
+
+                const text = document.createElement('p');
+                //text.textContent = 'Neelam';
+                text.style.marginTop = '10px';
+                text.style.fontSize = '1.2em';
+                text.style.color = 'white';
+
+                block.appendChild(img);
+                block.appendChild(text);
             } else {
                 // Add default text for other blocks
                 block.textContent = `Block ${i}`;
