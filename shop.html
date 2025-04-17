@@ -50,6 +50,7 @@
             object-fit: cover;
             border-radius: 50%; /* Make the image circular */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer; /* Make the icon clickable */
         }
 
         .shop-item p {
@@ -70,6 +71,27 @@
             cursor: pointer;
         }
 
+        .grid-container {
+            display: none; /* Initially hidden */
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 443px); /* 3 columns of 443px each */
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .grid-item {
+            width: 443px;
+            height: 250px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .header {
@@ -88,6 +110,14 @@
             .shop-item p {
                 font-size: 1em; /* Reduce text size */
             }
+
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
+            }
+
+            .grid-item {
+                width: auto; /* Adjust width for smaller screens */
+            }
         }
 
         @media (max-width: 480px) {
@@ -97,10 +127,15 @@
 
             .shop-item img {
                 max-width: 100px; /* Further reduce image size */
+                height: 100px; /* Ensure height matches width */
             }
 
             .shop-item p {
                 font-size: 0.9em; /* Further reduce text size */
+            }
+
+            .grid-container {
+                grid-template-columns: 1fr; /* 1 column on very small screens */
             }
         }
     </style>
@@ -118,7 +153,7 @@
         <div class="shop-container">
             <!-- Ratna Icon -->
             <div class="shop-item">
-                <img src="./images/rashiratna.jpg" alt="Ratna">
+                <img src="./images/rashiratna.jpg" alt="Ratna" onclick="showGrid()">
                 <p><strong>Ratna</strong></p>
             </div>
             <!-- Rudraksha Icon -->
@@ -127,7 +162,28 @@
                 <p><strong>Rudraksha</strong></p>
             </div>
         </div>
+
+        <!-- Grid for Ratna -->
+        <div id="ratnaGrid" class="grid-container"></div>
         <p><strong>COMING SOON</strong></p>
     </div>
+
+    <script>
+        function showGrid() {
+            const grid = document.getElementById('ratnaGrid');
+            grid.style.display = 'grid'; // Show the grid
+
+            // Clear existing blocks if any
+            grid.innerHTML = '';
+
+            // Add 9 blocks dynamically
+            for (let i = 1; i <= 9; i++) {
+                const block = document.createElement('div');
+                block.className = 'grid-item';
+                block.textContent = `Block ${i}`;
+                grid.appendChild(block);
+            }
+        }
+    </script>
 </body>
 </html>
