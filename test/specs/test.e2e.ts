@@ -372,7 +372,6 @@ const htmlContent = `
         <p><strong>ज्योतिषाचार्य</strong></p>
         <p>डॉ सौ.मीरा.बी.काळे (वेदांग ज्योतिष)</p>
             <div class="flex-container">
-            <img src="images/aai1.png" alt="Circle Image" class="circle-image">
         </div>
     </div>
      
