@@ -182,6 +182,53 @@
         }
     }
 
+     /* Burger Menu Icon */
+     .burger-menu {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+    }
+
+    .burger-menu .burger-icon {
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+    }
+
+     /* Dropdown Menu */
+     .hidden-menu {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 10px;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 1000;
+    }
+
+    .hidden-menu ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .hidden-menu ul li {
+        margin: 10px 0;
+    }
+
+    .hidden-menu ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.2em;
+    }
+
+    .hidden-menu ul li a:hover {
+        text-decoration: underline;
+    }
+
     </style>
 </head>
 <body>
@@ -190,6 +237,20 @@
             <img src="./images/home.png" alt="Home Icon">
         </a>
     </div> -->
+
+    <!-- Burger Menu -->
+    <div class="burger-menu">
+        <img src="./images/burger-icon.png" alt="Menu Icon" class="burger-icon" onclick="toggleMenu()">
+    </div>
+
+     <!-- Dropdown Menu -->
+     <div id="menu" class="hidden-menu">
+        <ul>
+            <li><a href="shop.html">SHOP</a></li>
+            
+        </ul>
+    </div>
+
     <div class="container">
     <h1 class="top-header">
         || वेदांग ज्योतिष केंद्र ||  
@@ -228,4 +289,14 @@
     <p>Mob: +91 9371998641</p>
 </div>
 </body>
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('menu');
+        if (menu.style.display === 'block') {
+            menu.style.display = 'none';
+        } else {
+            menu.style.display = 'block';
+        }
+    }
+</script>
 </html>
