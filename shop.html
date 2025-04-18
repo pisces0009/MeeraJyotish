@@ -88,8 +88,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.5em;
+            overflow: hidden; /* Prevent overflow of the image */
+            padding: 0; /* Remove any padding */
+            margin: 0; /* Remove any margin */
+            box-sizing: border-box; /* Include border in the block size */
+        }
+
+        .grid-item img {
+            width: 100%; /* Ensure the image takes full width of the block */
+            height: 100%; /* Ensure the image takes full height of the block */
+            object-fit: cover; /* Maintain aspect ratio while covering the block */
+            display: block; /* Remove any inline spacing issues */
+            border: none; /* Remove any default border */
+            margin: 0; /* Remove any default margin */
+            padding: 0; /* Remove any default padding */
         }
 
         /* Responsive Design */
@@ -197,6 +209,10 @@
                 img.style.width = '100%'; // Ensure the image fits the block
                 img.style.height = '100%'; // Ensure the image fits the block
                 img.style.objectFit = 'cover'; // Maintain aspect ratio
+                img.style.display = 'block'; // Remove any inline spacing issues
+                img.style.margin = '0'; // Remove any default margin
+                img.style.padding = '0'; // Remove any default padding
+                img.style.border = 'none'; // Remove any default border
 
                 link.appendChild(img);
                 block.appendChild(link);
@@ -213,7 +229,10 @@
                 img.style.width = '100%'; // Ensure the image fits the block
                 img.style.height = '100%'; // Ensure the image fits the block
                 img.style.objectFit = 'cover'; // Maintain aspect ratio
-
+                img.style.display = 'block'; // Remove any inline spacing issues
+                img.style.margin = '0'; // Remove any default margin
+                img.style.padding = '0'; // Remove any default padding
+                img.style.border = 'none'; // Remove any default border
                 link.appendChild(img);
                 block.appendChild(link);
             }
@@ -229,6 +248,10 @@
                 img.style.width = '100%'; // Ensure the image fits the block
                 img.style.height = '100%'; // Ensure the image fits the block
                 img.style.objectFit = 'cover'; // Maintain aspect ratio
+                img.style.display = 'block'; // Remove any inline spacing issues
+                img.style.margin = '0'; // Remove any default margin
+                img.style.padding = '0'; // Remove any default padding
+                img.style.border = 'none'; // Remove any default border
 
                 link.appendChild(img);
                 block.appendChild(link);
@@ -245,6 +268,10 @@
                 img.style.width = '100%'; // Ensure the image fits the block
                 img.style.height = '100%'; // Ensure the image fits the block
                 img.style.objectFit = 'cover'; // Maintain aspect ratio
+                img.style.display = 'block'; // Remove any inline spacing issues
+                img.style.margin = '0'; // Remove any default margin
+                img.style.padding = '0'; // Remove any default padding
+                img.style.border = 'none'; // Remove any default border
 
                 link.appendChild(img);
                 block.appendChild(link);
@@ -261,6 +288,10 @@
                 img.style.width = '100%'; // Ensure the image fits the block
                 img.style.height = '100%'; // Ensure the image fits the block
                 img.style.objectFit = 'cover'; // Maintain aspect ratio
+                img.style.display = 'block'; // Remove any inline spacing issues
+                img.style.margin = '0'; // Remove any default margin
+                img.style.padding = '0'; // Remove any default padding
+                img.style.border = 'none'; // Remove any default border
 
                 link.appendChild(img);
                 block.appendChild(link);
