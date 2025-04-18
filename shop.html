@@ -173,6 +173,30 @@
                 height: 69px; /* Further adjust height for very small screens */
             }
         }
+
+        .strong-text {
+            margin-top: 40px; /* Add space above the text */
+            text-align: left; /* Center the text */
+            font-size: 1.2em; /* Default font size for larger screens */
+            line-height: 1.6; /* Improve readability */
+            color: #080808; /* Set text color */
+            padding: 0 20px; /* Add padding for smaller screens */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .strong-text {
+                font-size: 1em; /* Reduce font size for tablets */
+                line-height: 1.5; /* Adjust line height */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .strong-text {
+                font-size: 0.9em; /* Further reduce font size for mobile devices */
+                line-height: 1.4; /* Adjust line height for smaller screens */
+            }
+        }
     </style>
 </head>
 <body>
@@ -393,5 +417,10 @@
         // Call showGrid immediately when the page loads
     document.addEventListener('DOMContentLoaded', showGrid);
     </script>
+    <!-- Add strong text after the grid blocks -->
+    <div class="strong-text">
+        <p><strong>फक्त मूळ राशीरत्न का घालावे</strong></p>
+        <p>नैसर्गिक राशीरत्ने परिधान केल्याने तुमचे मन आणि आत्मा संतुलित राहण्यास मदत होते, ते तुम्हाला भावनिक वेदना बरे करण्यास मदत करते. मानसिक ताण निर्माण करणाऱ्या समस्या सोडवण्यास मदत करते. ज्योतिषी नैसर्गिक राशीरत्ने वापरण्याची शिफारस करतात, जन्मतारीख, जन्मवेळ, जन्माच्या वेळी नक्षत्रांची स्थिती इत्यादी काही मुद्द्यांचा विचार करून ती मोजली जातील आणि त्यानुसार तुम्ही कोणते मूळ राशीरत्न घालावे हे ठरवले जाईल.</p>
+    </div>
 </body>
 </html>
