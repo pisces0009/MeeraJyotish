@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop</title>
     <style>
+        .header-image img {
+                width: 100%; /* Make the image span the full width of the page */
+                height: auto; /* Maintain the aspect ratio */
+                display: block; /* Remove any inline spacing issues */
+                margin: 10; /* Remove any default margin */
+                padding: 0; /* Remove any default padding */
+            }
+
         body {
             background-image: url('./images/orange.jpg'); /* Replace with the path to your background image */
             background-size: cover; /* Ensure the image covers the entire viewport */
@@ -166,23 +174,13 @@
     </div>
 
     <div class="container">
-        <h1 class="header">SHOP</h1>
-        <div class="shop-container">
-            <!-- Ratna Icon -->
-            <div class="shop-item">
-                <img src="./images/rashiratna.jpg" alt="Ratna" onclick="showGrid()">
-                <p><strong>Ratna</strong></p>
-            </div>
-            <!-- Rudraksha Icon -->
-            <div class="shop-item">
-                <img src="./images/rudraksha.jpg" alt="Rudraksha">
-                <p><strong>Rudraksha</strong></p>
-            </div>
+        <div class="header-image">
+            <img src="./images/head.jpg" alt="Shop Header">
         </div>
 
         <!-- Grid for Ratna -->
         <div id="ratnaGrid" class="grid-container"></div>
-        <p><strong>COMING SOON</strong></p>
+        
     </div>
 
     <script>
@@ -380,6 +378,8 @@
                 grid.appendChild(block);
             }
         }
+        // Call showGrid immediately when the page loads
+    document.addEventListener('DOMContentLoaded', showGrid);
     </script>
 </body>
 </html>
