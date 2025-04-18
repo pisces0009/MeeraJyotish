@@ -197,14 +197,72 @@
                 line-height: 1.4; /* Adjust line height for smaller screens */
             }
         }
+
+         /* Burger Menu Icon */
+        .burger-menu {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+        }
+
+        .burger-menu .burger-icon {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+
+        /* Dropdown Menu */
+        .hidden-menu {
+            display: none;
+            position: absolute;
+            top: 60px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        .hidden-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        .hidden-menu ul li {
+            margin: 10px 0;
+        }
+
+        .hidden-menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            display: block; /* Ensure the link spans the full width */
+            text-align: left; /* Align the text inside the link to the left */
+            padding: 5px 10px; /* Add padding for better spacing */
+        }
+
+        .hidden-menu ul li a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <!-- Home Button -->
-    <div class="home-button">
-        <a href="index.html">
-            <img src="./images/home.png" alt="Home Icon">
-        </a>
+     <!-- Burger Menu -->
+     <div class="burger-menu">
+        <img src="./images/burger-icon.png" alt="Menu Icon" class="burger-icon" onclick="toggleMenu()">
+    </div>
+   <!-- Dropdown Menu -->
+     <div id="menu" class="hidden-menu">
+        <ul>
+            <li><a href="index.html">* Home</a></li>
+            <li><a href="panchang.html">* दैनिक पंचांग</a></li>
+            <li><a href="RashiBhavishya.html">* दैनिक राशी भविष्य</a></li>
+            
+        </ul>
     </div>
 
     <div class="header-image">
@@ -427,4 +485,14 @@
         <p>नैसर्गिक राशीरत्ने परिधान केल्याने तुमचे मन आणि आत्मा संतुलित राहण्यास मदत होते, ते तुम्हाला भावनिक वेदना बरे करण्यास मदत करते. मानसिक ताण निर्माण करणाऱ्या समस्या सोडवण्यास मदत करते. ज्योतिषी नैसर्गिक राशीरत्ने वापरण्याची शिफारस करतात, जन्मतारीख, जन्मवेळ, जन्माच्या वेळी नक्षत्रांची स्थिती इत्यादी काही मुद्द्यांचा विचार करून ती मोजली जातील आणि त्यानुसार तुम्ही कोणते मूळ राशीरत्न घालावे हे ठरवले जाईल.</p>
     </div>
 </body>
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('menu');
+        if (menu.style.display === 'block') {
+            menu.style.display = 'none';
+        } else {
+            menu.style.display = 'block';
+        }
+    }
+</script>
 </html>
