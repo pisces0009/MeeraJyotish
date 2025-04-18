@@ -6,6 +6,20 @@
     <title>Ratna</title>
     <style>
 
+        .top-header {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0;
+            padding: 30px;
+            font-size: 2.5em;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px rgb(0, 0, 0, 0.1);
+            animation: glow 1s ease-in-out infinite alternate;
+        }
+
         .header-image {
             margin-top: 60px; /* Add space between the top of the page and the image */
             width: 100%; /* Ensure the container spans the full width of the page */
@@ -251,6 +265,10 @@
     </style>
 </head>
 <body>
+    <h1 class="top-header">
+          
+    </h1>
+
      <!-- Burger Menu -->
      <div class="burger-menu">
         <img src="./images/burger-icon.png" alt="Menu Icon" class="burger-icon" onclick="toggleMenu()">
