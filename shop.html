@@ -152,7 +152,7 @@
 
             .grid-item {
                 width: 120px; /* Further adjust width for very small screens */
-                height: 80px; /* Further adjust height for very small screens */
+                height: 69px; /* Further adjust height for very small screens */
             }
         }
     </style>
@@ -201,7 +201,7 @@
             // Add pukraj.jpg to the first block
             if (i === 1) {
                 const link = document.createElement('a');
-                link.href = './pukraj.html'; // Link to the new page
+                link.href = './Ratna/pukraj.html'; // Link to the new page
 
                 const img = document.createElement('img');
                 img.src = './images/pukraj.jpg'; // Path to the image
@@ -221,7 +221,7 @@
             // Add neelam.jpg to the second block
             if (i === 2) {
                 const link = document.createElement('a');
-                link.href = './neelam.html'; // Link to the new page
+                link.href = './Ratna/neelam.html'; // Link to the new page
 
                 const img = document.createElement('img');
                 img.src = './images/neelam.jpg'; // Path to the image
@@ -240,7 +240,7 @@
             // Add manik.jpg to the third block
             if (i === 3) {
                 const link = document.createElement('a');
-                link.href = './manik.html'; // Link to the new page
+                link.href = './Ratna/manik.html'; // Link to the new page
 
                 const img = document.createElement('img');
                 img.src = './images/manik.jpg'; // Path to the image
@@ -260,7 +260,7 @@
                // Add panna.jpg to the third block
                if (i === 4) {
                 const link = document.createElement('a');
-                link.href = './panna.html'; // Link to the new page
+                link.href = './Ratna/panna.html'; // Link to the new page
 
                 const img = document.createElement('img');
                 img.src = './images/panna.jpg'; // Path to the image
@@ -280,11 +280,71 @@
                // Add moti.jpg to the third block
                if (i === 5) {
                 const link = document.createElement('a');
-                link.href = './moti.html'; // Link to the new page
+                link.href = './Ratna/moti.html'; // Link to the new page
 
                 const img = document.createElement('img');
                 img.src = './images/moti.jpg'; // Path to the image
                 img.alt = 'Moti';
+                img.style.width = '100%'; // Ensure the image fits the block
+                img.style.height = '100%'; // Ensure the image fits the block
+                img.style.objectFit = 'cover'; // Maintain aspect ratio
+                img.style.display = 'block'; // Remove any inline spacing issues
+                img.style.margin = '0'; // Remove any default margin
+                img.style.padding = '0'; // Remove any default padding
+                img.style.border = 'none'; // Remove any default border
+
+                link.appendChild(img);
+                block.appendChild(link);
+            }
+
+            // Add pravaal.jpg to the third block
+            if (i === 6) {
+                const link = document.createElement('a');
+                link.href = './Ratna/pravaal.html'; // Link to the new page
+
+                const img = document.createElement('img');
+                img.src = './images/pravaal.jpg'; // Path to the image
+                img.alt = 'Pravaal';
+                img.style.width = '100%'; // Ensure the image fits the block
+                img.style.height = '100%'; // Ensure the image fits the block
+                img.style.objectFit = 'cover'; // Maintain aspect ratio
+                img.style.display = 'block'; // Remove any inline spacing issues
+                img.style.margin = '0'; // Remove any default margin
+                img.style.padding = '0'; // Remove any default padding
+                img.style.border = 'none'; // Remove any default border
+
+                link.appendChild(img);
+                block.appendChild(link);
+            }
+
+            // Add opal.jpg to the third block
+            if (i === 7) {
+                const link = document.createElement('a');
+                link.href = './Ratna/opal.html'; // Link to the new page
+
+                const img = document.createElement('img');
+                img.src = './images/opal.jpg'; // Path to the image
+                img.alt = 'Opal';
+                img.style.width = '100%'; // Ensure the image fits the block
+                img.style.height = '100%'; // Ensure the image fits the block
+                img.style.objectFit = 'cover'; // Maintain aspect ratio
+                img.style.display = 'block'; // Remove any inline spacing issues
+                img.style.margin = '0'; // Remove any default margin
+                img.style.padding = '0'; // Remove any default padding
+                img.style.border = 'none'; // Remove any default border
+
+                link.appendChild(img);
+                block.appendChild(link);
+            }
+
+            // Add diamond.jpg to the third block
+            if (i === 8) {
+                const link = document.createElement('a');
+                link.href = './Ratna/diamond.html'; // Link to the new page
+
+                const img = document.createElement('img');
+                img.src = './images/diamond.jpg'; // Path to the image
+                img.alt = 'Diamond';
                 img.style.width = '100%'; // Ensure the image fits the block
                 img.style.height = '100%'; // Ensure the image fits the block
                 img.style.objectFit = 'cover'; // Maintain aspect ratio
