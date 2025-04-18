@@ -356,6 +356,26 @@
                 link.appendChild(img);
                 block.appendChild(link);
             }
+
+            // Add gomed.jpg to the third block
+            if (i === 9) {
+                const link = document.createElement('a');
+                link.href = './Ratna/gomed.html'; // Link to the new page
+
+                const img = document.createElement('img');
+                img.src = './images/gomed.jpg'; // Path to the image
+                img.alt = 'Gomed';
+                img.style.width = '100%'; // Ensure the image fits the block
+                img.style.height = '100%'; // Ensure the image fits the block
+                img.style.objectFit = 'cover'; // Maintain aspect ratio
+                img.style.display = 'block'; // Remove any inline spacing issues
+                img.style.margin = '0'; // Remove any default margin
+                img.style.padding = '0'; // Remove any default padding
+                img.style.border = 'none'; // Remove any default border
+
+                link.appendChild(img);
+                block.appendChild(link);
+            }
     
                 grid.appendChild(block);
             }
