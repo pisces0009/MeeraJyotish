@@ -309,7 +309,7 @@ const htmlContent = `
             font-size: 2em;
             text-align: left; /* Align text to the left */
             margin-left: 55px;
-            margin-top: -10px;
+            margin-top: -15px;
         }
         .additional-text {
             font-weight: bold;
