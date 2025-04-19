@@ -146,6 +146,21 @@ describe('get all rashi bhavishya', () => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Rashi Bhavishya</title>
             <style>
+
+                 .top-header {
+                    position: absolute;
+                    top: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    margin: 0;
+                    padding: 30px;
+                    font-size: 2.5em;
+                    width: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    box-shadow: 0 4px rgb(0, 0, 0, 0.1);
+                    animation: glow 1s ease-in-out infinite alternate;
+                }
+
                 body {
                     font-family: Arial, sans-serif;
                     text-align: center;
@@ -160,8 +175,9 @@ describe('get all rashi bhavishya', () => {
                     margin: 10px 0;
                     font-size: 1.5em;
                 }
-                h1 {
+                 h1 {
                     font-size: 2em;
+                    margin-top: -10px;
                 }
                 .rashi-icon {
                     width: 100px;
@@ -244,6 +260,10 @@ describe('get all rashi bhavishya', () => {
             </style>
         </head>
         <body>
+
+        <h1 class="top-header">
+          
+    </h1>
 
         <!-- Burger Menu -->
     <div class="burger-menu">

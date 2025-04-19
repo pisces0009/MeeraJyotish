@@ -269,6 +269,21 @@ const htmlContent = `
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panchang Details</title>
     <style>
+
+         .top-header {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0;
+            padding: 30px;
+            font-size: 2.5em;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px rgb(0, 0, 0, 0.1);
+            animation: glow 1s ease-in-out infinite alternate;
+        }
+
         body {
             background-image: url('${backgroundImage}');
             background-size: cover;
@@ -294,6 +309,7 @@ const htmlContent = `
             font-size: 2em;
             text-align: left; /* Align text to the left */
             margin-left: 55px;
+            margin-top: -10px;
         }
         .additional-text {
             font-weight: bold;
@@ -390,6 +406,10 @@ const htmlContent = `
     </style>
 </head>
 <body>
+
+    <h1 class="top-header">
+          
+    </h1>
     
      <!-- Burger Menu -->
     <div class="burger-menu">
