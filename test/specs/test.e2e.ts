@@ -466,6 +466,17 @@ const htmlContent = `
             menu.style.display = 'block';
         }
     }
+
+    // Get the current day (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+        const currentDay = new Date().getDay();
+
+        // Get the body element
+        const bodyElement = document.getElementById('main-body');
+
+        // Change the text color to black if it's Monday (1)
+        if (currentDay === 1) {
+            bodyElement.style.color = 'black';
+        }
 </script>
 </html>
 `
