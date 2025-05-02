@@ -22,7 +22,7 @@
         }
 
         body {
-            background-image: url('images/pink.jpg');
+            background-image: url('images/blue.jpg');
             background-size: cover;
             color: white; /* Change the text color BLACK/WHITE as desired */
             font-family: Arial, sans-serif;
@@ -165,7 +165,7 @@
      
      <h1>||ॐ|| पंचांग ||卐||</h1>
      <div class="additional-text">
-        <p><strong>02 May 2025</strong></p>
+        <p><strong>03 May 2025</strong></p>
     </div>
     <div class="panchang-container">
         <div class="panchang-detail"><strong>वार: शुक्रवार</strong></div>
@@ -203,5 +203,16 @@
             menu.style.display = 'block';
         }
     }
+
+    // Get the current day (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+        const currentDay = new Date().getDay();
+
+        // Get the body element
+        const bodyElement = document.getElementById('main-body');
+
+        // Change the text color to black if it's Monday (1)
+        if (currentDay === 1) {
+            bodyElement.style.color = 'black';
+        }
 </script>
 </html>
