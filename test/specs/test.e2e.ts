@@ -313,7 +313,7 @@ const htmlContent = `
         }
         .additional-text {
             font-weight: bold;
-            color: black; /* Change the color black/red as desired */
+            color: red; /* Change the color black/red as desired */
             font-size: 1.2em;
             text-align: left; /* Align text to the left */
             width: 100%;
