@@ -1,0 +1,35 @@
+name: Manual Workflow
+
+on:
+  workflow_dispatch: # Enables manual triggering of the workflow
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🐢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0' # Specify the desired Node.js version here
+
+      - name: 🏗️ Install Dependencies
+        run: npm install
+
+      - name: 🧪 Run Tests
+        run: npm run wdio
+
+      - name: 📂 Create Logs Directory
+        run: mkdir -p logs
+
+      - name: 📦 Upload Logs
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: logs
+          path: logs
