@@ -34,13 +34,13 @@ function getBackgroundImage(): string {
 // Function to get the special details based on the date in IST
 function getSpecialDetails(date: string): string {
     const specialDetails: { [key: string]: string } = {
-        '01 May 2025': '११ प. चांगला',
-    '02 May 2025': 'चांगला दिवस',
-    '03 May 2025': 'चांगला दिवस',
-    '04 May 2025': '७ प. चांगला',
-    '05 May 2025': 'चांगला दिवस',
-    '06 May 2025': 'चांगला दिवस',
-    '07 May 2025': 'चांगला दिवस',
+        '01 Jun 2025': 'चांगला दिवस',
+    '02 Jun 2025': 'उत्तम दिवस',
+    '03 Jun 2025': '९ नं.चांगला',
+    '04 Jun 2025': 'उत्तम दिवस',
+    '05 Jun 2025': '९ प. चांगला',
+    '06 Jun 2025': '१५ नं. भद्रा',
+    '07 Jun 2025': 'वृद्धितिथी',
     '08 May 2025': '१२ नं. चांगला',
     '09 May 2025': 'शुभ दिवस',
     '10 May 2025': 'चांगला दिवस',
