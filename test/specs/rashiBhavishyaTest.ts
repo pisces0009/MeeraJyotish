@@ -37,7 +37,7 @@ describe('get all rashi bhavishya', () => {
          }
 
         await browser.url('https://www.drikpanchang.com/astrology/prediction/mesha-rashi/mesha-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        //await browser.pause(300)
+        await browser.pause(100)
         getDateAndDay = await rashiBhavishya.dayAndDate.getText(); 
     })
 
