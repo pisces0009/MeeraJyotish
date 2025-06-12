@@ -17,9 +17,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*' # Specify the desired Node.js version here
-      - name: update
-        run: npm update
-
+      
       - name: 🏗️ Install Dependencies
         run: npm install
 
