@@ -9,16 +9,16 @@ class PanchangDetails extends Page {
      * define selectors using getter methods
      */
     get tithi () {
-        return $('/html/body/div[4]/div[3]/div[11]/div[2]/div/div[1]/div[2]');
+        return $('/html/body/div[5]/div[3]/div[11]/div[2]/div/div[1]/div[2]');
     }
     get tithi2 () {
-        return $('/html/body/div[4]/div[3]/div[11]/div[2]/div/div[2]/div[2]');
+        return $('/html/body/div[5]/div[3]/div[11]/div[2]/div/div[2]/div[2]');
     }
     get nakshatra () {
         return $('//h3[contains(text(), "पञ्चाङ्ग")]//following::div[7]');
     }
     get yoga () {
-        return $('/html/body/div[4]/div[3]/div[11]/div[2]/div/div[3]/div[2]');
+        return $('/html/body/div[5]/div[3]/div[11]/div[2]/div/div[3]/div[2]');
     }
     get karan () {
         return $("//div[contains(text(), 'करण')]//following::div[1]");
@@ -30,10 +30,10 @@ class PanchangDetails extends Page {
         return $('//div[contains(text(), "वार")]//following::div[1]');
     }
     get rahuKaal () {
-        return $('/html/body/div[4]/div[3]/div[11]/div[8]/div/div[1]/div[2]');
+        return $('/html/body/div[5]/div[3]/div[11]/div[8]/div/div[1]/div[2]');
     }
     get rassi () {
-        return $('/html/body/div[4]/div[3]/div[11]/div[4]/div/div[1]/div[2]');
+        return $('/html/body/div[5]/div[3]/div[11]/div[4]/div/div[1]/div[2]');
     }
     get savastar1 () {
         return $('//*[@id="dpPHeaderId"]/div[1]/div[1]/div[1]/div[2]/div[2]');

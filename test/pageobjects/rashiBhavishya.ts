@@ -9,14 +9,14 @@ class RashiBhavishya extends Page {
      * define selectors using getter methods
      */
     get dayAndDate() {
-        return $('/html/body/div[4]/div[3]/div[3]/div[1]/div[2]/div')
+        return $('/html/body/div[5]/div[3]/div[3]/div[1]/div[2]/div')
     }
  get rashiName() { 
-    return $('/html/body/div[4]/div[3]/div[3]/div[1]/div[2]/h2')
+    return $('/html/body/div[5]/div[3]/div[3]/div[1]/div[2]/h2')
   }
 
   get rashiFal() {
-    return $('/html/body/div[4]/div[3]/div[3]/div[5]/div[2]/div/div[2]/p')
+    return $('/html/body/div[5]/div[3]/div[3]/div[5]/div[2]/div/div[2]/p')
   }
 
   get vrishabhaRashi() {
