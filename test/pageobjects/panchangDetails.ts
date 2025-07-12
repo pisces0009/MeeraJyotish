@@ -18,7 +18,7 @@ class PanchangDetails extends Page {
         return $('//h3[contains(text(), "पञ्चाङ्ग")]//following::div[7]');
     }
     get yoga () {
-        return $('/html/body/div[5]/div[3]/div[11]/div[2]/div/div[3]/div[2]');
+        return $('(//div[@class="dpTableCell dpTableValue"])[9]');
     }
     get karan () {
         return $("//div[contains(text(), 'करण')]//following::div[1]");

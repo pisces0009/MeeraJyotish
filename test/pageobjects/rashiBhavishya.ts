@@ -12,7 +12,7 @@ class RashiBhavishya extends Page {
         return $('/html/body/div[5]/div[3]/div[3]/div[1]/div[2]/div')
     }
  get rashiName() { 
-    return $('/html/body/div[5]/div[3]/div[3]/div[1]/div[2]/h2')
+    return $('(//h2[@class="dpRashiTitle dpRedTitle"])[1]')
   }
 
   get rashiFal() {
