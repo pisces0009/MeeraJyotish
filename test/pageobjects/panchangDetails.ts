@@ -9,10 +9,10 @@ class PanchangDetails extends Page {
      * define selectors using getter methods
      */
     get tithi () {
-        return $('/html/body/div[5]/div[3]/div[11]/div[2]/div/div[1]/div[2]');
+        return $('(//div[@class="dpTableCell dpTableValue"])[5]');
     }
     get tithi2 () {
-        return $('/html/body/div[5]/div[3]/div[11]/div[2]/div/div[2]/div[2]');
+        return $('(//div[@class="dpTableCell dpTableValue"])[7]');
     }
     get nakshatra () {
         return $('//h3[contains(text(), "पञ्चाङ्ग")]//following::div[7]');
