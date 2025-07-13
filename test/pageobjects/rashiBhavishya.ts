@@ -16,7 +16,7 @@ class RashiBhavishya extends Page {
   }
 
   get rashiFal() {
-    return $('/html/body/div[5]/div[3]/div[3]/div[5]/div[2]/div/div[2]/p')
+    return $('(//p[@class="dpContent"])[1]')
   }
 
   get vrishabhaRashi() {
