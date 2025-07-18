@@ -21,10 +21,10 @@ class PanchangDetails extends Page {
         return $('(//div[@class="dpTableCell dpTableValue"])[9]');
     }
     get karan () {
-        return $("//div[contains(text(), 'करण')]//following::div[1]");
+        return $("/html/body/div[5]/div[3]/div[11]/div[2]/div/div[3]/div[4]");
     }
     get karan2 () {
-        return $("//div[contains(text(), 'करण')]//following::div[8]");
+        return $("/html/body/div[5]/div[3]/div[11]/div[2]/div/div[4]/div[4]");
     }
     get var () {
         return $('//div[contains(text(), "वार")]//following::div[1]');
@@ -33,7 +33,7 @@ class PanchangDetails extends Page {
         return $('(//div[@class="dpTableCell dpTableValue"])[53]');
     }
     get rassi () {
-        return $('(//div[@class="dpTableCell dpTableValue"])[25]');
+        return $('/html/body/div[5]/div[3]/div[11]/div[4]/div/div[1]/div[2]');
     }
     get savastar1 () {
         return $('//*[@id="dpPHeaderId"]/div[1]/div[1]/div[1]/div[2]/div[2]');
