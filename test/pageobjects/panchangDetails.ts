@@ -21,10 +21,10 @@ class PanchangDetails extends Page {
         return $('(//div[@class="dpTableCell dpTableValue"])[9]');
     }
     get karan () {
-        return $("/html/body/div[5]/div[3]/div[11]/div[2]/div/div[3]/div[4]");
+        return $('(//div[@class="dpTableCell dpTableValue"])[10]');
     }
     get karan2 () {
-        return $("/html/body/div[5]/div[3]/div[11]/div[2]/div/div[4]/div[4]");
+        return $('(//div[@class="dpTableCell dpTableValue"])[12]');
     }
     get var () {
         return $('//div[contains(text(), "वार")]//following::div[1]');
