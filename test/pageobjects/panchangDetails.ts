@@ -33,7 +33,7 @@ class PanchangDetails extends Page {
         return $('(//div[@class="dpTableCell dpTableValue"])[53]');
     }
     get rassi () {
-        return $('(//div[@class="dpTableCell dpTableValue"])[25]');
+        return $('(//div[@class="dpTableCell dpTableValue"])[27]');
     }
     get savastar1 () {
         return $('//*[@id="dpPHeaderId"]/div[1]/div[1]/div[1]/div[2]/div[2]');
