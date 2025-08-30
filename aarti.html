@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>आरती संग्रह</title>
+  <style>
+    body {
+      background-image: url('./images/yellow.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white; /* default, turns black on Monday via JS */
+    }
+
+    .top-header {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      padding: 20px;
+      font-size: 2.2em;
+      width: 100%;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.5);
+      box-shadow: 0 4px rgb(0, 0, 0, 0.1);
+      animation: glow 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff4da6; }
+      to   { text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6; }
+    }
+
+    /* Burger icon (click -> Home) */
+    .burger-menu {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1000;
+    }
+    .burger-menu .burger-icon {
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+    }
+
+    .circle-image {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin: 110px auto 16px; /* pushes below absolute header */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      border: 2px solid rgba(255,255,255,0.7);
+      background: #fff; /* nice ring if image has transparency */
+    }
+    /* Caption under circle icon */
+    .circle-caption {
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-top: 4px;
+      cursor: pointer;
+    }
+    
+    /* Revealed link */
+    .aarti-link {
+      display: none;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.1em;
+      margin-top: 8px;
+      color: #fff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .aarti-link:hover { opacity: 0.9; }
+
+    /* Highlighted lyrics panel */
+    .lyrics-panel {
+      display: block;
+      max-width: 760px;
+      margin: 16px auto 24px;
+      padding: 16px 18px;
+      border-radius: 12px;
+      background: #fff6bf; /* highlighted background */
+      color: #111;
+      border: 1px solid rgba(0,0,0,0.12);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    }
+    .lyrics-panel[hidden] { display: none; }
+    .lyrics-title { margin: 0 0 8px; text-align: center; }
+    .ly { margin: 4px 0; line-height: 1.7; }
+
+    /* Bell toolbar inside highlighted panel */
+    .panel-toolbar { display: flex; justify-content: flex-end; align-items: center; margin-bottom: 8px; }
+    .bell-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.12);
+      background: #ffffffcc; cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .bell-btn:hover { background: #fff2a8; }
+    .bell-btn.active { background: #ffe27a; box-shadow: 0 0 0 3px rgba(255,226,122,0.5) inset; }
+    .bell-btn img { width: 22px; height: 22px; pointer-events: none; }
+   
+  </style>
+</head>
+<body id="main-body">
+  <h1 class="top-header">आरती संग्रह</h1>
+
+  <!-- Burger Menu (click -> Home) -->
+  <div class="burger-menu">
+    <img src="./images/burger-icon.png"
+         alt="Menu"
+         class="burger-icon"
+         onclick="window.location.href='index.html'">
+  </div>
+
+   <!-- Circle icon -->
+  <img src="./images/1icon.webp" alt="Aarti Icon" class="circle-image">
+  <p id="circle-caption" class="circle-caption" role="button" tabindex="0" aria-controls="aarti-item-1">श्री गणेश आरती</p>
+ 
+   <!-- Hidden clickable text -->
+  <a id="aarti-item-1" class="aarti-link" href="#">
+    1. सुखकर्ता दुःखहर्ता
+  </a>
+
+  <!-- Highlighted lyrics container -->
+  <div id="lyrics-panel" class="lyrics-panel" role="region" aria-labelledby="aarti-item-1" hidden></div>
+
+  <script>
+    // Reveal the clickable text when the icon is clicked (and via keyboard)
+    document.addEventListener('DOMContentLoaded', () => {
+      const img = document.querySelector('.circle-image');
+      const link = document.getElementById('aarti-item-1');
+      const caption = document.getElementById('circle-caption');
+      const panel = document.getElementById('lyrics-panel');
+
+      const reveal = () => { link.style.display = 'block'; };
+
+      // Bell audio state (reused across renders)
+      let bellAudio = null;
+      let isBellOn = false;
+
+      function showGaneshAarti() {
+        const lines = [
+          "सुखकर्ता दुःखहर्ता, वार्ता विघ्नांची|",
+          "नुरवी पुरवी प्रेम, कृपा जयाची||",
+          "सर्वांगी सुंदर, उटी शेंदुराची|",
+          "कंठि झळके माळ, मुक्ताफळांची||",
+          "जय देव जय देव, जय मंगलमूर्ती|",
+          "दर्शनमात्रे मन कामना पुरती||",
+          "रत्नखचित फरा, तुज गौरीकुमरा|",
+          "चंदनाची उटी, कुमकुम केशरा||",
+          "हिरेजडित मुकुट, शोभतो बरा|",
+          "रुणझुणती नूपुरे, चरणी घागरिया||",
+          "जय देव जय देव, जय मंगलमूर्ती|",
+          "दर्शनमात्रे मन कामना पुरती||",
+          "लंबोदर पीतांबर, फणिवरबंधना|",
+          "सरळ सोंड, वक्रतुंड त्रिनयना||",
+          "सर्वांगी सुंदर, उटी शेंदुराची|",
+          "कंठि झळके माळ, मुक्ताफळांची||",
+          "जय देव जय देव, जय मंगलमूर्ती|",
+          "दर्शनमात्रे मन कामना पुरती||"
+        ];
+        panel.innerHTML = `
+          <div class="panel-toolbar">
+            <button id="bell-toggle" class="bell-btn" aria-pressed="false" aria-label="घंटा वाजवा">
+              <img src="./images/bell.png" alt="Bell">
+            </button>
+          </div>
+          <h2 class="lyrics-title">सुखकर्ता दुःखहर्ता</h2>
+          ${lines.map(l => `<div class="ly">${l}</div>`).join('')}
+        `;
+        panel.hidden = false;
+        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        const bellBtn = panel.querySelector('#bell-toggle');
+
+        if (!bellAudio) {
+          bellAudio = new Audio('./sound/bell-1.mp3');
+          bellAudio.loop = true;
+        }
+
+        // Reflect current state if already playing
+        if (isBellOn) {
+          bellBtn.classList.add('active');
+          bellBtn.setAttribute('aria-pressed', 'true');
+        }
+
+        bellBtn.addEventListener('click', async () => {
+          try {
+            if (!isBellOn) {
+              await bellAudio.play();
+              isBellOn = true;
+              bellBtn.classList.add('active');
+              bellBtn.setAttribute('aria-pressed', 'true');
+            } else {
+              bellAudio.pause();
+              bellAudio.currentTime = 0;
+              isBellOn = false;
+              bellBtn.classList.remove('active');
+              bellBtn.setAttribute('aria-pressed', 'false');
+            }
+          } catch (err) {
+            console.error('Bell play failed:', err);
+          }
+        });
+
+        // Stop bell if user navigates away or reloads
+        window.addEventListener('beforeunload', () => {
+          if (bellAudio) bellAudio.pause();
+        }, { once: true });
+      }
+
+      // Icon
+      img.addEventListener('click', reveal);
+      img.setAttribute('tabindex', '0');
+      img.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); reveal(); }
+      });
+
+      // Caption behaves like the icon
+      caption.addEventListener('click', reveal);
+      caption.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); reveal(); }
+      });
+
+      // Clicking the revealed link shows lyrics on highlighted background
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        showGaneshAarti();
+      });
+
+      // Optional: if you still want navigation, set link.href and call showGaneshAarti there.
+      // link.href = 'ganesh-aarti.html';
+    });
+  </script>
+</body>
+</html>
