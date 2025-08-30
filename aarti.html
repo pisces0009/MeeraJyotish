@@ -49,8 +49,8 @@
     }
 
     .circle-image {
-      width: 110px;
-      height: 110px;
+      width: 65px;
+      height: 65px;
       border-radius: 50%;
       object-fit: cover;
       display: block;
@@ -143,11 +143,34 @@
       const caption = document.getElementById('circle-caption');
       const panel = document.getElementById('lyrics-panel');
 
+      let isLinkVisible = false;
       const reveal = () => { link.style.display = 'block'; };
+      const hideLink = () => { link.style.display = 'none'; isLinkVisible = false; };
+
 
       // Bell audio state (reused across renders)
       let bellAudio = null;
       let isBellOn = false;
+      let isPanelOpen = false; // NEW: track panel state
+
+      function hideLyricsPanel() {
+        if (!panel.hidden) {
+          // stop and reset bell
+          if (bellAudio) {
+            bellAudio.pause();
+            bellAudio.currentTime = 0;
+          }
+          isBellOn = false;
+          // hide the panel
+          panel.hidden = true;
+          isPanelOpen = false;
+          hideLink();
+          // return focus to caption for accessibility
+          caption.focus();
+          // scroll back to the top image smoothly
+          img.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
 
       function showGaneshAarti() {
         const lines = [
@@ -156,13 +179,13 @@
           "सर्वांगी सुंदर, उटी शेंदुराची|",
           "कंठि झळके माळ, मुक्ताफळांची||",
           "जय देव जय देव, जय मंगलमूर्ती|",
-          "दर्शनमात्रे मन कामना पुरती||",
+          "दर्शनमात्रे मन कामना पुरती|| (धृपद)",
           "रत्नखचित फरा, तुज गौरीकुमरा|",
           "चंदनाची उटी, कुमकुम केशरा||",
           "हिरेजडित मुकुट, शोभतो बरा|",
           "रुणझुणती नूपुरे, चरणी घागरिया||",
           "जय देव जय देव, जय मंगलमूर्ती|",
-          "दर्शनमात्रे मन कामना पुरती||",
+          "दर्शनमात्रे मन कामना पुरती|| (धृपद)",
           "लंबोदर पीतांबर, फणिवरबंधना|",
           "सरळ सोंड, वक्रतुंड त्रिनयना||",
           "सर्वांगी सुंदर, उटी शेंदुराची|",
@@ -180,6 +203,7 @@
           ${lines.map(l => `<div class="ly">${l}</div>`).join('')}
         `;
         panel.hidden = false;
+        isPanelOpen = true;
         panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
         const bellBtn = panel.querySelector('#bell-toggle');
@@ -220,17 +244,35 @@
         }, { once: true });
       }
 
-      // Icon
-      img.addEventListener('click', reveal);
+      // Circle icon: toggle between showing link and hiding panel
+      img.addEventListener('click', () => {
+        if (isPanelOpen) hideLyricsPanel();
+        else if (isLinkVisible) hideLink();
+        else reveal();
+      });
       img.setAttribute('tabindex', '0');
       img.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); reveal(); }
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (isPanelOpen) hideLyricsPanel();
+          else if (isLinkVisible) hideLink();
+          else reveal();
+        }
       });
 
       // Caption behaves like the icon
-      caption.addEventListener('click', reveal);
+      caption.addEventListener('click', () => {
+        if (isPanelOpen) hideLyricsPanel();
+        else if (isLinkVisible) hideLink();
+        else reveal();
+      });
       caption.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); reveal(); }
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (isPanelOpen) hideLyricsPanel();
+          else if (isLinkVisible) hideLink();
+          else reveal();
+        }
       });
 
       // Clicking the revealed link shows lyrics on highlighted background
@@ -239,8 +281,10 @@
         showGaneshAarti();
       });
 
-      // Optional: if you still want navigation, set link.href and call showGaneshAarti there.
-      // link.href = 'ganesh-aarti.html';
+      // Allow Esc to close the panel
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isPanelOpen) hideLyricsPanel();
+      });
     });
   </script>
 </body>
