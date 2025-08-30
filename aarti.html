@@ -63,7 +63,7 @@
     .circle-caption {
       text-align: center;
       font-weight: bold;
-      font-size: 1.2em;
+      font-size: 1em;
       margin-top: 4px;
       cursor: pointer;
     }
@@ -136,42 +136,35 @@
   <div id="lyrics-panel" class="lyrics-panel" role="region" aria-labelledby="aarti-item-1" hidden></div>
 
   <script>
-    // Reveal the clickable text when the icon is clicked (and via keyboard)
     document.addEventListener('DOMContentLoaded', () => {
       const img = document.querySelector('.circle-image');
       const link = document.getElementById('aarti-item-1');
       const caption = document.getElementById('circle-caption');
       const panel = document.getElementById('lyrics-panel');
-
+  
       let isLinkVisible = false;
-      const reveal = () => { link.style.display = 'block'; };
+      const reveal = () => { link.style.display = 'block'; isLinkVisible = true; };
       const hideLink = () => { link.style.display = 'none'; isLinkVisible = false; };
-
-
-      // Bell audio state (reused across renders)
-      let bellAudio = null;
-      let isBellOn = false;
-      let isPanelOpen = false; // NEW: track panel state
-
+  
+      // Bell and Music audio state (reused across renders)
+      let bellAudio = null, isBellOn = false;
+      let musicAudio = null, isMusicOn = false;
+      let isPanelOpen = false;
+  
       function hideLyricsPanel() {
         if (!panel.hidden) {
-          // stop and reset bell
-          if (bellAudio) {
-            bellAudio.pause();
-            bellAudio.currentTime = 0;
-          }
+          if (bellAudio) { bellAudio.pause(); bellAudio.currentTime = 0; }
+          if (musicAudio) { musicAudio.pause(); musicAudio.currentTime = 0; }
           isBellOn = false;
-          // hide the panel
+          isMusicOn = false;
           panel.hidden = true;
           isPanelOpen = false;
           hideLink();
-          // return focus to caption for accessibility
           caption.focus();
-          // scroll back to the top image smoothly
           img.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
-
+  
       function showGaneshAarti() {
         const lines = [
           "सुखकर्ता दुःखहर्ता, वार्ता विघ्नांची|",
@@ -199,26 +192,28 @@
               <img src="./images/bell.png" alt="Bell">
             </button>
           </div>
+          <div class="panel-toolbar">
+            <button id="music-toggle" class="bell-btn" aria-pressed="false" aria-label="आरती प्ले करा">
+              <img src="./images/music-1.jpg" alt="Music">
+            </button>
+          </div>
           <h2 class="lyrics-title">सुखकर्ता दुःखहर्ता</h2>
           ${lines.map(l => `<div class="ly">${l}</div>`).join('')}
         `;
         panel.hidden = false;
         isPanelOpen = true;
         panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
+  
+        // Bell setup (loops until turned off)
         const bellBtn = panel.querySelector('#bell-toggle');
-
         if (!bellAudio) {
           bellAudio = new Audio('./sound/bell-1.mp3');
           bellAudio.loop = true;
         }
-
-        // Reflect current state if already playing
         if (isBellOn) {
           bellBtn.classList.add('active');
           bellBtn.setAttribute('aria-pressed', 'true');
         }
-
         bellBtn.addEventListener('click', async () => {
           try {
             if (!isBellOn) {
@@ -233,18 +228,44 @@
               bellBtn.classList.remove('active');
               bellBtn.setAttribute('aria-pressed', 'false');
             }
-          } catch (err) {
-            console.error('Bell play failed:', err);
-          }
+          } catch (err) { console.error('Bell play failed:', err); }
         });
-
-        // Stop bell if user navigates away or reloads
+  
+        // Music setup (plays/pauses aarti track)
+        const musicBtn = panel.querySelector('#music-toggle');
+        if (!musicAudio) {
+          musicAudio = new Audio('./sound/Sukhkarta.mp3');
+          // musicAudio.loop = false; // enable if you want it to repeat
+        }
+        if (isMusicOn) {
+          musicBtn.classList.add('active');
+          musicBtn.setAttribute('aria-pressed', 'true');
+        }
+        musicBtn.addEventListener('click', async () => {
+          try {
+            if (!isMusicOn) {
+              await musicAudio.play();
+              isMusicOn = true;
+              musicBtn.classList.add('active');
+              musicBtn.setAttribute('aria-pressed', 'true');
+            } else {
+              musicAudio.pause();
+              musicAudio.currentTime = 0;
+              isMusicOn = false;
+              musicBtn.classList.remove('active');
+              musicBtn.setAttribute('aria-pressed', 'false');
+            }
+          } catch (err) { console.error('Music play failed:', err); }
+        });
+  
+        // Ensure audio stops on unload
         window.addEventListener('beforeunload', () => {
           if (bellAudio) bellAudio.pause();
+          if (musicAudio) musicAudio.pause();
         }, { once: true });
       }
-
-      // Circle icon: toggle between showing link and hiding panel
+  
+      // Circle icon/caption toggle logic (unchanged)
       img.addEventListener('click', () => {
         if (isPanelOpen) hideLyricsPanel();
         else if (isLinkVisible) hideLink();
@@ -259,8 +280,6 @@
           else reveal();
         }
       });
-
-      // Caption behaves like the icon
       caption.addEventListener('click', () => {
         if (isPanelOpen) hideLyricsPanel();
         else if (isLinkVisible) hideLink();
@@ -274,14 +293,12 @@
           else reveal();
         }
       });
-
-      // Clicking the revealed link shows lyrics on highlighted background
+  
       link.addEventListener('click', (e) => {
         e.preventDefault();
         showGaneshAarti();
       });
-
-      // Allow Esc to close the panel
+  
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && isPanelOpen) hideLyricsPanel();
       });
