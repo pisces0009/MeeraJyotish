@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>आरती संग्रह</title>
+  <style>
+    body {
+      background-image: url('../images/yellow.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: rgb(253, 251, 251);
+    }
+
+    .top-header {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      margin: 0; padding: 20px; font-size: 2.2em; width: 100%; text-align: center;
+      background-color: rgba(0,0,0,0.5);
+      box-shadow: 0 4px rgb(0, 0, 0, 0.1);
+      animation: glow 1s ease-in-out infinite alternate;
+    }
+    @keyframes glow { from { text-shadow: 0 0 10px #fff, 0 0 20px #ff4da6; } to { text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6; } }
+
+    .burger-menu { position: absolute; top: 10px; left: 10px; z-index: 1000; }
+    .burger-menu .burger-icon { width: 40px; height: 40px; cursor: pointer; }
+
+    .circle-image {
+      width: 65px; height: 65px; border-radius: 50%; object-fit: cover; display: block;
+      margin: 100px auto 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      border: 2px solid rgba(255,255,255,0.7); background: #fff;
+    }
+    .circle-caption { text-align: center; font-weight: bold; font-size: 1em; margin-top: 4px; cursor: pointer; }
+    
+    .aarti-link {
+      display: none; text-align: center; font-weight: 600; font-size: 1.1em;
+      margin-top: 8px; color: #fff; text-decoration: underline; cursor: pointer;
+    }
+    .aarti-link:hover { opacity: 0.9; }
+
+    .lyrics-panel {
+      display: block; max-width: 900px; margin: 16px auto 24px; padding: 16px 18px;
+      border-radius: 12px; background: #fff6bf; color: #111;
+      border: 1px solid rgba(0,0,0,0.12); box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    }
+    .lyrics-panel[hidden] { display: none; }
+    .lyrics-title { margin: 0 0 8px; text-align: center; }
+    .ly { margin: 4px 0; line-height: 1.7; }
+
+    .panel-toolbar {
+      display: flex; align-items: center; justify-content: flex-start; gap: 10px; margin: 8px 0 12px;
+    }
+    .bell-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.12); background: #ffffffcc; cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .bell-btn:hover { background: #fff2a8; }
+    .bell-btn.active { background: #ffe27a; box-shadow: 0 0 0 3px rgba(255,226,122,0.5) inset; }
+    .bell-btn img { width: 22px; height: 22px; pointer-events: none; }
+
+    .icon-row {
+      display: flex; gap: 20px; justify-content: center; align-items: flex-start;
+      margin: 100px auto 16px; max-width: 520px;
+    }
+    .icon-card { text-align: center; }
+    .icon-row .circle-image { margin: 0 auto 6px; }
+    .icon-row .circle-caption { margin-top: 4px; }
+  </style>
+</head>
+<body id="main-body">
+  <h1 class="top-header">आरती संग्रह</h1>
+
+  <div class="burger-menu">
+    <img src="../images/burger-icon.png" alt="Menu" class="burger-icon" onclick="window.location.href='../index.html'">
+  </div>
+
+  <div class="icon-row">
+    <div class="icon-card">
+      <img id="ganesh-icon" src="../images/1icon.webp" alt="Aarti Icon" class="circle-image" onclick="window.location.href='../aarti.html'">
+      <p id="ganesh-caption" class="circle-caption" role="button" tabindex="0" aria-controls="aarti-item-1">श्री गणेश आरती</p>
+    </div>
+    <div class="icon-card">
+      <img id="hanuman-icon" src="../images/hanuman.png" alt="Hanuman Icon" class="circle-image">
+      <p id="hanuman-caption" class="circle-caption" role="button" tabindex="0">श्री हनुमान आरती</p>
+    </div>
+  </div>
+
+  <a id="aarti-item-1" class="aarti-link" href="#">1. हनुमान चालीसा</a>
+
+  <div id="lyrics-panel" class="lyrics-panel" role="region" aria-labelledby="aarti-item-1" hidden></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const link = document.getElementById('aarti-item-1');
+      const panel = document.getElementById('lyrics-panel');
+      const img = document.getElementById('hanuman-icon');
+      const caption = document.getElementById('hanuman-caption');
+
+      let isLinkVisible = false;
+      const reveal = () => { link.style.display = 'block'; isLinkVisible = true; };
+      const hideLink = () => { link.style.display = 'none'; isLinkVisible = false; };
+
+      let bellAudio = null, isBellOn = false;
+      let musicAudio = null, isMusicOn = false;
+      let isPanelOpen = false;
+
+      function hideLyricsPanel() {
+        if (!panel.hidden) {
+          if (bellAudio) { bellAudio.pause(); bellAudio.currentTime = 0; }
+          if (musicAudio) { musicAudio.pause(); musicAudio.currentTime = 0; }
+          isBellOn = false; isMusicOn = false;
+          panel.hidden = true; isPanelOpen = false;
+          hideLink();
+          caption.focus();
+          img.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
+      function showHanumanChalisa() {
+        const doha1 = [
+          "श्रीगुरु चरन सरोज रज, निज मनु मुकुरु सुधारि।",
+          "बरनऊं रघुबर बिमल जसु, जो दायकु फल चारि।।",
+          "बुद्धिहीन तनु जानिके, सुमिरौं पवन-कुमार।",
+          "बल बुद्धि बिद्या देहु मोहिं, हरहु कलेस बिकार।।"
+        ];
+        const chaupai = [
+          "जय हनुमान ज्ञान गुन सागर।","जय कपीस तिहुं लोक उजागर।।","",
+          "रामदूत अतुलित बल धामा।","अंजनि-पुत्र पवनसुत नामा।।","",
+          "महाबीर बिक्रम बजरंगी।","कुमति निवार सुमति के संगी।।","",
+          "कंचन बरन बिराज सुबेसा।","कानन कुंडल कुंचित केसा।।","",
+          "हाथ बज्र औ ध्वजा बिराजै।","कांधे मूंज जनेऊ साजै।","",
+          "संकर सुवन केसरीनंदन।","तेज प्रताप महा जग बन्दन।।","",
+          "विद्यावान गुनी अति चातुर।","राम काज करिबे को आतुर।।","",
+          "प्रभु चरित्र सुनिबे को रसिया।","राम लखन सीता मन बसिया।।","",
+          "सूक्ष्म रूप धरि सियहिं दिखावा।","बिकट रूप धरि लंक जरावा।।","",
+          "भीम रूप धरि असुर संहारे।","रामचंद्र के काज संवारे।।","",
+          "लाय सजीवन लखन जियाये।","श्रीरघुबीर हरषि उर लाये।।","",
+          "रघुपति कीन्ही बहुत बड़ाई।","तुम मम प्रिय भरतहि सम भाई।।","",
+          "सहस बदन तुम्हरो जस गावैं।","अस कहि श्रीपति कंठ लगावैं।।","",
+          "सनकादिक ब्रह्मादि मुनीसा।","नारद सारद सहित अहीसा।।","",
+          "जम कुबेर दिगपाल जहां ते।","कबि कोबिद कहि सके कहां ते।।","",
+          "तुम उपकार सुग्रीवहिं कीन्हा।","राम मिलाय राज पद दीन्हा।।","",
+          "तुम्हरो मंत्र बिभीषन माना।","लंकेस्वर भए सब जग जाना।।","",
+          "जुग सहस्र जोजन पर भानू।","लील्यो ताहि मधुर फल जानू।।","",
+          "प्रभु मुद्रिका मेलि मुख माहीं।","जलधि लांघि गये अचरज नाहीं।।","",
+          "दुर्गम काज जगत के जेते।","सुगम अनुग्रह तुम्हरे तेते।।","",
+          "राम दुआरे तुम रखवारे।","होत न आज्ञा बिनु पैसारे।।","",
+          "सब सुख लहै तुम्हारी सरना।","तुम रक्षक काहू को डर ना।।","",
+          "आपन तेज सम्हारो आपै।","तीनों लोक हांक तें कांपै।।","",
+          "भूत पिसाच निकट नहिं आवै।","महाबीर जब नाम सुनावै।।","",
+          "नासै रोग हरै सब पीरा।","जपत निरंतर हनुमत बीरा।।","",
+          "संकट तें हनुमान छुड़ावै।","मन क्रम बचन ध्यान जो लावै।।","",
+          "सब पर राम तपस्वी राजा।","तिन के काज सकल तुम साजा।","",
+          "और मनोरथ जो कोई लावै।","सोइ अमित जीवन फल पावै।।","",
+          "चारों जुग परताप तुम्हारा।","है परसिद्ध जगत उजियारा।।","",
+          "साधु-संत के तुम रखवारे।","असुर निकंदन राम दुलारे।।","",
+          "अष्ट सिद्धि नौ निधि के दाता।","अस बर दीन जानकी माता।।","",
+          "राम रसायन तुम्हरे पासा।","सदा रहो रघुपति के दासा।।","",
+          "तुम्हरे भजन राम को पावै।","जनम-जनम के दुख बिसरावै।।","",
+          "अन्तकाल रघुबर पुर जाई।","जहां जन्म हरि-भक्त कहाई।।","",
+          "और देवता चित्त न धरई।","हनुमत सेइ सर्ब सुख करई।।","",
+          "संकट कटै मिटै सब पीरा।","जो सुमिरै हनुमत बलबीरा।।","",
+          "जै जै जै हनुमान गोसाईं।","कृपा करहु गुरुदेव की नाईं।।","",
+          "जो सत बार पाठ कर कोई।","छूटहि बंदि महा सुख होई।।","",
+          "जो यह पढ़ै हनुमान चालीसा।","होय सिद्धि साखी गौरीसा।।","",
+          "तुलसीदास सदा हरि चेरा।","कीजै नाथ हृदय मंह डेरा।।"
+        ];
+        const doha2 = [
+          "পवन तनय সংকট हरন, मंगल मूरति रूप।",
+          "राम लखन सीता सहित, हृदय बसहु सुर भूप।।"
+        ];
+
+        panel.innerHTML = `
+          <h2 class="lyrics-title">हनुमान चालीसा</h2>
+          <div class="panel-toolbar">
+            <button id="bell-toggle" class="bell-btn" aria-pressed="false" aria-label="घंटा वाजवा">
+              <img src="../images/bell.png" alt="Bell">
+            </button>
+            <button id="music-toggle" class="bell-btn" aria-pressed="false" aria-label="आरती प्ले करा">
+              <img src="../images/music-1.jpg" alt="Music">
+            </button>
+          </div>
+          <div class="section-title">दोहा :</div>
+          ${doha1.map(l => l ? `<div class="ly">${l}</div>` : `<div class="ly">&nbsp;</div>`).join('')}
+          <div class="section-title">चौपाई :</div>
+          ${chaupai.map(l => l ? `<div class="ly">${l}</div>` : `<div class="ly">&nbsp;</div>`).join('')}
+          <div class="section-title">दोहा :</div>
+          ${doha2.map(l => `<div class="ly">${l}</div>`).join('')}
+        `;
+        panel.hidden = false;
+        isPanelOpen = true;
+        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        const bellBtn = panel.querySelector('#bell-toggle');
+        if (!bellAudio) { bellAudio = new Audio('../sound/bell-1.mp3'); bellAudio.loop = true; }
+        if (isBellOn) { bellBtn.classList.add('active'); bellBtn.setAttribute('aria-pressed', 'true'); }
+        bellBtn.addEventListener('click', async () => {
+          try {
+            if (!isBellOn) { await bellAudio.play(); isBellOn = true; bellBtn.classList.add('active'); bellBtn.setAttribute('aria-pressed', 'true'); }
+            else { bellAudio.pause(); bellAudio.currentTime = 0; isBellOn = false; bellBtn.classList.remove('active'); bellBtn.setAttribute('aria-pressed', 'false'); }
+          } catch (err) { console.error('Bell play failed:', err); }
+        });
+
+        const musicBtn = panel.querySelector('#music-toggle');
+        if (!musicAudio) { musicAudio = new Audio('../sound/hanuman.mp3'); }
+        if (isMusicOn) { musicBtn.classList.add('active'); musicBtn.setAttribute('aria-pressed', 'true'); }
+        musicBtn.addEventListener('click', async () => {
+          try {
+            if (!isMusicOn) { await musicAudio.play(); isMusicOn = true; musicBtn.classList.add('active'); musicBtn.setAttribute('aria-pressed', 'true'); }
+            else { musicAudio.pause(); musicAudio.currentTime = 0; isMusicOn = false; musicBtn.classList.remove('active'); musicBtn.setAttribute('aria-pressed', 'false'); }
+          } catch (err) { console.error('Music play failed:', err); }
+        });
+
+        window.addEventListener('beforeunload', () => {
+          if (bellAudio) bellAudio.pause();
+          if (musicAudio) musicAudio.pause();
+        }, { once: true });
+      }
+
+      img.addEventListener('click', () => { if (isPanelOpen) hideLyricsPanel(); else if (isLinkVisible) hideLink(); else reveal(); });
+      img.setAttribute('tabindex', '0');
+      img.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (isPanelOpen) hideLyricsPanel(); else if (isLinkVisible) hideLink(); else reveal(); } });
+      caption.addEventListener('click', () => { if (isPanelOpen) hideLyricsPanel(); else if (isLinkVisible) hideLink(); else reveal(); });
+      caption.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (isPanelOpen) hideLyricsPanel(); else if (isLinkVisible) hideLink(); else reveal(); } });
+
+      link.addEventListener('click', (e) => { e.preventDefault(); showHanumanChalisa(); });
+
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isPanelOpen) hideLyricsPanel(); });
+    });
+  </script>
+</body>
+</html>

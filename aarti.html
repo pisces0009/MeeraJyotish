@@ -54,7 +54,7 @@
       border-radius: 50%;
       object-fit: cover;
       display: block;
-      margin: 110px auto 16px; /* pushes below absolute header */
+      margin: 100px auto 16px; /* pushes below absolute header */
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
       border: 2px solid rgba(255,255,255,0.7);
       background: #fff; /* nice ring if image has transparency */
@@ -115,6 +115,19 @@
   .bell-btn:hover { background: #fff2a8; }
   .bell-btn.active { background: #ffe27a; box-shadow: 0 0 0 3px rgba(255,226,122,0.5) inset; }
   .bell-btn img { width: 22px; height: 22px; pointer-events: none; }
+
+  /* Put Ganesh and Hanuman icons in one row */
+  .icon-row {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: flex-start;
+      margin: 100px auto 16px; /* replaces the per-image top margin */
+      max-width: 520px;
+    }
+    .icon-card { text-align: center; }
+    .icon-row .circle-image { margin: 0 auto 6px; } /* remove big top margin on row items */
+    .icon-row .circle-caption { margin-top: 4px; }
    
   </style>
 </head>
@@ -129,9 +142,17 @@
          onclick="window.location.href='index.html'">
   </div>
 
-   <!-- Circle icon -->
-  <img src="./images/1icon.webp" alt="Aarti Icon" class="circle-image">
-  <p id="circle-caption" class="circle-caption" role="button" tabindex="0" aria-controls="aarti-item-1">श्री गणेश आरती</p>
+   <!-- Circle icons row -->
+  <div class="icon-row">
+    <div class="icon-card">
+      <img id="ganesh-icon" src="./images/1icon.webp" alt="Aarti Icon" class="circle-image">
+      <p id="ganesh-caption" class="circle-caption" role="button" tabindex="0" aria-controls="aarti-item-1">श्री गणेश आरती</p>
+    </div>
+    <div class="icon-card">
+      <img id="hanuman-icon" src="./images/hanuman.png" alt="Hanuman Icon" class="circle-image" onclick="window.location.href='./AARTI/hanuman.html'">
+      <p id="hanuman-caption" class="circle-caption" role="button" tabindex="0">श्री हनुमान आरती</p>
+    </div>
+  </div>
  
    <!-- Hidden clickable text -->
   <a id="aarti-item-1" class="aarti-link" href="#">
@@ -143,10 +164,11 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const img = document.querySelector('.circle-image');
       const link = document.getElementById('aarti-item-1');
-      const caption = document.getElementById('circle-caption');
       const panel = document.getElementById('lyrics-panel');
+      // Use Ganesh icon/caption for the current interactions
+      const img = document.getElementById('ganesh-icon');
+      const caption = document.getElementById('ganesh-caption');
   
       let isLinkVisible = false;
       const reveal = () => { link.style.display = 'block'; isLinkVisible = true; };
