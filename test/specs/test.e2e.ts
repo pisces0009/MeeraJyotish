@@ -241,7 +241,7 @@ const translatedData = {
     var1: "वार: " + varData.var1,
     rahuKaal: "राहू काळ: " + rahuKaalData.rahuKaal,
     rassi: "राशी: " + rassiData.rassi,
-    savastar: "1947 विश्वावसु शक संवत्सर, चैत्र, " + savastarData.savastar,
+    savastar: "1948 पराभव, शक संवत, ज्येष्ठ (अधिक), " + savastarData.savastar,
     dinmaan: "दिनमान: " + dinmaanData.dinmaan,
     rutu: "ऋतु: " + rutuData.rutu,
     aayan: "अयन: " + aayanData.aayan,
