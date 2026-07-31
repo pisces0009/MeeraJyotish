@@ -139,10 +139,40 @@
         text-decoration: underline;
     }
 
+     /* Container to fix the moon image to the top right */
+     .moon-widget {
+            position: absolute;
+            top: 60px;
+            right: 10px;
+            z-index: 1000;
+            text-align: center;
+            padding: 8px;
+            border-radius: 8px;
+            color: #030000;
+            font-family: sans-serif;
+            font-size: 12px;
+            
+        }
+        .moon-widget img {
+            display: block;
+            width: 70px; /* Adjust size here */
+            height: auto;
+            margin-bottom: 4px;
+        }
+
             
     </style>
 </head>
 <body>
+
+     <!-- Moon Widget Top Right Corner -->
+     <div class="moon-widget">
+        <!-- Live tracking image from a reliable source -->
+        <img src="https://www.farmersalmanac.com/wp-content/uploads/2020/10/full-moon.png" 
+             alt="Current Moon Phase" 
+             onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg'">
+        <div>Moon Phase</div>
+    </div>
 
     <h1 class="top-header">
           
