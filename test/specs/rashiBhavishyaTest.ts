@@ -137,7 +137,32 @@ describe('get all rashi bhavishya', () => {
     });
 
     after(async () => {
-        // Generate HTML content
+        // Organize the scraped data into a structured array
+        const rashiData = [
+            { name: rashiName, fal: rashiFal, icon: 'mesh.jpg' },
+            { name: vrishabhaRashiName, fal: vrishabhaRashiFal, icon: 'vrishabha.jpg' },
+            { name: mithunaRashiName, fal: mithunaRashiFal, icon: 'mithun.jpg' },
+            { name: karkaRashiName, fal: karkaRashiFal, icon: 'kark.jpg' },
+            { name: simhaRashiName, fal: simhaRashiFal, icon: 'singh.jpg' },
+            { name: kanyaRashiName, fal: kanyaRashiFal, icon: 'kanya.jpg' },
+            { name: tulaRashiName, fal: tulaRashiFal, icon: 'tula.jpg' },
+            { name: vrishchikaRashiName, fal: vrishchikaRashiFal, icon: 'vrishchik.jpg' },
+            { name: dhanuRashiName, fal: dhanuRashiFal, icon: 'dhanu.jpg' },
+            { name: makarRashiName, fal: makarRashiFal, icon: 'makar.jpg' },
+            { name: kumbhaRashiName, fal: kumbhaRashiFal, icon: 'kumbha.jpg' },
+            { name: meenRashiName, fal: meenRashiFal, icon: 'meen.jpg' }
+        ];
+
+        // Generate the HTML for each card by mapping over the data array
+        const rashiCardsHtml = rashiData.map(rashi => `
+            <div class="rashi-card">
+                <img src="./images/rashiIcons/${rashi.icon}" alt="${rashi.name}" class="rashi-icon">
+                <h2 class="rashi-title">${rashi.name}</h2>
+                <p class="rashi-detail"><strong>राशिफळ: </strong>${rashi.fal}</p>
+            </div>
+        `).join('');
+
+        // Generate the final HTML content
         const htmlContent = `
         <!DOCTYPE html>
         <html lang="en">
@@ -146,218 +171,142 @@ describe('get all rashi bhavishya', () => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Rashi Bhavishya</title>
             <style>
-
-                 .top-header {
-                    position: absolute;
-                    top: 0;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    margin: 0;
-                    padding: 30px;
-                    font-size: 2.5em;
-                    width: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    box-shadow: 0 4px rgb(0, 0, 0, 0.1);
-                    animation: glow 1s ease-in-out infinite alternate;
-                }
+                @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
                 body {
-                    font-family: Arial, sans-serif;
-                    text-align: center;
+                    background-image: url('./images/indexbackground.jpg');
+                    background-size: cover;
+                    background-position: center;
+                    background-attachment: fixed;
+                    font-family: 'Poppins', sans-serif;
+                    color: #ffffff;
+                    margin: 0;
                     padding: 20px;
                 }
-                .rashi-container {
+
+                .top-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center; /* Center title */
+                    padding: 15px 20px;
+                    background: rgba(0, 0, 0, 0.4);
+                    border-radius: 12px;
+                    margin-bottom: 30px;
+                    position: relative;
+                }
+                
+                .top-header .page-title {
+                    font-size: 2em;
+                    font-weight: 600;
+                    margin: 0;
+                    flex-grow: 1; /* Allow title to take space */
+                    text-align: center;
+                }
+
+                .burger-menu {
+                    position: absolute;
+                    left: 20px;
+                    cursor: pointer;
+                }
+
+                .burger-icon {
+                    width: 35px;
+                    height: 35px;
+                }
+
+                .grid-container {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                    gap: 20px;
+                    width: 100%;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+
+                .rashi-card {
+                    background: rgba(255, 255, 255, 0.1);
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
+                    border-radius: 15px;
+                    border: 1px solid rgba(255, 255, 255, 0.18);
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+                    padding: 20px;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
+                    text-align: center;
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
                 }
-                .rashi-detail {
-                    margin: 10px 0;
-                    font-size: 1.5em;
+
+                .rashi-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
                 }
-                 h1 {
-                    font-size: 2em;
-                    margin-top: -10px;
-                }
+
                 .rashi-icon {
-                    width: 100px;
-                    height: 100px;
+                    width: 80px;
+                    height: 80px;
                     object-fit: cover;
-                    margin-bottom: 20px;
+                    border-radius: 50%;
+                    border: 2px solid rgba(255, 255, 255, 0.3);
+                    margin-bottom: 15px;
                 }
 
-                         .home-button {
-            position: absolute;
-            top: 10px;
-            left: 5px;
-            display: flex;
-            align-items: center;
-        }
-        .home-button a {
-            text-decoration: none;
-            font-size: 1.1em;
-            color:#050000;
-            display: flex;
-            align-items: center;
-        }
-        .home-button img {
-            width: 40px;
-            height: 40px;
-            margin-left: 8px;
-        }
+                .rashi-title {
+                    font-size: 1.5em;
+                    font-weight: 600;
+                    margin: 0 0 10px 0;
+                }
 
+                .rashi-detail {
+                    font-size: 0.95em;
+                    line-height: 1.6;
+                    text-align: justify;
+                }
+                
+                .date-subtitle {
+                    text-align: center;
+                    font-size: 1.1em;
+                    font-weight: 400;
+                    margin: -15px 0 30px 0;
+                }
 
-      /* Burger Menu Icon */
-     .burger-menu {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        z-index: 1000;
-    }
+                /* Responsive Design */
+                @media (max-width: 768px) {
+                    .grid-container {
+                        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                    }
+                    .top-header .page-title {
+                        font-size: 1.8em;
+                    }
+                }
 
-    .burger-menu .burger-icon {
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-    }
-
-     /* Dropdown Menu */
-     .hidden-menu {
-        display: none;
-        position: absolute;
-        top: 60px;
-        left: 10px;
-        background-color: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
-        z-index: 1000;
-    }
-
-    .hidden-menu ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        text-align: left;
-    }
-
-    .hidden-menu ul li {
-        margin: 10px 0;
-    }
-
-    .hidden-menu ul li a {
-        color: white;
-        text-decoration: none;
-        font-size: 1.2em;
-        display: block; /* Ensure the link spans the full width */
-        text-align: left; /* Align the text inside the link to the left */
-        padding: 5px 10px; /* Add padding for better spacing */
-    }
-
-    .hidden-menu ul li a:hover {
-        text-decoration: underline;
-    }
+                @media (max-width: 480px) {
+                    body {
+                        padding: 10px;
+                    }
+                    .grid-container {
+                        grid-template-columns: 1fr; /* Single column on small screens */
+                    }
+                    .top-header .page-title {
+                        font-size: 1.5em;
+                    }
+                }
             </style>
         </head>
         <body>
-
-        <h1 class="top-header">
-          
-    </h1>
-
-      <!-- Burger Menu (click -> Home) -->
-  <div class="burger-menu">
-    <img src="./images/burger-icon.png"
-         alt="Menu Icon"
-         class="burger-icon"
-         onclick="window.location.href='index.html'">
-  </div>
-   
-
-            <h1>राशि भविष्य</h1>
-            <div class="rashi-detail"><strong>${getDateAndDay}</strong></div>
-            <img src="./images/rashiIcons/mesh.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>${rashiName}</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>${rashiFal}</div>
+            <div class="top-header">
+                <div class="burger-menu">
+                    <a href="index.html"><img src="./images/burger-icon.png" alt="Menu Icon" class="burger-icon"></a>
+                </div>
+                <h1 class="page-title">राशि भविष्य</h1>
             </div>
+            <p class="date-subtitle"><strong>\${getDateAndDay}</strong></p>
 
-            <img src="./images/rashiIcons/vrishabha.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>${vrishabhaRashiName}</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>${vrishabhaRashiFal}</div>
-            </div>
-
-            <img src="./images/rashiIcons/mithun.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>${mithunaRashiName}</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>${mithunaRashiFal}</div>
-            </div>
-
-            <img src="./images/rashiIcons/kark.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>${karkaRashiName}</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>${karkaRashiFal}</div>
-            </div>
-
-            <img src="./images/rashiIcons/singh.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>${simhaRashiName}</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>${simhaRashiFal}</div>
-            </div>
-
-            <img src="./images/rashiIcons/kanya.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>${kanyaRashiName}</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>${kanyaRashiFal}</div>
-            </div>
-
-            <img src="./images/rashiIcons/tula.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>${tulaRashiName}</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>${tulaRashiFal}</div>
-            </div>
-
-            <img src="./images/rashiIcons/vrishchik.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>${vrishchikaRashiName}</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>${vrishchikaRashiFal}</div>
-            </div>
-
-            <img src="./images/rashiIcons/dhanu.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>${dhanuRashiName}</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>${dhanuRashiFal}</div>
-            </div>
-
-            <img src="./images/rashiIcons/makar.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>${makarRashiName}</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>${makarRashiFal}</div>
-            </div>
-
-            <img src="./images/rashiIcons/kumbha.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>${kumbhaRashiName}</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>${kumbhaRashiFal}</div>
-            </div>
-
-            <img src="./images/rashiIcons/meen.jpg" alt="Rashi Icon" class="rashi-icon">                    
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>${meenRashiName}</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>${meenRashiFal}</div>
+            <div class="grid-container">
+                \${rashiCardsHtml}
             </div>
         </body>
-        <script>
-            function toggleMenu() {
-                const menu = document.getElementById('menu');
-                if (menu.style.display === 'block') {
-                    menu.style.display = 'none';
-                } else {
-                    menu.style.display = 'block';
-                }
-            }
-        </script>
         </html>
         `;
 

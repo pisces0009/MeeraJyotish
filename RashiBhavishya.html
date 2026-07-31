@@ -5,213 +5,218 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Rashi Bhavishya</title>
-            <style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-                 .top-header {
-                    position: absolute;
-                    top: 0;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    margin: 0;
-                    padding: 30px;
-                    font-size: 2.5em;
-                    width: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    box-shadow: 0 4px rgb(0, 0, 0, 0.1);
-                    animation: glow 1s ease-in-out infinite alternate;
-                }
+        body {
+            background-image: url('./images/indexbackground.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
 
-                body {
-                    font-family: Arial, sans-serif;
-                    text-align: center;
-                    padding: 20px;
-                }
-                .rashi-container {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    margin-bottom: 20px;
-                }
-                .rashi-detail {
-                    margin: 10px 0;
-                    font-size: 1.2em;
-                    text-align: justify; /* Align text to both left and right edges */
-                    line-height: 1.6; /* Add spacing between lines for better readability */
-                    max-width: 600px; /* Limit the width of the text for better alignment */
-                }
-                 h1 {
-                    font-size: 2em;
-                    margin-top: -10px;
-                }
-                .rashi-icon {
-                    width: 100px;
-                    height: 100px;
-                    object-fit: cover;
-                    margin-bottom: 10px;
-                }
+        .top-header {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center title */
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .top-header .page-title {
+            font-size: 2em;
+            font-weight: 600;
+            margin: 0;
+            flex-grow: 1; /* Allow title to take space */
+            text-align: center;
+        }
 
-                         .home-button {
+        .burger-menu {
             position: absolute;
-            top: 10px;
-            left: 5px;
+            left: 20px;
+            cursor: pointer;
+        }
+
+        .burger-icon {
+            width: 35px;
+            height: 35px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .rashi-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-        }
-        .home-button a {
-            text-decoration: none;
-            font-size: 1.1em;
-            color:#050000;
-            display: flex;
-            align-items: center;
-        }
-        .home-button img {
-            width: 40px;
-            height: 40px;
-            margin-left: 8px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
+        .rashi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
 
-      /* Burger Menu Icon */
-     .burger-menu {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        z-index: 1000;
-    }
+        .rashi-icon {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 15px;
+        }
 
-    .burger-menu .burger-icon {
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-    }
+        .rashi-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+        }
 
-     /* Dropdown Menu */
-     .hidden-menu {
-        display: none;
-        position: absolute;
-        top: 60px;
-        left: 10px;
-        background-color: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
-        z-index: 1000;
-    }
+        .rashi-detail {
+            font-size: 0.95em;
+            line-height: 1.6;
+            text-align: justify;
+        }
 
-    .hidden-menu ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        text-align: left;
-    }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            .top-header .page-title {
+                font-size: 1.8em;
+            }
+        }
 
-    .hidden-menu ul li {
-        margin: 10px 0;
-    }
-
-    .hidden-menu ul li a {
-        color: white;
-        text-decoration: none;
-        font-size: 1.2em;
-        display: block; /* Ensure the link spans the full width */
-        text-align: left; /* Align the text inside the link to the left */
-        padding: 5px 10px; /* Add padding for better spacing */
-    }
-
-    .hidden-menu ul li a:hover {
-        text-decoration: underline;
-    }
-            </style>
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .grid-container {
+                grid-template-columns: 1fr; /* Single column on small screens */
+            }
+            .top-header .page-title {
+                font-size: 1.5em;
+            }
+        }
+    </style>
         </head>
         <body>
 
-        <h1 class="top-header">
-          
-    </h1>
+    <div class="top-header">
+        <div class="burger-menu">
+            <a href="index.html"><img src="./images/burger-icon.png" alt="Menu Icon" class="burger-icon"></a>
+        </div>
+        <h1 class="page-title">राशि भविष्य</h1>
+    </div>
 
-      <!-- Burger Menu (click -> Home) -->
-  <div class="burger-menu">
-    <img src="./images/burger-icon.png"
-         alt="Menu Icon"
-         class="burger-icon"
-         onclick="window.location.href='index.html'">
-  </div>
-   
+    <div class="grid-container">
+        <!-- Card 1: Mesh -->
+        <div class="rashi-card">
+            <img src="./images/rashiIcons/mesh.jpg" alt="मेष" class="rashi-icon">
+            <h2 class="rashi-title">मेष राशिफल</h2>
+            <p class="rashi-detail"><strong>राशिफळ: </strong>तुम्ही शुभ कार्यांवर पैसे खर्च करू शकता. तुम्ही नवीन व्यवसाय सुरू करू शकता. तुम्ही तुमच्या मुलांसोबत चांगला वेळ घालवाल. राजकारणात असलेल्यांना मोठी प्रसिद्धी मिळेल. तुम्हाला मित्रांकडून चांगली बातमी मिळू शकते. अधिकाऱ्यांशी सलोख्याचे संबंध ठेवा.</p>
+        </div>
 
-            <h1>राशि भविष्य</h1>
-            <div class="rashi-detail"><strong>शुक्रवार, जुलै 31, 2026</strong></div>
-            <img src="./images/rashiIcons/mesh.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>मेष राशिफल</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>तुम्ही शुभ कार्यांवर पैसे खर्च करू शकता. तुम्ही नवीन व्यवसाय सुरू करू शकता. तुम्ही तुमच्या मुलांसोबत चांगला वेळ घालवाल. राजकारणात असलेल्यांना मोठी प्रसिद्धी मिळेल. तुम्हाला मित्रांकडून चांगली बातमी मिळू शकते. अधिकाऱ्यांशी सलोख्याचे संबंध ठेवा.</div>
-            </div>
+        <!-- Card 2: Vrishabha -->
+        <div class="rashi-card">
+            <img src="./images/rashiIcons/vrishabha.jpg" alt="वृषभ" class="rashi-icon">
+            <h2 class="rashi-title">वृषभ राशिफल</h2>
+            <p class="rashi-detail"><strong>राशिफळ: </strong>संपूर्ण दिवस उत्साहाने भरलेला असेल. अनावश्यक गोष्टी टाळा. तुम्हाला तुमच्या मुलांकडून उत्साहवर्धक बातमी मिळेल. काही कौटुंबिक मतभेद निर्माण होऊ शकतात. तुम्ही सोशल मीडियावर अत्यंत सक्रिय राहाल. लोक तुमच्या वागणुकीने प्रभावित होतील.</p>
+        </div>
 
-            <img src="./images/rashiIcons/vrishabha.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>वृषभ राशिफल</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>संपूर्ण दिवस उत्साहाने भरलेला असेल. अनावश्यक गोष्टी टाळा. तुम्हाला तुमच्या मुलांकडून उत्साहवर्धक बातमी मिळेल. काही कौटुंबिक मतभेद निर्माण होऊ शकतात. तुम्ही सोशल मीडियावर अत्यंत सक्रिय राहाल. लोक तुमच्या वागणुकीने प्रभावित होतील.</div>
-            </div>
+        <!-- Card 3: Mithun -->
+        <div class="rashi-card">
+            <img src="./images/rashiIcons/mithun.jpg" alt="मिथुन" class="rashi-icon">
+            <h2 class="rashi-title">मिथुन राशिफल</h2>
+            <p class="rashi-detail"><strong>राशिफळ: </strong>कुटुंबातील सदस्यांशी चांगले संबंध ठेवा. निर्णय घेताना संयमाचा अभाव नुकसानीस कारणीभूत ठरू शकतो. तुमच्या जोडीदाराच्या शब्दांनी तुम्हाला अपमानित वाटू शकते. नकारात्मक विचारांपासून दूर राहा. इतरांसोबत काम करताना समन्वयाची समस्या येऊ शकते.</p>
+        </div>
 
-            <img src="./images/rashiIcons/mithun.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>मिथुन राशिफल</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>कुटुंबातील सदस्यांशी चांगले संबंध ठेवा. निर्णय घेताना संयमाचा अभाव नुकसानीस कारणीभूत ठरू शकतो. तुमच्या जोडीदाराच्या शब्दांनी तुम्हाला अपमानित वाटू शकते. नकारात्मक विचारांपासून दूर राहा. इतरांसोबत काम करताना समन्वयाची समस्या येऊ शकते.</div>
-            </div>
+        <!-- Card 4: Kark -->
+        <div class="rashi-card">
+            <img src="./images/rashiIcons/kark.jpg" alt="कर्क" class="rashi-icon">
+            <h2 class="rashi-title">कर्क राशिफल</h2>
+            <p class="rashi-detail"><strong>राशिफळ: </strong>दिवसाच्या सुरुवातीला तुम्हाला आळस वाटू शकतो. तुमच्या आई-वडिलांच्या आरोग्याकडे लक्ष ठेवा. वैवाहिक सुखात घट होऊ शकते. मित्रांकडून तुम्हाला अपेक्षित असलेला पाठिंबा मिळणार नाही. आजचा दिवस राजकारण्यांसाठी चांगला नाही. तुमच्या रागावर नियंत्रण ठेवा.</p>
+        </div>
 
-            <img src="./images/rashiIcons/kark.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>कर्क राशिफल</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>दिवसाच्या सुरुवातीला तुम्हाला आळस वाटू शकतो. तुमच्या आई-वडिलांच्या आरोग्याकडे लक्ष ठेवा. वैवाहिक सुखात घट होऊ शकते. मित्रांकडून तुम्हाला अपेक्षित असलेला पाठिंबा मिळणार नाही. आजचा दिवस राजकारण्यांसाठी चांगला नाही. तुमच्या रागावर नियंत्रण ठेवा.</div>
-            </div>
+        <!-- Card 5: Singh -->
+        <div class="rashi-card">
+            <img src="./images/rashiIcons/singh.jpg" alt="सिंह" class="rashi-icon">
+            <h2 class="rashi-title">सिंह राशिफल</h2>
+            <p class="rashi-detail"><strong>राशिफळ: </strong>आज तुम्ही घरकामात अत्यंत व्यस्त राहाल. तुम्हाला सुज्ञ व्यक्तींकडून मार्गदर्शन मिळेल. आर्थिक प्रगतीची शक्यता आहे. तुम्ही कायदेशीर अडथळ्यांवर मात करण्यात यशस्वी व्हाल. तुम्हाला तुमच्या कामात प्रगती करण्याच्या संधी मिळतील. तुम्ही तुमच्या प्रेमसंबंधांना भरपूर वेळ द्याल.</p>
+        </div>
 
-            <img src="./images/rashiIcons/singh.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>सिंह राशिफल</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>आज तुम्ही घरकामात अत्यंत व्यस्त राहाल. तुम्हाला सुज्ञ व्यक्तींकडून मार्गदर्शन मिळेल. आर्थिक प्रगतीची शक्यता आहे. तुम्ही कायदेशीर अडथळ्यांवर मात करण्यात यशस्वी व्हाल. तुम्हाला तुमच्या कामात प्रगती करण्याच्या संधी मिळतील. तुम्ही तुमच्या प्रेमसंबंधांना भरपूर वेळ द्याल.</div>
-            </div>
+        <!-- Card 6: Kanya -->
+        <div class="rashi-card">
+            <img src="./images/rashiIcons/kanya.jpg" alt="कन्या" class="rashi-icon">
+            <h2 class="rashi-title">कन्या राशिफल</h2>
+            <p class="rashi-detail"><strong>राशिफळ: </strong>तुम्ही आज उधार घेतलेले पैसे परत करू शकता. तुमचे आरोग्य चांगले राहील. तुम्ही जुनी कामे पूर्ण करण्याबाबत जागरूक असाल. परदेशातून नवीन नोकरीच्या संधी मिळण्याची शक्यता आहे. तुम्ही तुमच्या कुटुंबाला सर्वोच्च महत्त्व द्याल.</p>
+        </div>
 
-            <img src="./images/rashiIcons/kanya.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>कन्या राशिफल</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>तुम्ही आज उधार घेतलेले पैसे परत करू शकता. तुमचे आरोग्य चांगले राहील. तुम्ही जुनी कामे पूर्ण करण्याबाबत जागरूक असाल. परदेशातून नवीन नोकरीच्या संधी मिळण्याची शक्यता आहे. तुम्ही तुमच्या कुटुंबाला सर्वोच्च महत्त्व द्याल.</div>
-            </div>
+        <!-- Card 7: Tula -->
+        <div class="rashi-card">
+            <img src="./images/rashiIcons/tula.jpg" alt="तूळ" class="rashi-icon">
+            <h2 class="rashi-title">तूळ राशिफल</h2>
+            <p class="rashi-detail"><strong>राशिफळ: </strong>तुम्हाला नवीन स्त्रोतांकडून पैसे मिळतील. घरातील वातावरण थोडे गंभीर राहील. तुमच्या कौटुंबिक जीवनात प्रेम आणि सदिच्छा वाढेल. शेअर बाजार आणि म्युच्युअल फंडातील गुंतवणुकीमुळे तुम्हाला फायदा होईल. तुमची मते इतरांसमोर मोकळेपणाने मांडा. तुम्ही परीक्षा आणि मुलाखतींमध्ये यशस्वी व्हाल.</p>
+        </div>
 
-            <img src="./images/rashiIcons/tula.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>तूळ राशिफल</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>तुम्हाला नवीन स्त्रोतांकडून पैसे मिळतील. घरातील वातावरण थोडे गंभीर राहील. तुमच्या कौटुंबिक जीवनात प्रेम आणि सदिच्छा वाढेल. शेअर बाजार आणि म्युच्युअल फंडातील गुंतवणुकीमुळे तुम्हाला फायदा होईल. तुमची मते इतरांसमोर मोकळेपणाने मांडा. तुम्ही परीक्षा आणि मुलाखतींमध्ये यशस्वी व्हाल.</div>
-            </div>
+        <!-- Card 8: Vrishchik -->
+        <div class="rashi-card">
+            <img src="./images/rashiIcons/vrishchik.jpg" alt="वृश्चिक" class="rashi-icon">
+            <h2 class="rashi-title">वृश्चिक राशिफल</h2>
+            <p class="rashi-detail"><strong>राशिफळ: </strong>मुलांनी अभ्यासावर लक्ष केंद्रित करावे. आज अनावश्यक धावपळ टाळा. अनिर्णयक्षमतेमुळे तुमच्या कामात अडथळा येऊ शकतो. विरोधक तुम्हाला गोंधळात टाकण्याचा प्रयत्न करू शकतात. तुम्हाला कुटुंबाकडून अपेक्षित पाठिंबा मिळणार नाही. जास्त बोलण्यामुळे अनादर होऊ शकतो.</p>
+        </div>
 
-            <img src="./images/rashiIcons/vrishchik.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>वृश्चिक राशिफल</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>मुलांनी अभ्यासावर लक्ष केंद्रित करावे. आज अनावश्यक धावपळ टाळा. अनिर्णयक्षमतेमुळे तुमच्या कामात अडथळा येऊ शकतो. विरोधक तुम्हाला गोंधळात टाकण्याचा प्रयत्न करू शकतात. तुम्हाला कुटुंबाकडून अपेक्षित पाठिंबा मिळणार नाही. जास्त बोलण्यामुळे अनादर होऊ शकतो.</div>
-            </div>
+        <!-- Card 9: Dhanu -->
+        <div class="rashi-card">
+            <img src="./images/rashiIcons/dhanu.jpg" alt="धनु" class="rashi-icon">
+            <h2 class="rashi-title">धनु राशिफल</h2>
+            <p class="rashi-detail"><strong>राशिफळ: </strong>व्यवसायातील नफा तुमच्या अपेक्षेनुसार असेल. तुम्ही महत्त्वाची ध्येये साध्य करण्याच्या दिशेने पुढे जाल. नोकरीच्या शोधात असलेल्यांना यश मिळू शकते. तुमची आर्थिक परिस्थिती उत्कृष्ट राहील. तुम्ही कौटुंबिक सुखाचा पुरेपूर आनंद घ्याल.</p>
+        </div>
 
-            <img src="./images/rashiIcons/dhanu.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>धनु राशिफल</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>व्यवसायातील नफा तुमच्या अपेक्षेनुसार असेल. तुम्ही महत्त्वाची ध्येये साध्य करण्याच्या दिशेने पुढे जाल. नोकरीच्या शोधात असलेल्यांना यश मिळू शकते. तुमची आर्थिक परिस्थिती उत्कृष्ट राहील. तुम्ही कौटुंबिक सुखाचा पुरेपूर आनंद घ्याल.</div>
-            </div>
+        <!-- Card 10: Makar -->
+        <div class="rashi-card">
+            <img src="./images/rashiIcons/makar.jpg" alt="मकर" class="rashi-icon">
+            <h2 class="rashi-title">मकर राशिफल</h2>
+            <p class="rashi-detail"><strong>राशिफळ: </strong>अनावश्यक धावपळीमुळे तुमचे आरोग्य बिघडू शकते. आज फक्त तुमच्या कामावर लक्ष केंद्रित करा. सुरू असलेल्या कामांमध्ये व्यत्यय येऊ शकतो. काही लोक तुमचे मनोधैर्य खच्ची करण्याचा प्रयत्न करू शकतात. सहकाऱ्यांशी गैरवर्तन टाळा. आज पैसे उधार घेणे टाळा.</p>
+        </div>
 
-            <img src="./images/rashiIcons/makar.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>मकर राशिफल</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>अनावश्यक धावपळीमुळे तुमचे आरोग्य बिघडू शकते. आज फक्त तुमच्या कामावर लक्ष केंद्रित करा. सुरू असलेल्या कामांमध्ये व्यत्यय येऊ शकतो. काही लोक तुमचे मनोधैर्य खच्ची करण्याचा प्रयत्न करू शकतात. सहकाऱ्यांशी गैरवर्तन टाळा. आज पैसे उधार घेणे टाळा.</div>
-            </div>
+        <!-- Card 11: Kumbha -->
+        <div class="rashi-card">
+            <img src="./images/rashiIcons/kumbha.jpg" alt="कुंभ" class="rashi-icon">
+            <h2 class="rashi-title">कुंभ राशिफल</h2>
+            <p class="rashi-detail"><strong>राशिफळ: </strong>तुम्ही नवीन व्यवसायात सामील होण्याचा प्रयत्न करू शकता. तुम्ही मित्रांसोबत जुन्या आठवणींना उजाळा द्याल. तुम्हाला चांगली बातमी मिळेल. लोकांना तुमच्या सल्ल्याचा फायदा होईल. तुम्ही तुमच्या जोडीदारासोबत चांगला वेळ घालवाल.</p>
+        </div>
 
-            <img src="./images/rashiIcons/kumbha.jpg" alt="Rashi Icon" class="rashi-icon">
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>कुंभ राशिफल</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>तुम्ही नवीन व्यवसायात सामील होण्याचा प्रयत्न करू शकता. तुम्ही मित्रांसोबत जुन्या आठवणींना उजाळा द्याल. तुम्हाला चांगली बातमी मिळेल. लोकांना तुमच्या सल्ल्याचा फायदा होईल. तुम्ही तुमच्या जोडीदारासोबत चांगला वेळ घालवाल.</div>
-            </div>
-
-            <img src="./images/rashiIcons/meen.jpg" alt="Rashi Icon" class="rashi-icon">                    
-            <div class="rashi-container">
-                <div class="rashi-detail"><strong>मीन राशिफल</strong></div>
-                <div class="rashi-detail"><strong>राशिफळ: </strong>आज तुमचे मन थोडे विचलित होईल. बोलण्यात संयम ठेवा. प्रतिस्पर्धकांपासून सावध रहा. मालमत्तेची कागदपत्रे सुरक्षित ठेवा. जास्त श्रमामुळे तुम्हाला थकवा जाणवेल. तुमच्या आरोग्याची विशेष काळजी घ्या.</div>
-            </div>
-        </body>
+        <!-- Card 12: Meen -->
+        <div class="rashi-card">
+            <img src="./images/rashiIcons/meen.jpg" alt="मीन" class="rashi-icon">
+            <h2 class="rashi-title">मीन राशिफल</h2>
+            <p class="rashi-detail"><strong>राशिफळ: </strong>आज तुमचे मन थोडे विचलित होईल. बोलण्यात संयम ठेवा. प्रतिस्पर्धकांपासून सावध रहा. मालमत्तेची कागदपत्रे सुरक्षित ठेवा. जास्त श्रमामुळे तुम्हाला थकवा जाणवेल. तुमच्या आरोग्याची विशेष काळजी घ्या.</p>
+        </div>
+    </div>
+</body>
         <script>
             function toggleMenu() {
                 const menu = document.getElementById('menu');
