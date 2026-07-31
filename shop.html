@@ -5,219 +5,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ratna</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-        .top-header {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            margin: 0;
-            padding: 30px;
-            font-size: 2.5em;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            box-shadow: 0 4px rgb(0, 0, 0, 0.1);
-            animation: glow 1s ease-in-out infinite alternate;
+        :root {
+            --primary-glow-color: rgba(0, 255, 255, 0.7);
+            --secondary-glow-color: rgba(255, 0, 255, 0.7);
+            --card-bg-color: rgba(22, 22, 32, 0.6);
+            --border-color: rgba(255, 255, 255, 0.18);
         }
-
-        .header-image {
-            margin-top: 60px; /* Add space between the top of the page and the image */
-            width: 100%; /* Ensure the container spans the full width of the page */
-            padding: 0; /* Remove any padding */
-            margin-left: 0; /* Ensure it starts from the left */
-            margin-right: 0; /* Ensure it ends at the right */
-        }
-        .header-image img {
-                width: 100%; /* Make the image span the full width of the page */
-                height: auto; /* Maintain the aspect ratio */
-                display: block; /* Remove any inline spacing issues */
-                margin: 0; /* Remove any default margin */
-                padding: 0; /* Remove any default padding */
-            }
-
-            
 
         body {
-            background-image: url('./images/.jpg'); /* Replace with the path to your background image */
-            background-size: cover; /* Ensure the image covers the entire viewport */
-            background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Prevent the image from repeating */
-            background-attachment: fixed; /* Keep the background fixed during scrolling */
-            font-family: Arial, sans-serif;
+            background-image: url('./images/indexbackground.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            color: white;
+            color: #ffffff;
             text-align: center;
+        }
+        
+        .top-header {
+            position: relative;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-size: 2em;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            box-sizing: border-box;
+            animation: glow 1s ease-in-out infinite alternate;
+            text-shadow: 0 0 10px var(--primary-glow-color), 0 0 20px var(--secondary-glow-color);
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px var(--primary-glow-color), 0 0 20px var(--secondary-glow-color); }
+            to   { text-shadow: 0 0 20px var(--primary-glow-color), 0 0 30px var(--secondary-glow-color); }
         }
 
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .header {
-            margin-top: 20px;
-            font-size: 2.5em;
-            color: #fefcfc;
-        }
-
-        .shop-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            gap: 30px;
-            flex-wrap: wrap; /* Allow items to wrap on smaller screens */
-        }
-
-        .shop-item {
-            text-align: center;
-        }
-
-        .shop-item img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 50%; /* Make the image circular */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            cursor: pointer; /* Make the icon clickable */
-        }
-
-        .shop-item p {
-            margin-top: 10px;
-            font-size: 1.2em;
-            color: #f7f5f5;
-        }
-
-        .home-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }
-
-        .home-button img {
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
+            padding: 30px 20px;
         }
 
         .grid-container {
-            display: none; /* Initially hidden */
-            margin-top: 20px;
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Always 3 columns */
-            gap: 20px;
-            justify-content: center;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
         }
 
-        .grid-item {
-            width: 443px; /* Fixed width for desktop */
-            height: 250px; /* Fixed height for desktop */
-            background-color: rgba(255, 255, 255, 0.2);
-            border: 1px solid white;
+        .gem-card {
+            background: var(--card-bg-color);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            overflow: hidden;
+            text-decoration: none;
+            color: #ffffff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+        }
+
+        .gem-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px var(--primary-glow-color), 0 0 10px var(--secondary-glow-color);
+        }
+
+        .gem-card-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .gem-card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
-            overflow: hidden; /* Prevent overflow of the image */
-            padding: 0; /* Remove any padding */
-            margin: 0; /* Remove any margin */
-            box-sizing: border-box; /* Include border in the block size */
         }
 
-        .grid-item img {
-            width: 100%; /* Ensure the image takes full width of the block */
-            height: 100%; /* Ensure the image takes full height of the block */
-            object-fit: cover; /* Maintain aspect ratio while covering the block */
-            display: block; /* Remove any inline spacing issues */
-            border: none; /* Remove any default border */
-            margin: 0; /* Remove any default margin */
-            padding: 0; /* Remove any default padding */
+        .gem-card-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 0;
         }
 
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .grid-item {
-                width: 300px; /* Adjust width for tablets */
-                height: 200px; /* Adjust height for tablets */
-            }
+        .gem-card-link {
+            margin-top: 15px;
+            font-weight: 600;
+            color: var(--primary-glow-color);
+            text-decoration: none;
+            align-self: center;
         }
 
-        @media (max-width: 768px) {
-            .header {
-                font-size: 2em; /* Reduce header size on smaller screens */
-            }
-
-            .shop-container {
-                gap: 20px; /* Reduce gap between items */
-            }
-
-            .shop-item img {
-                max-width: 120px; /* Reduce image size */
-                height: 120px; /* Maintain aspect ratio */
-            }
-
-            .shop-item p {
-                font-size: 1em; /* Reduce text size */
-            }
-
-            .grid-item {
-                width: 50px; /* Adjust width for mobile */
-                height: 50px; /* Adjust height for mobile */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header {
-                font-size: 1.8em; /* Further reduce header size */
-            }
-
-            .shop-item img {
-                max-width: 100px; /* Further reduce image size */
-                height: 100px; /* Ensure height matches width */
-            }
-
-            .shop-item p {
-                font-size: 0.9em; /* Further reduce text size */
-            }
-
-            .grid-item {
-                width: 120px; /* Further adjust width for very small screens */
-                height: 69px; /* Further adjust height for very small screens */
-            }
+        .gem-card-link:hover {
+            text-decoration: underline;
         }
 
         .strong-text {
-            margin-top: 20px; /* Add space above the text */
-            text-align: left; /* Center the text */
-            font-size: 1.2em; /* Default font size for larger screens */
-            line-height: 1.6; /* Improve readability */
-            color: #080808; /* Set text color */
-            padding: 0 20px; /* Add padding for smaller screens */
+            margin: 40px auto;
+            padding: 20px;
+            max-width: 900px;
+            background: var(--card-bg-color);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            text-align: left;
+            font-size: 1em;
+            line-height: 1.7;
         }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .strong-text {
-                font-size: 1em; /* Reduce font size for tablets */
-                line-height: 1.5; /* Adjust line height */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .strong-text {
-                font-size: 0.9em; /* Further reduce font size for mobile devices */
-                line-height: 1.4; /* Adjust line height for smaller screens */
-            }
+        .strong-text p:first-child {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--primary-glow-color);
+            margin-top: 0;
         }
 
          /* Burger Menu Icon */
         .burger-menu {
             position: absolute;
-            top: 10px;
+            top: 25px;
             left: 10px;
-            z-index: 1000;
+            z-index: 1001;
         }
 
         .burger-menu .burger-icon {
@@ -226,266 +148,74 @@
             cursor: pointer;
         }
 
-        /* Dropdown Menu */
-        .hidden-menu {
-            display: none;
-            position: absolute;
-            top: 60px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 1000;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-header {
+                font-size: 1.5em;
+                padding: 15px;
+            }
+            .container {
+                padding: 20px 15px;
+            }
+            .grid-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
         }
 
-        .hidden-menu ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            text-align: left;
-        }
-
-        .hidden-menu ul li {
-            margin: 10px 0;
-        }
-
-        .hidden-menu ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2em;
-            display: block; /* Ensure the link spans the full width */
-            text-align: left; /* Align the text inside the link to the left */
-            padding: 5px 10px; /* Add padding for better spacing */
-        }
-
-        .hidden-menu ul li a:hover {
-            text-decoration: underline;
+        @media (max-width: 480px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .strong-text {
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
 <body>
     <h1 class="top-header">
-          
+        रत्न संग्रह
     </h1>
 
      <!-- Burger Menu (click -> Home) -->
-  <div class="burger-menu">
-    <img src="./images/burger-icon.png"
-         alt="Menu Icon"
-         class="burger-icon"
-         onclick="window.location.href='index.html'">
-  </div>
-
-    <div class="header-image">
-        <img src="./images/head.jpg" alt="Shop Header">
+    <div class="burger-menu">
+        <a href="index.html">
+            <img src="./images/burger-icon.png" alt="Menu Icon" class="burger-icon">
+        </a>
     </div>
 
     <div class="container">
-       
-
-        <!-- Grid for Ratna -->
         <div id="ratnaGrid" class="grid-container"></div>
-        
     </div>
 
     <script>
-        function showGrid() {
+        document.addEventListener('DOMContentLoaded', () => {
             const grid = document.getElementById('ratnaGrid');
-            grid.style.display = 'grid'; // Show the grid
-    
-            // Clear existing blocks if any
-            grid.innerHTML = '';
-    
-            // Add 9 blocks dynamically
-            for (let i = 1; i <= 9; i++) {
-                const block = document.createElement('div');
-                block.className = 'grid-item';
-    
-            // Add pukraj.jpg to the first block
-            if (i === 1) {
-                const link = document.createElement('a');
-                link.href = './Ratna/pukraj.html'; // Link to the new page
+            const gemstones = [
+                { name: 'पुखराज (Pukhraj)', img: './images/pukraj.jpg', link: './Ratna/pukraj.html' },
+                { name: 'नीलम (Neelam)', img: './images/neelam.jpg', link: './Ratna/neelam.html' },
+                { name: 'माणिक (Manik)', img: './images/manik.jpg', link: './Ratna/manik.html' },
+                { name: 'पन्ना (Panna)', img: './images/panna.jpg', link: './Ratna/panna.html' },
+                { name: 'मोती (Moti)', img: './images/moti.jpg', link: './Ratna/moti.html' },
+                { name: 'प्रवाळ (Pravaal)', img: './images/pravaal.jpg', link: './Ratna/pravaal.html' },
+                { name: 'ओपल (Opal)', img: './images/opal.jpg', link: './Ratna/opal.html' },
+                { name: 'हिरा (Diamond)', img: './images/diamond.jpg', link: './Ratna/diamond.html' },
+                { name: 'गोमेद (Gomed)', img: './images/gomed.jpg', link: './Ratna/gomed.html' }
+            ];
 
-                const img = document.createElement('img');
-                img.src = './images/pukraj.jpg'; // Path to the image
-                img.alt = 'Pukraj';
-                img.style.width = '100%'; // Ensure the image fits the block
-                img.style.height = '100%'; // Ensure the image fits the block
-                img.style.objectFit = 'cover'; // Maintain aspect ratio
-                img.style.display = 'block'; // Remove any inline spacing issues
-                img.style.margin = '0'; // Remove any default margin
-                img.style.padding = '0'; // Remove any default padding
-                img.style.border = 'none'; // Remove any default border
-
-                link.appendChild(img);
-                block.appendChild(link);
-            }
-
-            // Add neelam.jpg to the second block
-            if (i === 2) {
-                const link = document.createElement('a');
-                link.href = './Ratna/neelam.html'; // Link to the new page
-
-                const img = document.createElement('img');
-                img.src = './images/neelam.jpg'; // Path to the image
-                img.alt = 'Neelam';
-                img.style.width = '100%'; // Ensure the image fits the block
-                img.style.height = '100%'; // Ensure the image fits the block
-                img.style.objectFit = 'cover'; // Maintain aspect ratio
-                img.style.display = 'block'; // Remove any inline spacing issues
-                img.style.margin = '0'; // Remove any default margin
-                img.style.padding = '0'; // Remove any default padding
-                img.style.border = 'none'; // Remove any default border
-                link.appendChild(img);
-                block.appendChild(link);
-            }
-
-            // Add manik.jpg to the third block
-            if (i === 3) {
-                const link = document.createElement('a');
-                link.href = './Ratna/manik.html'; // Link to the new page
-
-                const img = document.createElement('img');
-                img.src = './images/manik.jpg'; // Path to the image
-                img.alt = 'Manik';
-                img.style.width = '100%'; // Ensure the image fits the block
-                img.style.height = '100%'; // Ensure the image fits the block
-                img.style.objectFit = 'cover'; // Maintain aspect ratio
-                img.style.display = 'block'; // Remove any inline spacing issues
-                img.style.margin = '0'; // Remove any default margin
-                img.style.padding = '0'; // Remove any default padding
-                img.style.border = 'none'; // Remove any default border
-
-                link.appendChild(img);
-                block.appendChild(link);
-            }
-
-               // Add panna.jpg to the third block
-               if (i === 4) {
-                const link = document.createElement('a');
-                link.href = './Ratna/panna.html'; // Link to the new page
-
-                const img = document.createElement('img');
-                img.src = './images/panna.jpg'; // Path to the image
-                img.alt = 'Panna';
-                img.style.width = '100%'; // Ensure the image fits the block
-                img.style.height = '100%'; // Ensure the image fits the block
-                img.style.objectFit = 'cover'; // Maintain aspect ratio
-                img.style.display = 'block'; // Remove any inline spacing issues
-                img.style.margin = '0'; // Remove any default margin
-                img.style.padding = '0'; // Remove any default padding
-                img.style.border = 'none'; // Remove any default border
-
-                link.appendChild(img);
-                block.appendChild(link);
-            }
-
-               // Add moti.jpg to the third block
-               if (i === 5) {
-                const link = document.createElement('a');
-                link.href = './Ratna/moti.html'; // Link to the new page
-
-                const img = document.createElement('img');
-                img.src = './images/moti.jpg'; // Path to the image
-                img.alt = 'Moti';
-                img.style.width = '100%'; // Ensure the image fits the block
-                img.style.height = '100%'; // Ensure the image fits the block
-                img.style.objectFit = 'cover'; // Maintain aspect ratio
-                img.style.display = 'block'; // Remove any inline spacing issues
-                img.style.margin = '0'; // Remove any default margin
-                img.style.padding = '0'; // Remove any default padding
-                img.style.border = 'none'; // Remove any default border
-
-                link.appendChild(img);
-                block.appendChild(link);
-            }
-
-            // Add pravaal.jpg to the third block
-            if (i === 6) {
-                const link = document.createElement('a');
-                link.href = './Ratna/pravaal.html'; // Link to the new page
-
-                const img = document.createElement('img');
-                img.src = './images/pravaal.jpg'; // Path to the image
-                img.alt = 'Pravaal';
-                img.style.width = '100%'; // Ensure the image fits the block
-                img.style.height = '100%'; // Ensure the image fits the block
-                img.style.objectFit = 'cover'; // Maintain aspect ratio
-                img.style.display = 'block'; // Remove any inline spacing issues
-                img.style.margin = '0'; // Remove any default margin
-                img.style.padding = '0'; // Remove any default padding
-                img.style.border = 'none'; // Remove any default border
-
-                link.appendChild(img);
-                block.appendChild(link);
-            }
-
-            // Add opal.jpg to the third block
-            if (i === 7) {
-                const link = document.createElement('a');
-                link.href = './Ratna/opal.html'; // Link to the new page
-
-                const img = document.createElement('img');
-                img.src = './images/opal.jpg'; // Path to the image
-                img.alt = 'Opal';
-                img.style.width = '100%'; // Ensure the image fits the block
-                img.style.height = '100%'; // Ensure the image fits the block
-                img.style.objectFit = 'cover'; // Maintain aspect ratio
-                img.style.display = 'block'; // Remove any inline spacing issues
-                img.style.margin = '0'; // Remove any default margin
-                img.style.padding = '0'; // Remove any default padding
-                img.style.border = 'none'; // Remove any default border
-
-                link.appendChild(img);
-                block.appendChild(link);
-            }
-
-            // Add diamond.jpg to the third block
-            if (i === 8) {
-                const link = document.createElement('a');
-                link.href = './Ratna/diamond.html'; // Link to the new page
-
-                const img = document.createElement('img');
-                img.src = './images/diamond.jpg'; // Path to the image
-                img.alt = 'Diamond';
-                img.style.width = '100%'; // Ensure the image fits the block
-                img.style.height = '100%'; // Ensure the image fits the block
-                img.style.objectFit = 'cover'; // Maintain aspect ratio
-                img.style.display = 'block'; // Remove any inline spacing issues
-                img.style.margin = '0'; // Remove any default margin
-                img.style.padding = '0'; // Remove any default padding
-                img.style.border = 'none'; // Remove any default border
-
-                link.appendChild(img);
-                block.appendChild(link);
-            }
-
-            // Add gomed.jpg to the third block
-            if (i === 9) {
-                const link = document.createElement('a');
-                link.href = './Ratna/gomed.html'; // Link to the new page
-
-                const img = document.createElement('img');
-                img.src = './images/gomed.jpg'; // Path to the image
-                img.alt = 'Gomed';
-                img.style.width = '100%'; // Ensure the image fits the block
-                img.style.height = '100%'; // Ensure the image fits the block
-                img.style.objectFit = 'cover'; // Maintain aspect ratio
-                img.style.display = 'block'; // Remove any inline spacing issues
-                img.style.margin = '0'; // Remove any default margin
-                img.style.padding = '0'; // Remove any default padding
-                img.style.border = 'none'; // Remove any default border
-
-                link.appendChild(img);
-                block.appendChild(link);
-            }
-    
-                grid.appendChild(block);
-            }
-        }
-        // Call showGrid immediately when the page loads
-    document.addEventListener('DOMContentLoaded', showGrid);
+            gemstones.forEach(gem => {
+                const card = `
+                    <a href="${gem.link}" class="gem-card">
+                        <img src="${gem.img}" alt="${gem.name}" class="gem-card-image">
+                        <div class="gem-card-content">
+                            <h3 class="gem-card-title">${gem.name}</h3>
+                            <span class="gem-card-link">View Details &rarr;</span>
+                        </div>
+                    </a>
+                `;
+                grid.innerHTML += card;
+            });
+        });
     </script>
     <!-- Add strong text after the grid blocks -->
     <div class="strong-text">
@@ -497,14 +227,4 @@
         <p>नैसर्गिक राशीरत्ने परिधान केल्याने तुमचे मन आणि आत्मा संतुलित राहण्यास मदत होते, ते तुम्हाला भावनिक वेदना बरे करण्यास मदत करते. मानसिक ताण निर्माण करणाऱ्या समस्या सोडवण्यास मदत करते. ज्योतिषी नैसर्गिक राशीरत्ने वापरण्याची शिफारस करतात, जन्मतारीख, जन्मवेळ, जन्माच्या वेळी नक्षत्रांची स्थिती इत्यादी काही मुद्द्यांचा विचार करून ती मोजली जातील आणि त्यानुसार तुम्ही कोणते मूळ राशीरत्न घालावे हे ठरवले जाईल.</p>
     </div>
 </body>
-<script>
-    function toggleMenu() {
-        const menu = document.getElementById('menu');
-        if (menu.style.display === 'block') {
-            menu.style.display = 'none';
-        } else {
-            menu.style.display = 'block';
-        }
-    }
-</script>
 </html>
