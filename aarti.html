@@ -48,17 +48,37 @@
       to   { text-shadow: 0 0 20px var(--primary-glow-color), 0 0 30px var(--secondary-glow-color); }
     }
 
-    /* Burger icon (click -> Home) */
     .burger-menu {
       position: absolute;
       top: 25px;
-      left: 10px;
+      left: 25px;
       z-index: 1000;
-    }
-    .burger-menu .burger-icon {
-      width: 40px;
-      height: 40px;
       cursor: pointer;
+    }
+    .burger-icon {
+      width: 30px;
+      height: 22px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .burger-icon span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background-color: #ffffff;
+      border-radius: 3px;
+      transition: all 0.3s ease-in-out;
+    }
+    .burger-menu:hover .burger-icon span:nth-child(1) {
+      transform: translateY(9.5px) rotate(45deg);
+    }
+    .burger-menu:hover .burger-icon span:nth-child(2) {
+      opacity: 0;
+    }
+    .burger-menu:hover .burger-icon span:nth-child(3) {
+      transform: translateY(-9.5px) rotate(-45deg);
     }
 
     /* Revealed link */
@@ -163,12 +183,12 @@
 <body id="main-body">
   <h1 class="top-header">आरती संग्रह</h1>
 
-  <!-- Burger Menu (click -> Home) -->
-  <div class="burger-menu">
-    <img src="./images/burger-icon.png"
-         alt="Menu"
-         class="burger-icon"
-         onclick="window.location.href='index.html'">
+  <div class="burger-menu" onclick="window.location.href='index.html'" role="button" aria-label="Go to homepage">
+    <div class="burger-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </div>
 
    <!-- Circle icons row -->

@@ -62,6 +62,9 @@ class PanchangDetails extends Page {
     get moonImage () {
         return $('#moon_img');
     }
+    get burgerMenu () {
+        return $('.burger-menu');
+    }
 }
 
 export default new PanchangDetails();

@@ -173,50 +173,38 @@
         }
 
         /* Burger Menu Icon */
-
-     /* Dropdown Menu */
-     .hidden-menu {
-        display: none;
-        position: absolute;
-        top: 60px;
-        left: 10px;
-        background-color: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
-        z-index: 1000;
-    }
-
-    .hidden-menu ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        text-align: left;
-    }
-
-    .hidden-menu ul li {
-        margin: 10px 0;
-    }
-
-    .hidden-menu ul li a {
-        color: white;
-        text-decoration: none;
-        font-size: 1.2em;
-        display: block; /* Ensure the link spans the full width */
-        text-align: left; /* Align the text inside the link to the left */
-        padding: 5px 10px; /* Add padding for better spacing */
-    }
-
-    .hidden-menu ul li a:hover {
-        text-decoration: underline;
-    }
-
-    .burger-menu .burger-icon {
-        width: 35px; /* Set a fixed width for the icon */
-        height: 35px; /* Set a fixed height for the icon */
-        cursor: pointer; /* Indicate it's clickable */
-        vertical-align: middle; /* Align with middle of text */
-    }
+        .burger-menu {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            z-index: 1001;
+            cursor: pointer;
+        }
+        .burger-icon {
+            width: 30px;
+            height: 22px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .burger-icon span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: #ffffff;
+            border-radius: 3px;
+            transition: all 0.3s ease-in-out;
+        }
+        .burger-menu:hover .burger-icon span:nth-child(1) {
+            transform: translateY(9.5px) rotate(45deg);
+        }
+        .burger-menu:hover .burger-icon span:nth-child(2) {
+            opacity: 0;
+        }
+        .burger-menu:hover .burger-icon span:nth-child(3) {
+            transform: translateY(-9.5px) rotate(-45deg);
+        }
 
      /* Moon Widget Styling */
      .moon-widget {
@@ -262,18 +250,17 @@
             font-size: 1.1em;
             color: #ffffff;
         }
-            
     </style>
 </head>
 <body>
-
      <h1 class="top-header">
          <!-- Burger Menu (click -> Home) -->
-         <div class="burger-menu">
-             <img src="./images/burger-icon.png"
-                  alt="Menu Icon"
-                  class="burger-icon"
-                  onclick="window.location.href='index.html'">
+         <div class="burger-menu" onclick="window.location.href='index.html'" role="button" aria-label="Go to homepage">
+             <div class="burger-icon">
+                 <span></span>
+                 <span></span>
+                 <span></span>
+             </div>
          </div>
          <span>||ॐ|| पंचांग ||卐||</span>
      </h1>

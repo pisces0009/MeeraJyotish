@@ -138,14 +138,34 @@
         .burger-menu {
             position: absolute;
             top: 25px;
-            left: 10px;
+            left: 25px;
             z-index: 1001;
-        }
-
-        .burger-menu .burger-icon {
-            width: 40px;
-            height: 40px;
             cursor: pointer;
+        }
+        .burger-icon {
+            width: 30px;
+            height: 22px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .burger-icon span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: #ffffff;
+            border-radius: 3px;
+            transition: all 0.3s ease-in-out;
+        }
+        .burger-menu:hover .burger-icon span:nth-child(1) {
+            transform: translateY(9.5px) rotate(45deg);
+        }
+        .burger-menu:hover .burger-icon span:nth-child(2) {
+            opacity: 0;
+        }
+        .burger-menu:hover .burger-icon span:nth-child(3) {
+            transform: translateY(-9.5px) rotate(-45deg);
         }
 
         /* Responsive */
@@ -177,11 +197,12 @@
         रत्न संग्रह
     </h1>
 
-     <!-- Burger Menu (click -> Home) -->
-    <div class="burger-menu">
-        <a href="index.html">
-            <img src="./images/burger-icon.png" alt="Menu Icon" class="burger-icon">
-        </a>
+    <div class="burger-menu" onclick="window.location.href='index.html'" role="button" aria-label="Go to homepage">
+        <div class="burger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
 
     <div class="container">
