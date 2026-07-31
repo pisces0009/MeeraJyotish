@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panchang Details</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
 
         :root {
-            --text-color: #ffffff;
-            --card-bg: rgba(0, 0, 0, 0.3);
-            --card-border: rgba(255, 255, 255, 0.18);
-            --card-shadow: rgba(0, 0, 0, 0.2);
+            --text-color: #f0f0f0;
+            --card-bg: rgba(0, 0, 0, 0.35);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --card-shadow: rgba(0, 0, 0, 0.25);
+            --accent-color: #00d9ff; /* A vibrant cyan */
+            --accent-glow: rgba(0, 217, 255, 0.5);
         }
 
         body {
@@ -25,106 +27,172 @@
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         body.monday-theme {
-            --text-color: #000000;
-        }
-
-        body.monday-theme .main-container {
-            --card-bg: rgba(255, 255, 255, 0.4);
+            --text-color: #1a1a1a;
+            --card-bg: rgba(255, 255, 255, 0.6);
             --card-border: rgba(0, 0, 0, 0.1);
-        }
-
-        body.monday-theme .date-header {
-            color: #c9302c;
+            --accent-color: #d9005b;
+            --accent-glow: rgba(217, 0, 91, 0.4);
         }
 
         .top-header {
+            width: 100%;
+            max-width: 850px;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 15px 20px;
             background: rgba(0, 0, 0, 0.4);
-            border-radius: 12px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 15px;
+            border: 1px solid var(--card-border);
             margin-bottom: 20px;
             position: relative;
+            box-shadow: 0 4px 30px var(--card-shadow);
         }
         
         .page-title {
+            font-family: 'Orbitron', sans-serif;
             font-size: 2em;
             font-weight: 600;
             margin: 0;
             flex-grow: 1;
             text-align: center;
             color: #fff;
-            text-shadow: 0 0 5px rgba(255,255,255,0.7);
+            text-shadow: 0 0 8px var(--accent-glow), 0 0 15px var(--accent-glow), 0 0 25px var(--accent-glow);
+        }
+
+        body.monday-theme .page-title {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-glow);
         }
 
         .burger-menu {
             position: absolute;
             left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
             cursor: pointer;
+            padding: 5px;
         }
 
         .burger-icon {
             width: 35px;
             height: 35px;
+            transition: transform 0.3s ease;
+        }
+        .burger-menu:hover .burger-icon {
+            transform: scale(1.1);
         }
 
         .main-container {
-            max-width: 800px;
-            margin: 0 auto;
+            width: 100%;
+            max-width: 850px;
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 15px;
             border: 1px solid var(--card-border);
-            box-shadow: 0 4px 20px var(--card-shadow);
-            padding: 30px;
+            box-shadow: 0 4px 30px var(--card-shadow);
+            padding: 25px 35px;
         }
 
         .date-header {
             text-align: center;
-            font-size: 1.5em;
+            font-size: 1.6em;
             font-weight: 600;
-            margin-bottom: 20px;
-            color: #ffc107; /* A nice highlight color */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin-bottom: 30px;
+            color: var(--accent-color);
+            text-shadow: 0 0 8px var(--accent-glow);
         }
 
         .panchang-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
         .panchang-detail {
-            font-size: 1.1em;
-            line-height: 1.6;
-            text-align: left;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s, transform 0.3s;
+        }
+        .panchang-detail:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .panchang-icon {
+            font-size: 1.8em;
+            margin-right: 15px;
+            line-height: 1;
+        }
+
+        .panchang-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panchang-label {
+            font-weight: 600;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .panchang-value {
+            font-size: 1em;
+            line-height: 1.4;
         }
 
         .section-title {
-            font-size: 1.3em;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5em;
             font-weight: 600;
             text-align: center;
-            margin: 30px 0 15px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            padding-top: 20px;
+            margin: 35px 0 20px 0;
+            border-top: 1px solid var(--card-border);
+            padding-top: 25px;
+            color: var(--accent-color);
+            text-shadow: 0 0 8px var(--accent-glow);
         }
 
-        .gochar-details, .jyotishacharya-details {
+        .gochar-details {
+            text-align: center;
+            font-size: 1.1em;
+            line-height: 1.7;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .gochar-item {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        .jyotishacharya-details {
             text-align: center;
             font-size: 1.1em;
             line-height: 1.7;
         }
-        
+
         .jyotishacharya-details p {
             margin: 5px 0;
+        }
+        .jyotishacharya-details .name {
+            font-weight: 600;
+            font-size: 1.2em;
         }
 
         /* Responsive Design */
@@ -150,11 +218,18 @@
             .top-header {
                 padding: 10px 15px;
             }
+            .main-container {
+                max-width: 100%;
+            }
+            .gochar-details {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
-
+    
     <div class="top-header">
          <div class="burger-menu" onclick="window.location.href='index.html'">
              <img src="./images/burger-icon.png" alt="Menu Icon" class="burger-icon">
@@ -164,45 +239,121 @@
 
     <div class="main-container">
         <div class="date-header">
-            <span>01 Aug 2026</span>
+            01 Aug 2026
         </div>
         
         <div class="panchang-grid">
-            <div class="panchang-detail"><strong>वार:</strong> शनिवार</div>
-            <div class="panchang-detail"><strong>संवत:</strong> 1948 पराभव, शक संवत, ज्येष्ठ, कृष्ण पक्ष, तृतीया</div>
-            <div class="panchang-detail"><strong>तिथी:</strong> तृतीया - 23:07 तक | चतुर्थी</div>
-            <div class="panchang-detail"><strong>अयन:</strong> दक्षिणायण</div>
-            <div class="panchang-detail"><strong>ऋतु:</strong> वर्षा</div>
-            <div class="panchang-detail"><strong>नक्षत्र:</strong> शतभिषा - 20:45 तक</div>
-            <div class="panchang-detail"><strong>करण:</strong> वणिज - 10:52 तक | विष्टि - 23:07 तक</div>
-            <div class="panchang-detail"><strong>योग:</strong> शोभन - 23:23 तक</div>
-            <div class="panchang-detail"><strong>राशी:</strong> कुम्भ</div>
-            <div class="panchang-detail"><strong>दिनमान:</strong> 12 घण्टे 58 मिनट्स 59 सेकण्ड्स</div>
-            <div class="panchang-detail"><strong>राहू काळ:</strong> 04:47 से 05:31</div>
-            <div class="panchang-detail"><strong>दिनविशेष:</strong> no details available</div>
+            
+            <div class="panchang-detail">
+                <span class="panchang-icon">📅</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">वार:</span>
+                    <span class="panchang-value">शनिवार</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">📜</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">संवत:</span>
+                    <span class="panchang-value">1948 पराभव, शक संवत, ज्येष्ठ, कृष्ण पक्ष, तृतीया</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">🌓</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">तिथी:</span>
+                    <span class="panchang-value">तृतीया - 23:07 तक | चतुर्थी</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">☀️</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">अयन:</span>
+                    <span class="panchang-value">दक्षिणायण</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">🍂</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">ऋतु:</span>
+                    <span class="panchang-value">वर्षा</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">✨</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">नक्षत्र:</span>
+                    <span class="panchang-value">शतभिषा - 20:45 तक</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">🌗</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">करण:</span>
+                    <span class="panchang-value">वणिज - 10:52 तक | विष्टि - 23:07 तक</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">🧘</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">योग:</span>
+                    <span class="panchang-value">शोभन - 23:23 तक</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">♋</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">राशी:</span>
+                    <span class="panchang-value">कुम्भ</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">⏳</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">दिनमान:</span>
+                    <span class="panchang-value">12 घण्टे 58 मिनट्स 59 सेकण्ड्स</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">🚫</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">राहू काळ:</span>
+                    <span class="panchang-value">04:47 से 05:31</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">⭐</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">दिनविशेष:</span>
+                    <span class="panchang-value">११ प. चांगला</span>
+                </div>
+            </div>
+        
         </div>
 
         <div class="section-title">गोचर</div>
         <div class="gochar-details">
-            <strong>सूर्य:</strong> कर्क, <strong>गुरु:</strong> कर्क, <strong>शनि:</strong> मीन
+            <span class="gochar-item"><strong>सूर्य:</strong> कर्क</span><span class="gochar-item"><strong>गुरु:</strong> कर्क</span><span class="gochar-item"><strong>शनि:</strong> मीन</span>
         </div>
 
         <div class="section-title">ज्योतिषाचार्य</div>
         <div class="jyotishacharya-details">
-            <p>डॉ सौ.मीरा.बी.काळे</p>
+            <p class="name">डॉ सौ.मीरा.बी.काळे</p>
             <p>(वेदांग ज्योतिष)</p>
         </div>
     </div>
      
 </body>
 <script>
-    // Get the current day in IST
-    const date = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
-    const currentDay = new Date(date).getDay();
-
-    // Change theme if it's Monday (1) for better readability on white background
-    if (currentDay === 1) {
-        document.body.classList.add('monday-theme');
-    }
-</script>
-</html>
+    

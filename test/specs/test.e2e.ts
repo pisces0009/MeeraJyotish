@@ -231,26 +231,6 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
         const guruGochaarData = JSON.parse(fs.readFileSync('guruGochaar.json', 'utf-8'))
         const shaniGochaarData = JSON.parse(fs.readFileSync('shaniGochaar.json', 'utf-8'))
 
-
-        // Translate data to Marathi
-        const translatedData = {
-            tithi: `<strong>तिथी:</strong> ${tithiData.tithi}`,
-            nakshatra: `<strong>नक्षत्र:</strong> ${nakshatraData.nakshatra}`,
-            yoga: `<strong>योग:</strong> ${yogaData.yoga}`,
-            karan: `<strong>करण:</strong> ${karanData.karan}`,
-            var1: `<strong>वार:</strong> ${varData.var1}`,
-            rahuKaal: `<strong>राहू काळ:</strong> ${rahuKaalData.rahuKaal}`,
-            rassi: `<strong>राशी:</strong> ${rassiData.rassi}`,
-            savastar: `<strong>संवत:</strong> 1948 पराभव, शक संवत, ज्येष्ठ, ${savastarData.savastar}`,
-            dinmaan: `<strong>दिनमान:</strong> ${dinmaanData.dinmaan}`,
-            rutu: `<strong>ऋतु:</strong> ${rutuData.rutu}`,
-            aayan: `<strong>अयन:</strong> ${aayanData.aayan}`,
-            sunGochaar: `<strong>सूर्य:</strong> ${sunGochaarData.sunGochaar}`,
-            guruGochaar: `<strong>गुरु:</strong> ${guruGochaarData.guruGochaar}`,
-            shaniGochaar: `<strong>शनि:</strong> ${shaniGochaarData.shaniGochaar}`
-
-        };
-
         // Get today's date in DD MMM YYYY format
         const todayDate = getIndianDate();
 
@@ -259,6 +239,42 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
 
         // Get the special details based on the date in IST
         const specialDetails = getSpecialDetails(todayDate);
+
+        // Create an array of panchang items with labels, values, and icons
+        const panchangItems = [
+            { label: 'वार', value: varData.var1, icon: '📅' },
+            { label: 'संवत', value: `1948 पराभव, शक संवत, ज्येष्ठ, ${savastarData.savastar}`, icon: '📜' },
+            { label: 'तिथी', value: tithiData.tithi, icon: '🌓' },
+            { label: 'अयन', value: aayanData.aayan, icon: '☀️' },
+            { label: 'ऋतु', value: rutuData.rutu, icon: '🍂' },
+            { label: 'नक्षत्र', value: nakshatraData.nakshatra, icon: '✨' },
+            { label: 'करण', value: karanData.karan, icon: '🌗' },
+            { label: 'योग', value: yogaData.yoga, icon: '🧘' },
+            { label: 'राशी', value: rassiData.rassi, icon: '♋' },
+            { label: 'दिनमान', value: dinmaanData.dinmaan, icon: '⏳' },
+            { label: 'राहू काळ', value: rahuKaalData.rahuKaal, icon: '🚫' },
+            { label: 'दिनविशेष', value: specialDetails, icon: '⭐' }
+        ];
+
+        const gocharItems = [
+            { label: 'सूर्य', value: sunGochaarData.sunGochaar },
+            { label: 'गुरु', value: guruGochaarData.guruGochaar },
+            { label: 'शनि', value: shaniGochaarData.shaniGochaar }
+        ];
+
+        // Generate HTML for the panchang grid
+        const panchangGridHtml = panchangItems.map(item => `
+            <div class="panchang-detail">
+                <span class="panchang-icon">${item.icon}</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">${item.label}:</span>
+                    <span class="panchang-value">${item.value}</span>
+                </div>
+            </div>
+        `).join('');
+
+        // Generate HTML for the gochar details
+        const gocharDetailsHtml = gocharItems.map(item => `<span class="gochar-item"><strong>${item.label}:</strong> ${item.value}</span>`).join('');
 
         // Generate HTML content with a timestamp
         const htmlContent = `
@@ -269,13 +285,15 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panchang Details</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
 
         :root {
-            --text-color: #ffffff;
-            --card-bg: rgba(0, 0, 0, 0.3);
-            --card-border: rgba(255, 255, 255, 0.18);
-            --card-shadow: rgba(0, 0, 0, 0.2);
+            --text-color: #f0f0f0;
+            --card-bg: rgba(0, 0, 0, 0.35);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --card-shadow: rgba(0, 0, 0, 0.25);
+            --accent-color: #00d9ff; /* A vibrant cyan */
+            --accent-glow: rgba(0, 217, 255, 0.5);
         }
 
         body {
@@ -288,106 +306,172 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         body.monday-theme {
-            --text-color: #000000;
-        }
-
-        body.monday-theme .main-container {
-            --card-bg: rgba(255, 255, 255, 0.4);
+            --text-color: #1a1a1a;
+            --card-bg: rgba(255, 255, 255, 0.6);
             --card-border: rgba(0, 0, 0, 0.1);
-        }
-
-        body.monday-theme .date-header {
-            color: #c9302c;
+            --accent-color: #d9005b;
+            --accent-glow: rgba(217, 0, 91, 0.4);
         }
 
         .top-header {
+            width: 100%;
+            max-width: 850px;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 15px 20px;
             background: rgba(0, 0, 0, 0.4);
-            border-radius: 12px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 15px;
+            border: 1px solid var(--card-border);
             margin-bottom: 20px;
             position: relative;
+            box-shadow: 0 4px 30px var(--card-shadow);
         }
         
         .page-title {
+            font-family: 'Orbitron', sans-serif;
             font-size: 2em;
             font-weight: 600;
             margin: 0;
             flex-grow: 1;
             text-align: center;
             color: #fff;
-            text-shadow: 0 0 5px rgba(255,255,255,0.7);
+            text-shadow: 0 0 8px var(--accent-glow), 0 0 15px var(--accent-glow), 0 0 25px var(--accent-glow);
+        }
+
+        body.monday-theme .page-title {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-glow);
         }
 
         .burger-menu {
             position: absolute;
             left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
             cursor: pointer;
+            padding: 5px;
         }
 
         .burger-icon {
             width: 35px;
             height: 35px;
+            transition: transform 0.3s ease;
+        }
+        .burger-menu:hover .burger-icon {
+            transform: scale(1.1);
         }
 
         .main-container {
-            max-width: 800px;
-            margin: 0 auto;
+            width: 100%;
+            max-width: 850px;
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 15px;
             border: 1px solid var(--card-border);
-            box-shadow: 0 4px 20px var(--card-shadow);
-            padding: 30px;
+            box-shadow: 0 4px 30px var(--card-shadow);
+            padding: 25px 35px;
         }
 
         .date-header {
             text-align: center;
-            font-size: 1.5em;
+            font-size: 1.6em;
             font-weight: 600;
-            margin-bottom: 20px;
-            color: #ffc107; /* A nice highlight color */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin-bottom: 30px;
+            color: var(--accent-color);
+            text-shadow: 0 0 8px var(--accent-glow);
         }
 
         .panchang-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
         .panchang-detail {
-            font-size: 1.1em;
-            line-height: 1.6;
-            text-align: left;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s, transform 0.3s;
+        }
+        .panchang-detail:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .panchang-icon {
+            font-size: 1.8em;
+            margin-right: 15px;
+            line-height: 1;
+        }
+
+        .panchang-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panchang-label {
+            font-weight: 600;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .panchang-value {
+            font-size: 1em;
+            line-height: 1.4;
         }
 
         .section-title {
-            font-size: 1.3em;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5em;
             font-weight: 600;
             text-align: center;
-            margin: 30px 0 15px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            padding-top: 20px;
+            margin: 35px 0 20px 0;
+            border-top: 1px solid var(--card-border);
+            padding-top: 25px;
+            color: var(--accent-color);
+            text-shadow: 0 0 8px var(--accent-glow);
         }
 
-        .gochar-details, .jyotishacharya-details {
+        .gochar-details {
+            text-align: center;
+            font-size: 1.1em;
+            line-height: 1.7;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .gochar-item {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        .jyotishacharya-details {
             text-align: center;
             font-size: 1.1em;
             line-height: 1.7;
         }
-        
+
         .jyotishacharya-details p {
             margin: 5px 0;
+        }
+        .jyotishacharya-details .name {
+            font-weight: 600;
+            font-size: 1.2em;
         }
 
         /* Responsive Design */
@@ -413,11 +497,18 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
             .top-header {
                 padding: 10px 15px;
             }
+            .main-container {
+                max-width: 100%;
+            }
+            .gochar-details {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
-
+    
     <div class="top-header">
          <div class="burger-menu" onclick="window.location.href='index.html'">
              <img src="./images/burger-icon.png" alt="Menu Icon" class="burger-icon">
@@ -427,32 +518,21 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
 
     <div class="main-container">
         <div class="date-header">
-            <span>${todayDate}</span>
+            ${todayDate}
         </div>
         
         <div class="panchang-grid">
-            <div class="panchang-detail">${translatedData.var1}</div>
-            <div class="panchang-detail">${translatedData.savastar}</div>
-            <div class="panchang-detail">${translatedData.tithi}</div>
-            <div class="panchang-detail">${translatedData.aayan}</div>
-            <div class="panchang-detail">${translatedData.rutu}</div>
-            <div class="panchang-detail">${translatedData.nakshatra}</div>
-            <div class="panchang-detail">${translatedData.karan}</div>
-            <div class="panchang-detail">${translatedData.yoga}</div>
-            <div class="panchang-detail">${translatedData.rassi}</div>
-            <div class="panchang-detail">${translatedData.dinmaan}</div>
-            <div class="panchang-detail">${translatedData.rahuKaal}</div>
-            <div class="panchang-detail"><strong>दिनविशेष:</strong> ${specialDetails}</div>
+            ${panchangGridHtml}
         </div>
 
         <div class="section-title">गोचर</div>
         <div class="gochar-details">
-            ${translatedData.sunGochaar}, ${translatedData.guruGochaar}, ${translatedData.shaniGochaar}
+            ${gocharDetailsHtml}
         </div>
 
         <div class="section-title">ज्योतिषाचार्य</div>
         <div class="jyotishacharya-details">
-            <p>डॉ सौ.मीरा.बी.काळे</p>
+            <p class="name">डॉ सौ.मीरा.बी.काळे</p>
             <p>(वेदांग ज्योतिष)</p>
         </div>
     </div>
