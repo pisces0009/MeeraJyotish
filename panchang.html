@@ -15,7 +15,7 @@
             top: 0;
             margin: 0;
             padding: 20px 30px; /* Adjusted padding to ensure space */
-            font-size: 1.8em; /* This will be overridden for the span */
+            font-size: 1.8em; /* Base font size for the header */
             width: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             box-shadow: 0 4px rgb(0, 0, 0, 0.1);
@@ -26,7 +26,7 @@
         .top-header span { /* Style the title text within the flex container */
             flex-grow: 1; /* Allow title to take available space */
             text-align: center; /* Center the title text */
-            font-size: 1em; /* Reset font size for the span */
+            font-size: 1em; /* Reset font size for the span - inherits from top-header */
             line-height: 1; /* Adjust line height if necessary */
         }
         .top-header .burger-menu { /* Ensure burger menu is styled correctly within flex header */
@@ -37,108 +37,34 @@
         }
 
         body {
-            background-image: url('images/pink.jpg'); /* Consider a more dynamic or abstract background */
+            background-image: url('images/blue.jpg');
             background-size: cover;
-            background-attachment: fixed;
-            color: #ecf0f1; /* Light gray for better contrast on potentially dark/blurry backgrounds */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+            color: black; /* Change the text color BLACK/WHITE as desired */
+            font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
         }
         .panchang-container {
-            background: rgba(255, 255, 255, 0.1); /* Translucent white background */
-            backdrop-filter: blur(10px); /* Glassmorphism effect */
-            -webkit-backdrop-filter: blur(10px); /* Safari support */
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Subtle shadow */
-            padding: 30px;
-            margin: 50px auto;
-            max-width: 300px;
-            width: 80%;
             display: flex;
             flex-direction: column;
-            align-items: stretch;
-        }
-        
-        .panchang-item {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle divider */
+        }
+        .panchang-detail {
+            display: inline-block;
+            margin: 7px 0;
+            font-size: 1.2em;
+            text-align: left; /* Align text to the left */
+            width: 100%; /* Ensure all text starts from the same point */
             
         }
 
-        .panchang-item:last-of-type {
-            border-bottom: none; /* No border for the last item */
-        }
-
-        .panchang-item.section-title-item {
-            justify-content: center;
-            border-bottom: none;
-            padding-top: 25px;
-            padding-bottom: 15px;
-        }
-
-        .detail-label, .gochar-planet {
-            font-weight: 600; /* Slightly bolder */
-            color: #ffffff; /* Pure white for labels */
-            text-align: left;
-            flex-basis: 40%; /* Adjust as needed for alignment */
-            font-size: 1.1em;
-        }
-
-        .detail-value, .gochar-rashi {
-            color: #e0e0e0; /* Off-white for values */
-            text-align: right;
-            flex-basis: 55%; /* Adjust as needed */
-            font-size: 1.1em;
-        }
-
-        /* Styling for the date display within the wrapper */
-        .panchang-item.date-display {
-            /* Remove previous centering and border-bottom as it's now handled by .date-moon-wrapper */
-            justify-content: flex-start; /* Align date to start */
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .panchang-date-value {
-            font-size: 1.8em;
+        .additional-text {
             font-weight: bold;
-            color: #ffffff;
-            letter-spacing: 1px;
+            color: red; /* Change the color black/red as desired */
+            font-size: 1.2em;
+            text-align: left; /* Align text to the left */
+            width: 100%;
         }
-
-        .section-title {
-            font-size: 1.6em;
-            font-weight: bold;
-            color: #ffffff;
-            padding-bottom: 10px;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 3px;
-            background: #ffffff;
-            border-radius: 5px;
-        }
-        
-
-       
          .circle-image {
             width: 100px;
             height: 100px;
@@ -172,178 +98,94 @@
             margin-left: -5px;
         }
 
-        /* Burger Menu Icon */
-        .burger-menu {
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            z-index: 1001;
-            cursor: pointer;
-        }
-        .burger-icon {
-            width: 30px;
-            height: 22px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .burger-icon span {
-            display: block;
-            width: 100%;
-            height: 3px;
-            background-color: #ffffff;
-            border-radius: 3px;
-            transition: all 0.3s ease-in-out;
-        }
-        .burger-menu:hover .burger-icon span:nth-child(1) {
-            transform: translateY(9.5px) rotate(45deg);
-        }
-        .burger-menu:hover .burger-icon span:nth-child(2) {
-            opacity: 0;
-        }
-        .burger-menu:hover .burger-icon span:nth-child(3) {
-            transform: translateY(-9.5px) rotate(-45deg);
-        }
+   
 
-     /* Moon Widget Styling */
-     .moon-widget {
-            text-align: center;
-            padding: 8px;
-            border-radius: 8px;
-            color: #ecf0f1; /* Changed to match body text color */
-            font-family: sans-serif;
-            font-size: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow */
-            background-color: rgba(0,0,0,0.2); /* Added background for visibility */
+        .burger-menu .burger-icon {
+            width: 35px; /* Set a fixed width for the icon */
+            height: 35px; /* Set a fixed height for the icon */
+            cursor: pointer; /* Indicate it's clickable */
+            vertical-align: middle; /* Align with middle of text */
         }
-        .moon-widget img {
-            display: block;
-            width: 70px; /* Adjust size here */
-            height: auto;
-            margin-bottom: 4px;
-        }
+     /* Dropdown Menu */
+     .hidden-menu {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 10px;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 1000;
+    }
 
-        /* Wrapper for Date and Moon to align them */
-        .date-moon-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding-bottom: 20px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-            margin-bottom: 20px;
-        }
+    .hidden-menu ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+    }
 
-        .acharya-details {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #e0e0e0;
-        }
-        .acharya-details p {
-            margin: 5px 0;
-            font-size: 1em;
-        }
-        .acharya-details p:first-child {
-            font-weight: bold;
-            font-size: 1.1em;
-            color: #ffffff;
-        }
+    .hidden-menu ul li {
+        margin: 10px 0;
+    }
+
+    .hidden-menu ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.2em;
+        display: block; /* Ensure the link spans the full width */
+        text-align: left; /* Align the text inside the link to the left */
+        padding: 5px 10px; /* Add padding for better spacing */
+    }
+
+    .hidden-menu ul li a:hover {
+        text-decoration: underline;
+    }
+
+            
     </style>
 </head>
 <body>
-     <h1 class="top-header">
+
+    <div class="top-header">
          <!-- Burger Menu (click -> Home) -->
-         <div class="burger-menu" onclick="window.location.href='index.html'" role="button" aria-label="Go to homepage">
-             <div class="burger-icon">
-                 <span></span>
-                 <span></span>
-                 <span></span>
-             </div>
+         <div class="burger-menu">
+             <img src="./images/burger-icon.png"
+                  alt="Menu Icon"
+                  class="burger-icon"
+                  onclick="window.location.href='index.html'">
          </div>
          <span>||ॐ|| पंचांग ||卐||</span>
-     </h1>
-     <div class="panchang-container">
-         <div class="date-moon-wrapper"> <!-- New wrapper for date and moon -->
-             <div class="panchang-item date-display">
-                 <span class="panchang-date-value">31 Jul 2026</span>
-             </div>
-             <div class="moon-widget">
-                 <img src="https://www.farmersalmanac.com/wp-content/uploads/2020/10/full-moon.png" 
-                      alt="Current Moon Phase" 
-                      onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg'">
-                 <div>Moon Phase</div>
-             </div>
-         </div>
-
-        <div class="panchang-item">
-            <span class="detail-label">वार:</span>
-            <span class="detail-value">शुक्रवार</span>
-        </div>
-        <div class="panchang-item">
-            <span class="detail-label">संवत:</span>
-            <span class="detail-value">1948 पराभव, शक संवत, ज्येष्ठ, कृष्ण पक्ष, द्वितीया</span>
-        </div>
-        <div class="panchang-item">
-            <span class="detail-label">तिथी:</span>
-            <span class="detail-value">द्वितीया - 22:31 तक | तृतीया</span>
-        </div>
-        <div class="panchang-item">
-            <span class="detail-label">अयन:</span>
-            <span class="detail-value">दक्षिणायण</span>
-        </div>
-        <div class="panchang-item">
-            <span class="detail-label">ऋतु:</span>
-            <span class="detail-value">वर्षा</span>
-        </div>
-        <div class="panchang-item">
-            <span class="detail-label">नक्षत्र:</span>
-            <span class="detail-value">धनिष्ठा - 19:26 तक</span>
-        </div>
-        <div class="panchang-item">
-            <span class="detail-label">करण:</span>
-            <span class="detail-value">तैतिल - 10:04 तक | गर - 22:31 तक</span>
-        </div>
-        <div class="panchang-item">
-            <span class="detail-label">योग:</span>
-            <span class="detail-value">सौभाग्य - 23:54 तक</span>
-        </div>
-        <div class="panchang-item">
-            <span class="detail-label">राशी:</span>
-            <span class="detail-value">०६:३८ न. कुंभ</span>
-        </div>
-        <div class="panchang-item">
-            <span class="detail-label">दिनमान:</span>
-            <span class="detail-value">12 घण्टे 59 मिनट्स 46 सेकण्ड्स</span>
-        </div>
-        <div class="panchang-item">
-            <span class="detail-label">राहू काळ:</span>
-            <span class="detail-value">04:47 से 05:31</span>
-        </div>
-        <div class="panchang-item">
-            <span class="detail-label">दिनविशेष:</span>
-            <span class="detail-value">शुभ दिवस</span>
-        </div>
-
-        <div class="panchang-item section-title-item">
-            <span class="section-title">गोचर</span>
-        </div>
-        <div class="panchang-item gochar-item">
-            <span class="gochar-planet">सूर्य:</span>
-            <span class="gochar-rashi">कर्क</span>
-        </div>
-        <div class="panchang-item gochar-item">
-            <span class="gochar-planet">गुरु:</span>
-            <span class="gochar-rashi">कर्क</span>
-        </div>
-        <div class="panchang-item gochar-item">
-            <span class="gochar-planet">शनि:</span>
-            <span class="gochar-rashi">मीन</span>
+     </div>
+     <div class="additional-text">
+        <p><strong>01 Aug 2026</strong></p>
+    </div>
+    <div class="panchang-container">
+        <div class="panchang-detail"><strong>वार: शुक्रवार</strong></div>
+        <div class="panchang-detail"><strong>1948 पराभव, शक संवत, ज्येष्ठ, कृष्ण पक्ष, द्वितीया</strong></div>
+        <div class="panchang-detail"><strong>तिथी: द्वितीया - 22:31 तक | तृतीया</strong></div>
+        <div class="panchang-detail"><strong>अयन: दक्षिणायण</strong></div>
+        <div class="panchang-detail"><strong>ऋतु: वर्षा</strong></div>
+        <div class="panchang-detail"><strong>नक्षत्र: धनिष्ठा - 19:26 तक</strong></div>
+        <div class="panchang-detail"><strong>करण: तैतिल - 10:04 तक | गर - 22:31 तक</strong></div>
+        <div class="panchang-detail"><strong>योग: सौभाग्य - 23:54 तक</strong></div>
+        <div class="panchang-detail"><strong>राशी: मकर - 06:38 तक</strong></div>
+        <div class="panchang-detail"><strong>दिनमान: 12 घण्टे 59 मिनट्स 46 सेकण्ड्स</strong></div>
+        <div class="panchang-detail"><strong>राहू काळ: 04:47 से 05:31</strong></div>
+        <div class="panchang-detail"><strong>दिनविशेष: no details available</strong></div>
+        <div class="additional-text"><strong>गोचर</strong></div>
+        <div class="panchang-detail"><strong>सूर्य: कर्क</strong><strong>, गुरु: कर्क</strong><strong>, शनि: मीन</strong></div></div>
+        
+    </div>
+    
+    <div class="additional-text">
+    
+        <p><strong>ज्योतिषाचार्य</strong></p>
+        <p>डॉ सौ.मीरा.बी.काळे (वेदांग ज्योतिष)</p>
+            <div class="flex-container">
         </div>
     </div>
-        
-
      
 </body>
 <script>
