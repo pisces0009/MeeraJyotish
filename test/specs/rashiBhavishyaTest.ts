@@ -1,29 +1,31 @@
 import rashiBhavishya from "../pageobjects/rashiBhavishya";
 import * as fs from 'fs';
 
-interface RashiData {
-    name: string;
-    fal: string;
-    icon: string;
-}
-
-const RASHI_DETAILS = [
-    { key: 'mesha-rashi', icon: 'mesh.jpg' },
-    { key: 'vrishabha-rashi', icon: 'vrishabha.jpg' },
-    { key: 'mithuna-rashi', icon: 'mithun.jpg' },
-    { key: 'karka-rashi', icon: 'kark.jpg' },
-    { key: 'simha-rashi', icon: 'singh.jpg' },
-    { key: 'kanya-rashi', icon: 'kanya.jpg' },
-    { key: 'tula-rashi', icon: 'tula.jpg' },
-    { key: 'vrishchika-rashi', icon: 'vrishchik.jpg' },
-    { key: 'dhanu-rashi', icon: 'dhanu.jpg' },
-    { key: 'makara-rashi', icon: 'makar.jpg' },
-    { key: 'kumbha-rashi', icon: 'kumbha.jpg' },
-    { key: 'meena-rashi', icon: 'meen.jpg' }
-];
-
+let rashiName: string;
+let rashiFal: string;
+let vrishabhaRashiName: string;
+let vrishabhaRashiFal: string;
+let mithunaRashiName: string;
+let mithunaRashiFal: string;
+let karkaRashiName: string;
+let karkaRashiFal: string;
+let simhaRashiName: string;
+let simhaRashiFal: string;
+let kanyaRashiName: string;
+let kanyaRashiFal: string;
+let tulaRashiName: string;
+let tulaRashiFal: string;
+let vrishchikaRashiName: string;
+let vrishchikaRashiFal: string;
+let dhanuRashiName: string;
+let dhanuRashiFal: string;
+let makarRashiName: string;
+let makarRashiFal: string;
+let kumbhaRashiName: string;
+let kumbhaRashiFal: string;
+let meenRashiName: string;
+let meenRashiFal: string;
 let getDateAndDay: string;
-let allRashiData: RashiData[] = [];
 
 describe('get all rashi bhavishya', () => {
     before(async () => {
@@ -34,113 +36,178 @@ describe('get all rashi bhavishya', () => {
              console.log('Old data cleared from RashiBhavishya.html');
          }
 
-        // Navigate to the first page to get the date
-        const firstRashi = RASHI_DETAILS[0];
-        await browser.url(`https://www.drikpanchang.com/astrology/prediction/${firstRashi.key}/${firstRashi.key}-daily-rashiphal.html?lang=mr&ck=1`);
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/mesha-rashi/mesha-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        //await browser.pause(300)
         getDateAndDay = await rashiBhavishya.dayAndDate.getText(); 
     })
 
-    it('should get all rashi daily details', async () => {
-        for (const rashi of RASHI_DETAILS) {
-            const url = `https://www.drikpanchang.com/astrology/prediction/${rashi.key}/${rashi.key}-daily-rashiphal.html?lang=mr&ck=1`;
-            await browser.url(url);
+    it('should get mesh rashi daily details', async () => {
+        rashiName = await rashiBhavishya.rashiName.getText();
+        console.log(rashiName);
+        rashiFal = await rashiBhavishya.rashiFal.getText();
+        console.log(rashiFal);
+        //await browser.refresh()
+        //await browser.pause(200)
+        
+        //vrishabha rashi
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/vrishabha-rashi/vrishabha-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        //await browser.pause(100)
+        vrishabhaRashiName = await rashiBhavishya.rashiName.getText();
+        vrishabhaRashiFal = await rashiBhavishya.rashiFal.getText();
+        //await browser.refresh()
+        //await browser.pause(200)
+   
+        //mithun rashi
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/mithuna-rashi/mithuna-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        //await browser.pause(100)
+        mithunaRashiName = await rashiBhavishya.rashiName.getText();
+        mithunaRashiFal = await rashiBhavishya.rashiFal.getText();
+        //await browser.refresh()
+        //await browser.pause(200)
 
-            const name = await rashiBhavishya.rashiName.getText();
-            const fal = await rashiBhavishya.rashiFal.getText();
+        //karka rashi
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/karka-rashi/karka-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        //await browser.pause(100)
+        karkaRashiName = await rashiBhavishya.rashiName.getText();
+        karkaRashiFal = await rashiBhavishya.rashiFal.getText();
+        //await browser.refresh()
+        //await browser.pause(200)
+        
+        //simha rashi
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/simha-rashi/simha-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        //await browser.pause(100)
+        simhaRashiName = await rashiBhavishya.rashiName.getText();
+        simhaRashiFal = await rashiBhavishya.rashiFal.getText();
+        //await browser.refresh()
+        //await browser.pause(200)
 
-            allRashiData.push({ name, fal, icon: rashi.icon });
-            console.log(`Scraped: ${name}`);
-        }
+        //kanaya rashi
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/kanya-rashi/kanya-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        //await browser.pause(100)
+        kanyaRashiName = await rashiBhavishya.rashiName.getText();
+        kanyaRashiFal = await rashiBhavishya.rashiFal.getText();
+        //await browser.refresh()
+        //await browser.pause(200)
+   
+        //tula rashi
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/tula-rashi/tula-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        //await browser.pause(200)
+        tulaRashiName = await rashiBhavishya.rashiName.getText();
+        tulaRashiFal = await rashiBhavishya.rashiFal.getText();
+        //await browser.refresh()
+        //await browser.pause(200)
+   
+        //vrishchika rashi
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/vrishchika-rashi/vrishchika-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        //await browser.pause(200)
+        vrishchikaRashiName = await rashiBhavishya.rashiName.getText();
+        vrishchikaRashiFal = await rashiBhavishya.rashiFal.getText();
+        //await browser.refresh()
+        //await browser.pause(200)
+  
+        //dhanu rashi
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/dhanu-rashi/dhanu-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        //await browser.pause(200)
+        dhanuRashiName = await rashiBhavishya.rashiName.getText();
+        dhanuRashiFal = await rashiBhavishya.rashiFal.getText();
+        //await browser.refresh()
+        //await browser.pause(200)
+   
+        //makar rashi
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/makara-rashi/makara-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        //await browser.pause(200)
+        makarRashiName = await rashiBhavishya.rashiName.getText();
+        makarRashiFal = await rashiBhavishya.rashiFal.getText();
+        //await browser.refresh()
+        //await browser.pause(200)
+    
+        //kumbha rashi
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/kumbha-rashi/kumbha-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        //await browser.pause(200)
+        kumbhaRashiName = await rashiBhavishya.rashiName.getText();       
+        kumbhaRashiFal = await rashiBhavishya.rashiFal.getText();
+        //await browser.refresh()
+        //await browser.pause(200)
+   
+        //meen rashi
+        await browser.url('https://www.drikpanchang.com/astrology/prediction/meena-rashi/meena-rashi-daily-rashiphal.html?lang=mr&ck=1')
+        //await browser.pause(200)    
+        meenRashiName = await rashiBhavishya.rashiName.getText();
+        meenRashiFal = await rashiBhavishya.rashiFal.getText();
     });
 
     after(async () => {
-        // Generate the HTML for each card by mapping over the data array
-        // Generate the final HTML content
+        // Generate HTML content
         const htmlContent = `
-            ${allRashiData.map(rashi => `
-            <div class="rashi-card">
-                <img src="./images/rashiIcons/${rashi.icon}" alt="${rashi.name}" class="rashi-icon">
-                <h2 class="rashi-title">${rashi.name}</h2>
-                <p class="rashi-detail"><strong>राशिफळ: </strong>${rashi.fal}</p>
-            </div>
-        `).join('')}
         <!DOCTYPE html>
-        <html lang="en">
+        <html lang="mr">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Rashi Bhavishya</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
             <style>
-                @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
                 body {
-                    background-image: url('./images/indexbackground.jpg');
-                    background-size: cover;
-                    background-position: center;
-                    background-attachment: fixed;
-                    font-family: 'Poppins', sans-serif;
-                    color: #ffffff;
+                    font-family: 'Roboto', sans-serif;
+                    background: #0f0c29;
+                    background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
+                    background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+                    color: #f0f0f0;
                     margin: 0;
                     padding: 20px;
+                    box-sizing: border-box;
                 }
 
-                .top-header {
+                .header {
                     display: flex;
                     align-items: center;
-                    justify-content: center; /* Center title */
-                    padding: 15px 20px;
-                    background: rgba(0, 0, 0, 0.4);
-                    border-radius: 12px;
-                    margin-bottom: 30px;
+                    justify-content: center;
                     position: relative;
+                    margin-bottom: 40px;
                 }
-                
-                .top-header .page-title {
-                    font-size: 2em;
-                    font-weight: 600;
+
+                .header h1 {
+                    font-family: 'Orbitron', sans-serif;
+                    font-size: 3em;
+                    color: #e0e0e0;
+                    text-shadow: 0 0 10px rgba(0, 119, 230, 0.7), 0 0 18px rgba(0, 119, 230, 0.4);
                     margin: 0;
-                    flex-grow: 1; /* Allow title to take space */
+                }
+
+                .header .date {
+                    font-size: 1.5em;
+                    color: #a0a0a0;
+                    margin-top: 5px;
+                }
+
+                .header-content {
                     text-align: center;
                 }
 
-                .burger-menu {
-                    position: absolute;
-                    left: 20px;
-                    cursor: pointer;
-                }
-
-                .burger-icon {
-                    width: 35px;
-                    height: 35px;
-                }
-
-                .grid-container {
+                .rashi-grid {
                     display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                    gap: 20px;
-                    width: 100%;
+                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                    gap: 25px;
                     max-width: 1200px;
                     margin: 0 auto;
                 }
 
                 .rashi-card {
-                    background: rgba(255, 255, 255, 0.1);
+                    background: rgba(255, 255, 255, 0.05);
                     backdrop-filter: blur(10px);
                     -webkit-backdrop-filter: blur(10px);
                     border-radius: 15px;
-                    border: 1px solid rgba(255, 255, 255, 0.18);
-                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-                    padding: 20px;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    padding: 25px;
                     text-align: center;
                     transition: transform 0.3s ease, box-shadow 0.3s ease;
                 }
 
                 .rashi-card:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+                    transform: translateY(-10px);
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 119, 255, 0.5);
                 }
 
                 .rashi-icon {
@@ -148,63 +215,143 @@ describe('get all rashi bhavishya', () => {
                     height: 80px;
                     object-fit: cover;
                     border-radius: 50%;
-                    border: 2px solid rgba(255, 255, 255, 0.3);
                     margin-bottom: 15px;
+                    border: 3px solid rgba(255, 255, 255, 0.2);
                 }
 
-                .rashi-title {
-                    font-size: 1.5em;
-                    font-weight: 600;
-                    margin: 0 0 10px 0;
+                .rashi-name {
+                    font-family: 'Orbitron', sans-serif;
+                    font-size: 1.8em;
+                    font-weight: 700;
+                    color: #fff;
+                    margin: 10px 0;
                 }
 
-                .rashi-detail {
-                    font-size: 0.95em;
+                .rashi-fal {
+                    font-size: 1em;
                     line-height: 1.6;
-                    text-align: justify;
-                }
-                
-                .date-subtitle {
-                    text-align: center;
-                    font-size: 1.1em;
-                    font-weight: 400;
-                    margin: -15px 0 30px 0;
+                    color: #c0c0c0;
                 }
 
-                /* Responsive Design */
+                .burger-menu {
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    z-index: 1001;
+                    cursor: pointer;
+                }
+                .burger-icon {
+                    width: 30px;
+                    height: 22px;
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                }
+                .burger-icon span {
+                    display: block;
+                    width: 100%;
+                    height: 3px;
+                    background-color: #ffffff;
+                    border-radius: 3px;
+                    transition: all 0.3s ease-in-out;
+                }
+                .burger-menu:hover .burger-icon span:nth-child(1) {
+                    transform: translateY(9.5px) rotate(45deg);
+                }
+                .burger-menu:hover .burger-icon span:nth-child(2) {
+                    opacity: 0;
+                }
+                .burger-menu:hover .burger-icon span:nth-child(3) {
+                    transform: translateY(-9.5px) rotate(-45deg);
+                }
                 @media (max-width: 768px) {
-                    .grid-container {
-                        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                    .header h1 {
+                        font-size: 2.5em;
                     }
-                    .top-header .page-title {
-                        font-size: 1.8em;
-                    }
-                }
-
-                @media (max-width: 480px) {
-                    body {
-                        padding: 10px;
-                    }
-                    .grid-container {
-                        grid-template-columns: 1fr; /* Single column on small screens */
-                    }
-                    .top-header .page-title {
-                        font-size: 1.5em;
+                    .rashi-grid {
+                        grid-template-columns: 1fr;
                     }
                 }
             </style>
         </head>
         <body>
-            <div class="top-header">
-                <div class="burger-menu">
-                    <a href="index.html"><img src="./images/burger-icon.png" alt="Menu Icon" class="burger-icon"></a>
-                </div>
-                <h1 class="page-title">राशि भविष्य</h1>
-            </div>
-            <p class="date-subtitle"><strong>${getDateAndDay}</strong></p>
 
-            <div class="grid-container">
-                \${rashiCardsHtml}
+            <div class="header">
+                <div class="burger-menu" onclick="window.location.href='index.html'" role="button" aria-label="Go to homepage">
+                    <div class="burger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="header-content">
+                    <h1>राशि भविष्य</h1>
+                    <div class="date">${getDateAndDay}</div>
+                </div>
+            </div>
+            <div class="rashi-grid">
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/mesh.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">${rashiName}</div>
+                    <div class="rashi-fal">${rashiFal}</div>
+                </div>
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/vrishabha.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">${vrishabhaRashiName}</div>
+                    <div class="rashi-fal">${vrishabhaRashiFal}</div>
+                </div>
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/mithun.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">${mithunaRashiName}</div>
+                    <div class="rashi-fal">${mithunaRashiFal}</div>
+                </div>
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/kark.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">${karkaRashiName}</div>
+                    <div class="rashi-fal">${karkaRashiFal}</div>
+                </div>
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/singh.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">${simhaRashiName}</div>
+                    <div class="rashi-fal">${simhaRashiFal}</div>
+                </div>
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/kanya.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">${kanyaRashiName}</div>
+                    <div class="rashi-fal">${kanyaRashiFal}</div>
+                </div>
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/tula.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">${tulaRashiName}</div>
+                    <div class="rashi-fal">${tulaRashiFal}</div>
+                </div>
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/vrishchik.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">${vrishchikaRashiName}</div>
+                    <div class="rashi-fal">${vrishchikaRashiFal}</div>
+                </div>
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/dhanu.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">${dhanuRashiName}</div>
+                    <div class="rashi-fal">${dhanuRashiFal}</div>
+                </div>
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/makar.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">${makarRashiName}</div>
+                    <div class="rashi-fal">${makarRashiFal}</div>
+                </div>
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/kumbha.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">${kumbhaRashiName}</div>
+                    <div class="rashi-fal">${kumbhaRashiFal}</div>
+                </div>
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/meen.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">${meenRashiName}</div>
+                    <div class="rashi-fal">${meenRashiFal}</div>
+                </div>
             </div>
         </body>
         </html>
