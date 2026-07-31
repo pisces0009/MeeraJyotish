@@ -122,21 +122,64 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
-                padding: 20px;
+                padding: 15px; /* Slightly less padding for tablets */
             }
             .top-header {
-                font-size: 1.8em;
+                font-size: 1.6em; /* Slightly smaller header for tablets */
             }
             .button-container {
-                gap: 15px;
+                gap: 10px; /* Reduced gap for tablets */
+            }
+            .button {
+                flex: 0 0 calc(33.33% - 10px); /* 3 columns with gap */
             }
             .button img {
-                width: 60px;
+                width: 60px; /* Smaller icons for tablets */
                 height: 60px;
+                padding: 4px;
+            }
+            .button p {
+                font-size: 0.9em; /* Smaller font for button text */
             }
             .circle-image {
-                width: 100px;
-                height: 100px;
+                width: 90px;
+                height: 90px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px; /* Even less padding for small phones */
+                border-radius: 15px;
+            }
+            .top-header {
+                font-size: 1.4em; /* Smaller header for small phones */
+                margin-bottom: 20px;
+            }
+            .button-container {
+                gap: 8px; /* Further reduced gap for small phones */
+            }
+            .button {
+                flex: 0 0 calc(33.33% - 8px); /* 3 columns with gap */
+            }
+            .button img {
+                width: 50px; /* Smallest icons for small phones */
+                height: 50px;
+                padding: 3px;
+            }
+            .button p {
+                font-size: 0.8em; /* Smallest font for button text */
+            }
+            .additional-text p {
+                font-size: 0.9em; /* Smaller text for additional info */
+            }
+            .additional-text .acharya-name {
+                font-size: 1.1em;
+            }
+            .circle-image {
+                width: 80px;
+                height: 80px;
+                margin: 10px auto;
             }
         }
     </style>
