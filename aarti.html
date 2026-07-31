@@ -5,34 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>आरती संग्रह</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    :root {
+        --primary-glow-color: rgba(0, 255, 255, 0.7);
+        --secondary-glow-color: rgba(255, 0, 255, 0.7);
+        --card-bg-color: rgba(22, 22, 32, 0.6);
+        --border-color: rgba(255, 255, 255, 0.18);
+    }
+
     body {
-      background-image: url('./images/yellow.jpg');
+      background-image: url('./images/indexbackground.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      background-attachment: fixed;
       margin: 0;
-      font-family: Arial, sans-serif;
-      color: white; /* default, turns black on Monday via JS */
+      font-family: 'Poppins', sans-serif;
+      color: #ffffff;
     }
 
     .top-header {
-      position: absolute;
+      position: relative;
       top: 0;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin: 0;
       padding: 20px;
       font-size: 2.2em;
       width: 100%;
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.4);
       box-shadow: 0 4px rgb(0, 0, 0, 0.1);
       animation: glow 1s ease-in-out infinite alternate;
+      box-sizing: border-box;
+      text-shadow: 0 0 10px var(--primary-glow-color), 0 0 20px var(--secondary-glow-color);
     }
 
     @keyframes glow {
-      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff4da6; }
-      to   { text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6; }
+      from { text-shadow: 0 0 10px var(--primary-glow-color), 0 0 20px var(--secondary-glow-color); }
+      to   { text-shadow: 0 0 20px var(--primary-glow-color), 0 0 30px var(--secondary-glow-color); }
     }
 
     /* Burger icon (click -> Home) */
@@ -48,72 +61,68 @@
       cursor: pointer;
     }
 
-    .circle-image {
-      width: 65px;
-      height: 65px;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
-      margin: 100px auto 16px; /* pushes below absolute header */
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      border: 2px solid rgba(255,255,255,0.7);
-      background: #fff; /* nice ring if image has transparency */
-    }
-    /* Caption under circle icon */
-    .circle-caption {
-      text-align: center;
-      font-weight: bold;
-      font-size: 1em;
-      margin-top: 4px;
-      cursor: pointer;
-    }
-    
     /* Revealed link */
     .aarti-link {
       display: none;
       text-align: center;
       font-weight: 600;
       font-size: 1.1em;
-      margin-top: 8px;
-      color: #fff;
+      margin-top: 15px;
+      color: var(--primary-glow-color);
       text-decoration: underline;
       cursor: pointer;
     }
-    .aarti-link:hover { opacity: 0.9; }
+    .aarti-link:hover { text-shadow: 0 0 8px var(--primary-glow-color); }
 
     /* Highlighted lyrics panel */
     .lyrics-panel {
       display: block;
       max-width: 760px;
       margin: 16px auto 24px;
-      padding: 16px 18px;
-      border-radius: 12px;
-      background: #fff6bf; /* highlighted background */
-      color: #111;
-      border: 1px solid rgba(0,0,0,0.12);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      padding: 25px 30px;
+      border-radius: 15px;
+      background: var(--card-bg-color);
+      color: #ffffff;
+      border: 1px solid var(--border-color);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
     .lyrics-panel[hidden] { display: none; }
-    .lyrics-title { margin: 0 0 8px; text-align: center; }
-    .ly { margin: 4px 0; line-height: 1.7; }
+    .lyrics-title { 
+      margin: 0 0 15px; 
+      text-align: center; 
+      font-size: 1.8em;
+      font-weight: 600;
+      color: var(--primary-glow-color);
+    }
+    .ly { margin: 6px 0; line-height: 1.8; font-size: 1.1em; }
 
     /* Bell toolbar inside highlighted panel */
     .panel-toolbar {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 10px;
-    margin: 8px 0 12px;
+    gap: 15px;
+    margin: 8px 0 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
   }
   .bell-btn {
     display: inline-flex; align-items: center; justify-content: center;
     width: 40px; height: 40px; border-radius: 50%;
-    border: 1px solid rgba(0,0,0,0.12);
-    background: #ffffffcc; cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.1); cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s;
   }
-  .bell-btn:hover { background: #fff2a8; }
-  .bell-btn.active { background: #ffe27a; box-shadow: 0 0 0 3px rgba(255,226,122,0.5) inset; }
+  .bell-btn:hover { 
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px var(--primary-glow-color);
+  }
+  .bell-btn.active { 
+    background: var(--primary-glow-color); 
+    box-shadow: 0 0 15px var(--primary-glow-color); 
+  }
   .bell-btn img { width: 22px; height: 22px; pointer-events: none; }
 
   /* Put Ganesh and Hanuman icons in one row */
@@ -121,13 +130,33 @@
       display: flex;
       gap: 20px;
       justify-content: center;
-      align-items: flex-start;
-      margin: 100px auto 16px; /* replaces the per-image top margin */
+      align-items: flex-start; /* Aligns items at the top */
+      margin: 40px auto 16px;
       max-width: 520px;
+      padding: 20px;
     }
-    .icon-card { text-align: center; }
-    .icon-row .circle-image { margin: 0 auto 6px; } /* remove big top margin on row items */
-    .icon-row .circle-caption { margin-top: 4px; }
+    .icon-card { 
+      text-align: center; 
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .icon-card:hover {
+      transform: scale(1.1);
+    }
+    .icon-card .circle-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 10px;
+      border: 2px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+    .icon-card:hover .circle-image {
+      box-shadow: 0 0 20px var(--primary-glow-color);
+    }
+    .icon-row .circle-caption { margin-top: 4px; font-weight: 600; }
    
   </style>
 </head>
