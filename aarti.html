@@ -178,14 +178,18 @@
       <p id="ganesh-caption" class="circle-caption" role="button" tabindex="0" aria-controls="aarti-item-1">श्री गणेश आरती</p>
     </div>
     <div class="icon-card">
-      <img id="hanuman-icon" src="./images/hanuman.png" alt="Hanuman Icon" class="circle-image" onclick="window.location.href='./AARTI/hanuman.html'">
-      <p id="hanuman-caption" class="circle-caption" role="button" tabindex="0">श्री हनुमान आरती</p>
+      <img id="hanuman-icon" src="./images/hanuman.png" alt="Hanuman Icon" class="circle-image">
+      <p id="hanuman-caption" class="circle-caption" role="button" tabindex="0" aria-controls="aarti-item-2">श्री हनुमान आरती</p>
     </div>
   </div>
  
    <!-- Hidden clickable text -->
   <a id="aarti-item-1" class="aarti-link" href="#">
     1. सुखकर्ता दुःखहर्ता
+  </a>
+
+  <a id="aarti-item-2" class="aarti-link" href="#">
+    2. आरती कीजै हनुमान लला की
   </a>
 
   <!-- Highlighted lyrics container -->
@@ -195,13 +199,18 @@
     document.addEventListener('DOMContentLoaded', () => {
       const link = document.getElementById('aarti-item-1');
       const panel = document.getElementById('lyrics-panel');
-      // Use Ganesh icon/caption for the current interactions
-      const img = document.getElementById('ganesh-icon');
-      const caption = document.getElementById('ganesh-caption');
+      
+      const ganeshIcon = document.getElementById('ganesh-icon');
+      const ganeshCaption = document.getElementById('ganesh-caption');
+      const ganeshLink = document.getElementById('aarti-item-1');
+
+      const hanumanIcon = document.getElementById('hanuman-icon');
+      const hanumanCaption = document.getElementById('hanuman-caption');
+      const hanumanLink = document.getElementById('aarti-item-2');
   
-      let isLinkVisible = false;
-      const reveal = () => { link.style.display = 'block'; isLinkVisible = true; };
-      const hideLink = () => { link.style.display = 'none'; isLinkVisible = false; };
+      let activeLink = null;
+      const revealLink = (linkElement) => { linkElement.style.display = 'block'; activeLink = linkElement; };
+      const hideActiveLink = () => { if (activeLink) { activeLink.style.display = 'none'; activeLink = null; } };
   
       // Bell and Music audio state (reused across renders)
       let bellAudio = null, isBellOn = false;
@@ -216,9 +225,9 @@
           isMusicOn = false;
           panel.hidden = true;
           isPanelOpen = false;
-          hideLink();
-          caption.focus();
-          img.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          hideActiveLink();
+          // Focus logic can be improved if needed, for now, just hide
+          // ganeshCaption.focus(); 
         }
       }
   
@@ -320,38 +329,113 @@
         }, { once: true });
       }
   
-      // Circle icon/caption toggle logic (unchanged)
-      img.addEventListener('click', () => {
-        if (isPanelOpen) hideLyricsPanel();
-        else if (isLinkVisible) hideLink();
-        else reveal();
-      });
-      img.setAttribute('tabindex', '0');
-      img.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
+      function showHanumanAarti() {
+        const lines = [
+          "आरती कीजै हनुमान लला की।",
+          "दुष्ट दलन रघुनाथ कला की॥",
+          "जाके बल से गिरिवर कांपे।",
+          "रोग दोष जाके निकट न झांपे॥",
+          "अंजनि पुत्र महा बलदाई।",
+          "संतन के प्रभु सदा सहाई॥",
+          "दे बीरा रघुनाथ पठाए।",
+          "लंका जारि सिया सुधि लाए॥",
+          "लंका सो कोट समुद्र सी खाई।",
+          "जात पवनसुत बार न लाई॥",
+          "लंका जारि असुर संहारे।",
+          "सियारामजी के काज संवारे॥",
+          "लक्ष्मण मूर्छित पड़े सकारे।",
+          "आनि संजीवन प्रान उबारे॥",
+          "पैठि पताल तोरि जम-कारे।",
+          "अहिरावन की भुजा उखारे॥",
+          "बाएं भुजा असुर दल मारे।",
+          "दाहिने भुजा संतजन तारे॥",
+          "सुर नर मुनि आरती उतारें।",
+          "जय जय जय हनुमान उचारें॥",
+          "कंचन थार कपूर लौ छाई।",
+          "आरती करत अंजना माई॥",
+          "जो हनुमानजी की आरती गावे।",
+          "बसि बैकुंठ परम पद पावे॥"
+        ];
+        panel.innerHTML = `
+            <h2 class="lyrics-title">श्री हनुमान आरती</h2>
+            <div class="panel-toolbar">
+            <button id="bell-toggle" class="bell-btn" aria-pressed="false" aria-label="घंटा वाजवा">
+                <img src="./images/bell.png" alt="Bell">
+            </button>
+            <button id="music-toggle" class="bell-btn" aria-pressed="false" aria-label="आरती प्ले करा">
+                <img src="./images/music-1.jpg" alt="Music">
+            </button>
+            </div>
+        ${lines.map(l => `<div class="ly">${l}</div>`).join('')}
+        `;
+        panel.hidden = false;
+        isPanelOpen = true;
+        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        const bellBtn = panel.querySelector('#bell-toggle');
+        if (!bellAudio) { bellAudio = new Audio('./sound/bell-1.mp3'); bellAudio.loop = true; }
+        if (isBellOn) { bellBtn.classList.add('active'); bellBtn.setAttribute('aria-pressed', 'true'); }
+        bellBtn.addEventListener('click', async () => {
+            try {
+                if (!isBellOn) { await bellAudio.play(); isBellOn = true; bellBtn.classList.add('active'); bellBtn.setAttribute('aria-pressed', 'true'); }
+                else { bellAudio.pause(); bellAudio.currentTime = 0; isBellOn = false; bellBtn.classList.remove('active'); bellBtn.setAttribute('aria-pressed', 'false'); }
+            } catch (err) { console.error('Bell play failed:', err); }
+        });
+
+        const musicBtn = panel.querySelector('#music-toggle');
+        musicAudio = new Audio('./sound/hanuman.mp3'); // Use Hanuman audio
+        if (isMusicOn) { musicBtn.classList.add('active'); musicBtn.setAttribute('aria-pressed', 'true'); }
+        musicBtn.addEventListener('click', async () => {
+            try {
+                if (!isMusicOn) { await musicAudio.play(); isMusicOn = true; musicBtn.classList.add('active'); musicBtn.setAttribute('aria-pressed', 'true'); }
+                else { musicAudio.pause(); musicAudio.currentTime = 0; isMusicOn = false; musicBtn.classList.remove('active'); musicBtn.setAttribute('aria-pressed', 'false'); }
+            } catch (err) { console.error('Music play failed:', err); }
+        });
+
+        window.addEventListener('beforeunload', () => {
+          if (bellAudio) bellAudio.pause();
+          if (musicAudio) musicAudio.pause();
+        }, { once: true });
+      }
+
+      // --- Setup Icons ---
+      function setupIcon(icon, caption, link) {
+        const reveal = () => {
+          hideActiveLink(); // Hide any other visible link first
+          revealLink(link);
+        };
+        const hideLink = () => hideActiveLink();
+
+        const clickHandler = () => {
           if (isPanelOpen) hideLyricsPanel();
-          else if (isLinkVisible) hideLink();
+          else if (activeLink === link) hideLink();
           else reveal();
-        }
-      });
-      caption.addEventListener('click', () => {
-        if (isPanelOpen) hideLyricsPanel();
-        else if (isLinkVisible) hideLink();
-        else reveal();
-      });
-      caption.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          if (isPanelOpen) hideLyricsPanel();
-          else if (isLinkVisible) hideLink();
-          else reveal();
-        }
-      });
-  
-      link.addEventListener('click', (e) => {
+        };
+
+        const keyHandler = (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            clickHandler();
+          }
+        };
+
+        icon.addEventListener('click', clickHandler);
+        icon.addEventListener('keydown', keyHandler);
+        caption.addEventListener('click', clickHandler);
+        caption.addEventListener('keydown', keyHandler);
+      }
+      
+      setupIcon(ganeshIcon, ganeshCaption, ganeshLink);
+      setupIcon(hanumanIcon, hanumanCaption, hanumanLink);
+
+      ganeshLink.addEventListener('click', (e) => {
         e.preventDefault();
         showGaneshAarti();
+      });
+      
+      hanumanLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showHanumanAarti();
       });
   
       document.addEventListener('keydown', (e) => {
