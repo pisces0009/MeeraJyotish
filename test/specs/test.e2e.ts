@@ -234,22 +234,22 @@ const shaniGochaarData = JSON.parse(fs.readFileSync('shaniGochaar.json', 'utf-8'
 
 // Translate data to Marathi
 const translatedData = {
-    tithi: "तिथी: " + tithiData.tithi,
-    nakshatra: "नक्षत्र: " + nakshatraData.nakshatra,
-    yoga: "योग: " + yogaData.yoga,
-    karan: "करण: " + karanData.karan,
-    var1: "वार: " + varData.var1,
-    rahuKaal: "राहू काळ: " + rahuKaalData.rahuKaal,
-    rassi: "राशी: " + rassiData.rassi,
-    savastar: "1948 पराभव, शक संवत, ज्येष्ठ, " + savastarData.savastar,
-    dinmaan: "दिनमान: " + dinmaanData.dinmaan,
-    rutu: "ऋतु: " + rutuData.rutu,
-    aayan: "अयन: " + aayanData.aayan,
-    sunGochaar: "सूर्य: " + sunGochaarData.sunGochaar,
-    guruGochaar: "गुरु: " + guruGochaarData.guruGochaar,
-    shaniGochaar: "शनि: " + shaniGochaarData.shaniGochaar
+    tithi: `<strong>तिथी:</strong> ${tithiData.tithi}`,
+    nakshatra: `<strong>नक्षत्र:</strong> ${nakshatraData.nakshatra}`,
+    yoga: `<strong>योग:</strong> ${yogaData.yoga}`,
+    karan: `<strong>करण:</strong> ${karanData.karan}`,
+    var1: `<strong>वार:</strong> ${varData.var1}`,
+    rahuKaal: `<strong>राहू काळ:</strong> ${rahuKaalData.rahuKaal}`,
+    rassi: `<strong>राशी:</strong> ${rassiData.rassi}`,
+    savastar: `<strong>संवत:</strong> 1948 पराभव, शक संवत, ज्येष्ठ, ${savastarData.savastar}`,
+    dinmaan: `<strong>दिनमान:</strong> ${dinmaanData.dinmaan}`,
+    rutu: `<strong>ऋतु:</strong> ${rutuData.rutu}`,
+    aayan: `<strong>अयन:</strong> ${aayanData.aayan}`,
+    sunGochaar: `<strong>सूर्य:</strong> ${sunGochaarData.sunGochaar}`,
+    guruGochaar: `<strong>गुरु:</strong> ${guruGochaarData.guruGochaar}`,
+    shaniGochaar: `<strong>शनि:</strong> ${shaniGochaarData.shaniGochaar}`
 
-}
+};
 
 // Get today's date in DD MMM YYYY format
 const todayDate = getIndianDate();
@@ -263,214 +263,205 @@ const specialDetails = getSpecialDetails(todayDate);
 // Generate HTML content with a timestamp
 const htmlContent = `
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panchang Details</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-         .top-header {
-            position: relative; /* Changed to relative to allow flex item positioning */
-            display: flex; /* Enable flexbox */
-            align-items: center; /* Vertically center items */
-            justify-content: space-between; /* Space out items */
-            top: 0;
-            margin: 0;
-            padding: 20px 30px; /* Adjusted padding to ensure space */
-            font-size: 1.8em; /* Base font size for the header */
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            box-shadow: 0 4px rgb(0, 0, 0, 0.1);
-            animation: glow 1s ease-in-out infinite alternate;
-            color: #ffffff; /* Explicitly set color for top-header */
-            text-shadow: 0 0 10px rgba(255,255,255,0.5); /* Subtle glow for the main title */
-        }
-        .top-header span { /* Style the title text within the flex container */
-            flex-grow: 1; /* Allow title to take available space */
-            text-align: center; /* Center the title text */
-            font-size: 1em; /* Reset font size for the span - inherits from top-header */
-            line-height: 1; /* Adjust line height if necessary */
-        }
-        .top-header .burger-menu { /* Ensure burger menu is styled correctly within flex header */
-            position: static; /* Remove absolute positioning */
-            top: auto;
-            left: auto;
-            z-index: auto;
+        :root {
+            --text-color: #ffffff;
+            --card-bg: rgba(0, 0, 0, 0.3);
+            --card-border: rgba(255, 255, 255, 0.18);
+            --card-shadow: rgba(0, 0, 0, 0.2);
         }
 
         body {
             background-image: url('${backgroundImage}');
             background-size: cover;
-            color: black; /* Change the text color BLACK/WHITE as desired */
-            font-family: Arial, sans-serif;
-            text-align: center;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            margin: 0;
             padding: 20px;
-        }
-        .panchang-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .panchang-detail {
-            display: inline-block;
-            margin: 7px 0;
-            font-size: 1.2em;
-            text-align: left; /* Align text to the left */
-            width: 100%; /* Ensure all text starts from the same point */
-            
+            box-sizing: border-box;
         }
 
-        .additional-text {
-            font-weight: bold;
-            color: red; /* Change the color black/red as desired */
-            font-size: 1.2em;
-            text-align: left; /* Align text to the left */
-            width: 100%;
-        }
-         .circle-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-left: 275px;
-            margin-top: -130px;
-        }
-        .flex-container {
-            display: flex;
-            align-items: center;
+        body.monday-theme {
+            --text-color: #000000;
         }
 
-         .home-button {
+        body.monday-theme .main-container {
+            --card-bg: rgba(255, 255, 255, 0.4);
+            --card-border: rgba(0, 0, 0, 0.1);
+        }
+
+        body.monday-theme .date-header {
+            color: #c9302c;
+        }
+
+        .top-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .page-title {
+            font-size: 2em;
+            font-weight: 600;
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255,255,255,0.7);
+        }
+
+        .burger-menu {
             position: absolute;
-            top: 7px;
-            left: 5px;
-            display: flex;
-            align-items: center;
+            left: 20px;
+            cursor: pointer;
         }
-        .home-button a {
-            text-decoration: none;
+
+        .burger-icon {
+            width: 35px;
+            height: 35px;
+        }
+
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 20px var(--card-shadow);
+            padding: 30px;
+        }
+
+        .date-header {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #ffc107; /* A nice highlight color */
+        }
+
+        .panchang-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .panchang-detail {
             font-size: 1.1em;
-            color:#050000;
-            display: flex;
-            align-items: center;
-        }
-        .home-button img {
-            width: 40px;
-            height: 40px;
-            margin-left: -5px;
+            line-height: 1.6;
+            text-align: left;
         }
 
-   
-
-        .burger-menu .burger-icon {
-            width: 35px; /* Set a fixed width for the icon */
-            height: 35px; /* Set a fixed height for the icon */
-            cursor: pointer; /* Indicate it's clickable */
-            vertical-align: middle; /* Align with middle of text */
+        .section-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            text-align: center;
+            margin: 30px 0 15px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 20px;
         }
-     /* Dropdown Menu */
-     .hidden-menu {
-        display: none;
-        position: absolute;
-        top: 60px;
-        left: 10px;
-        background-color: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
-        z-index: 1000;
-    }
 
-    .hidden-menu ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        text-align: left;
-    }
+        .gochar-details, .jyotishacharya-details {
+            text-align: center;
+            font-size: 1.1em;
+            line-height: 1.7;
+        }
+        
+        .jyotishacharya-details p {
+            margin: 5px 0;
+        }
 
-    .hidden-menu ul li {
-        margin: 10px 0;
-    }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 1.8em;
+            }
+            .panchang-grid {
+                grid-template-columns: 1fr;
+            }
+            .main-container {
+                padding: 20px;
+            }
+        }
 
-    .hidden-menu ul li a {
-        color: white;
-        text-decoration: none;
-        font-size: 1.2em;
-        display: block; /* Ensure the link spans the full width */
-        text-align: left; /* Align the text inside the link to the left */
-        padding: 5px 10px; /* Add padding for better spacing */
-    }
-
-    .hidden-menu ul li a:hover {
-        text-decoration: underline;
-    }
-
-            
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .page-title {
+                font-size: 1.5em;
+            }
+            .top-header {
+                padding: 10px 15px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="top-header">
-         <!-- Burger Menu (click -> Home) -->
-         <div class="burger-menu">
-             <img src="./images/burger-icon.png"
-                  alt="Menu Icon"
-                  class="burger-icon"
-                  onclick="window.location.href='index.html'">
+         <div class="burger-menu" onclick="window.location.href='index.html'">
+             <img src="./images/burger-icon.png" alt="Menu Icon" class="burger-icon">
          </div>
-         <span>||ॐ|| पंचांग ||卐||</span>
+         <h1 class="page-title">||ॐ|| पंचांग ||卐||</h1>
      </div>
-     <div class="additional-text">
-        <p><strong>${todayDate}</strong></p>
-    </div>
-    <div class="panchang-container">
-        <div class="panchang-detail"><strong>${translatedData.var1}</strong></div>
-        <div class="panchang-detail"><strong>${translatedData.savastar}</strong></div>
-        <div class="panchang-detail"><strong>${translatedData.tithi}</strong></div>
-        <div class="panchang-detail"><strong>${translatedData.aayan}</strong></div>
-        <div class="panchang-detail"><strong>${translatedData.rutu}</strong></div>
-        <div class="panchang-detail"><strong>${translatedData.nakshatra}</strong></div>
-        <div class="panchang-detail"><strong>${translatedData.karan}</strong></div>
-        <div class="panchang-detail"><strong>${translatedData.yoga}</strong></div>
-        <div class="panchang-detail"><strong>${translatedData.rassi}</strong></div>
-        <div class="panchang-detail"><strong>${translatedData.dinmaan}</strong></div>
-        <div class="panchang-detail"><strong>${translatedData.rahuKaal}</strong></div>
-        <div class="panchang-detail"><strong>दिनविशेष: ${specialDetails}</strong></div>
-        <div class="additional-text"><strong>गोचर</strong></div>
-        <div class="panchang-detail"><strong>${translatedData.sunGochaar}</strong><strong>, ${translatedData.guruGochaar}</strong><strong>, ${translatedData.shaniGochaar}</strong></div></div>
+
+    <div class="main-container">
+        <div class="date-header">${todayDate}</div>
         
-    </div>
-    
-    <div class="additional-text">
-    
-        <p><strong>ज्योतिषाचार्य</strong></p>
-        <p>डॉ सौ.मीरा.बी.काळे (वेदांग ज्योतिष)</p>
-            <div class="flex-container">
+        <div class="panchang-grid">
+            <div class="panchang-detail">${translatedData.var1}</div>
+            <div class="panchang-detail">${translatedData.savastar}</div>
+            <div class="panchang-detail">${translatedData.tithi}</div>
+            <div class="panchang-detail">${translatedData.aayan}</div>
+            <div class="panchang-detail">${translatedData.rutu}</div>
+            <div class="panchang-detail">${translatedData.nakshatra}</div>
+            <div class="panchang-detail">${translatedData.karan}</div>
+            <div class="panchang-detail">${translatedData.yoga}</div>
+            <div class="panchang-detail">${translatedData.rassi}</div>
+            <div class="panchang-detail">${translatedData.dinmaan}</div>
+            <div class="panchang-detail">${translatedData.rahuKaal}</div>
+            <div class="panchang-detail"><strong>दिनविशेष:</strong> ${specialDetails}</div>
+        </div>
+
+        <div class="section-title">गोचर</div>
+        <div class="gochar-details">
+            ${translatedData.sunGochaar}, ${translatedData.guruGochaar}, ${translatedData.shaniGochaar}
+        </div>
+
+        <div class="section-title">ज्योतिषाचार्य</div>
+        <div class="jyotishacharya-details">
+            <p>डॉ सौ.मीरा.बी.काळे</p>
+            <p>(वेदांग ज्योतिष)</p>
         </div>
     </div>
      
 </body>
 <script>
-    function toggleMenu() {
-        const menu = document.getElementById('menu');
-        if (menu.style.display === 'block') {
-            menu.style.display = 'none';
-        } else {
-            menu.style.display = 'block';
-        }
+    // Get the current day in IST
+    const date = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+    const currentDay = new Date(date).getDay();
+
+    // Change theme if it's Monday (1) for better readability on white background
+    if (currentDay === 1) {
+        document.body.classList.add('monday-theme');
     }
-
-    // Get the current day (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-        const currentDay = new Date().getDay();
-
-        // Get the body element
-        const bodyElement = document.getElementById('main-body');
-
-        // Change the text color to black if it's Monday (1)
-        if (currentDay === 1) {
-            bodyElement.style.color = 'black';
-        }
 </script>
 </html>
 `
@@ -479,4 +470,3 @@ const htmlContent = `
 fs.writeFileSync('panchang.html', htmlContent)
 
 console.log('HTML file generated successfully.')
-

@@ -1,212 +1,203 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panchang Details</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-         .top-header {
-            position: relative; /* Changed to relative to allow flex item positioning */
-            display: flex; /* Enable flexbox */
-            align-items: center; /* Vertically center items */
-            justify-content: space-between; /* Space out items */
-            top: 0;
-            margin: 0;
-            padding: 20px 30px; /* Adjusted padding to ensure space */
-            font-size: 1.8em; /* Base font size for the header */
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            box-shadow: 0 4px rgb(0, 0, 0, 0.1);
-            animation: glow 1s ease-in-out infinite alternate;
-            color: #ffffff; /* Explicitly set color for top-header */
-            text-shadow: 0 0 10px rgba(255,255,255,0.5); /* Subtle glow for the main title */
-        }
-        .top-header span { /* Style the title text within the flex container */
-            flex-grow: 1; /* Allow title to take available space */
-            text-align: center; /* Center the title text */
-            font-size: 1em; /* Reset font size for the span - inherits from top-header */
-            line-height: 1; /* Adjust line height if necessary */
-        }
-        .top-header .burger-menu { /* Ensure burger menu is styled correctly within flex header */
-            position: static; /* Remove absolute positioning */
-            top: auto;
-            left: auto;
-            z-index: auto;
+        :root {
+            --text-color: #ffffff;
+            --card-bg: rgba(0, 0, 0, 0.3);
+            --card-border: rgba(255, 255, 255, 0.18);
+            --card-shadow: rgba(0, 0, 0, 0.2);
         }
 
         body {
             background-image: url('images/blue.jpg');
             background-size: cover;
-            color: black; /* Change the text color BLACK/WHITE as desired */
-            font-family: Arial, sans-serif;
-            text-align: center;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            margin: 0;
             padding: 20px;
-        }
-        .panchang-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .panchang-detail {
-            display: inline-block;
-            margin: 7px 0;
-            font-size: 1.2em;
-            text-align: left; /* Align text to the left */
-            width: 100%; /* Ensure all text starts from the same point */
-            
+            box-sizing: border-box;
         }
 
-        .additional-text {
-            font-weight: bold;
-            color: red; /* Change the color black/red as desired */
-            font-size: 1.2em;
-            text-align: left; /* Align text to the left */
-            width: 100%;
-        }
-         .circle-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-left: 275px;
-            margin-top: -130px;
-        }
-        .flex-container {
-            display: flex;
-            align-items: center;
+        body.monday-theme {
+            --text-color: #000000;
         }
 
-         .home-button {
+        body.monday-theme .main-container {
+            --card-bg: rgba(255, 255, 255, 0.4);
+            --card-border: rgba(0, 0, 0, 0.1);
+        }
+
+        body.monday-theme .date-header {
+            color: #c9302c;
+        }
+
+        .top-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .page-title {
+            font-size: 2em;
+            font-weight: 600;
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255,255,255,0.7);
+        }
+
+        .burger-menu {
             position: absolute;
-            top: 7px;
-            left: 5px;
-            display: flex;
-            align-items: center;
+            left: 20px;
+            cursor: pointer;
         }
-        .home-button a {
-            text-decoration: none;
+
+        .burger-icon {
+            width: 35px;
+            height: 35px;
+        }
+
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 20px var(--card-shadow);
+            padding: 30px;
+        }
+
+        .date-header {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #ffc107; /* A nice highlight color */
+        }
+
+        .panchang-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .panchang-detail {
             font-size: 1.1em;
-            color:#050000;
-            display: flex;
-            align-items: center;
-        }
-        .home-button img {
-            width: 40px;
-            height: 40px;
-            margin-left: -5px;
+            line-height: 1.6;
+            text-align: left;
         }
 
-   
-
-        .burger-menu .burger-icon {
-            width: 35px; /* Set a fixed width for the icon */
-            height: 35px; /* Set a fixed height for the icon */
-            cursor: pointer; /* Indicate it's clickable */
-            vertical-align: middle; /* Align with middle of text */
+        .section-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            text-align: center;
+            margin: 30px 0 15px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 20px;
         }
-     /* Dropdown Menu */
-     .hidden-menu {
-        display: none;
-        position: absolute;
-        top: 60px;
-        left: 10px;
-        background-color: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
-        z-index: 1000;
-    }
 
-    .hidden-menu ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        text-align: left;
-    }
+        .gochar-details, .jyotishacharya-details {
+            text-align: center;
+            font-size: 1.1em;
+            line-height: 1.7;
+        }
+        
+        .jyotishacharya-details p {
+            margin: 5px 0;
+        }
 
-    .hidden-menu ul li {
-        margin: 10px 0;
-    }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 1.8em;
+            }
+            .panchang-grid {
+                grid-template-columns: 1fr;
+            }
+            .main-container {
+                padding: 20px;
+            }
+        }
 
-    .hidden-menu ul li a {
-        color: white;
-        text-decoration: none;
-        font-size: 1.2em;
-        display: block; /* Ensure the link spans the full width */
-        text-align: left; /* Align the text inside the link to the left */
-        padding: 5px 10px; /* Add padding for better spacing */
-    }
-
-    .hidden-menu ul li a:hover {
-        text-decoration: underline;
-    }
-
-            
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .page-title {
+                font-size: 1.5em;
+            }
+            .top-header {
+                padding: 10px 15px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="top-header">
-         <!-- Burger Menu (click -> Home) -->
-         <div class="burger-menu">
-             <img src="./images/burger-icon.png"
-                  alt="Menu Icon"
-                  class="burger-icon"
-                  onclick="window.location.href='index.html'">
+         <div class="burger-menu" onclick="window.location.href='index.html'">
+             <img src="./images/burger-icon.png" alt="Menu Icon" class="burger-icon">
          </div>
-         <span>||ॐ|| पंचांग ||卐||</span>
+         <h1 class="page-title">||ॐ|| पंचांग ||卐||</h1>
      </div>
-     <div class="additional-text">
-        <p><strong>01 Aug 2026</strong></p>
-    </div>
-    <div class="panchang-container">
-        <div class="panchang-detail"><strong>वार: शनिवार</strong></div>
-        <div class="panchang-detail"><strong>1948 पराभव, शक संवत, ज्येष्ठ, कृष्ण पक्ष, तृतीया</strong></div>
-        <div class="panchang-detail"><strong>तिथी: तृतीया - 23:07 तक | चतुर्थी</strong></div>
-        <div class="panchang-detail"><strong>अयन: दक्षिणायण</strong></div>
-        <div class="panchang-detail"><strong>ऋतु: वर्षा</strong></div>
-        <div class="panchang-detail"><strong>नक्षत्र: शतभिषा - 20:45 तक</strong></div>
-        <div class="panchang-detail"><strong>करण: वणिज - 10:52 तक | विष्टि - 23:07 तक</strong></div>
-        <div class="panchang-detail"><strong>योग: शोभन - 23:23 तक</strong></div>
-        <div class="panchang-detail"><strong>राशी: कुम्भ</strong></div>
-        <div class="panchang-detail"><strong>दिनमान: 12 घण्टे 58 मिनट्स 59 सेकण्ड्स</strong></div>
-        <div class="panchang-detail"><strong>राहू काळ: 04:47 से 05:31</strong></div>
-        <div class="panchang-detail"><strong>दिनविशेष: no details available</strong></div>
-        <div class="additional-text"><strong>गोचर</strong></div>
-        <div class="panchang-detail"><strong>सूर्य: कर्क</strong><strong>, गुरु: कर्क</strong><strong>, शनि: मीन</strong></div></div>
+
+    <div class="main-container">
+        <div class="date-header">01 Aug 2026</div>
         
-    </div>
-    
-    <div class="additional-text">
-    
-        <p><strong>ज्योतिषाचार्य</strong></p>
-        <p>डॉ सौ.मीरा.बी.काळे (वेदांग ज्योतिष)</p>
-            <div class="flex-container">
+        <div class="panchang-grid">
+            <div class="panchang-detail"><strong>वार:</strong> शनिवार</div>
+            <div class="panchang-detail"><strong>संवत:</strong> 1948 पराभव, शक संवत, ज्येष्ठ, कृष्ण पक्ष, तृतीया</div>
+            <div class="panchang-detail"><strong>तिथी:</strong> तृतीया - 23:07 तक | चतुर्थी</div>
+            <div class="panchang-detail"><strong>अयन:</strong> दक्षिणायण</div>
+            <div class="panchang-detail"><strong>ऋतु:</strong> वर्षा</div>
+            <div class="panchang-detail"><strong>नक्षत्र:</strong> शतभिषा - 20:45 तक</div>
+            <div class="panchang-detail"><strong>करण:</strong> वणिज - 10:52 तक | विष्टि - 23:07 तक</div>
+            <div class="panchang-detail"><strong>योग:</strong> शोभन - 23:23 तक</div>
+            <div class="panchang-detail"><strong>राशी:</strong> कुम्भ</div>
+            <div class="panchang-detail"><strong>दिनमान:</strong> 12 घण्टे 58 मिनट्स 59 सेकण्ड्स</div>
+            <div class="panchang-detail"><strong>राहू काळ:</strong> 04:47 से 05:31</div>
+            <div class="panchang-detail"><strong>दिनविशेष:</strong> no details available</div>
+        </div>
+
+        <div class="section-title">गोचर</div>
+        <div class="gochar-details">
+            <strong>सूर्य:</strong> कर्क, <strong>गुरु:</strong> कर्क, <strong>शनि:</strong> मीन
+        </div>
+
+        <div class="section-title">ज्योतिषाचार्य</div>
+        <div class="jyotishacharya-details">
+            <p>डॉ सौ.मीरा.बी.काळे</p>
+            <p>(वेदांग ज्योतिष)</p>
         </div>
     </div>
      
 </body>
 <script>
-    function toggleMenu() {
-        const menu = document.getElementById('menu');
-        if (menu.style.display === 'block') {
-            menu.style.display = 'none';
-        } else {
-            menu.style.display = 'block';
-        }
+    // Get the current day in IST
+    const date = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+    const currentDay = new Date(date).getDay();
+
+    // Change theme if it's Monday (1) for better readability on white background
+    if (currentDay === 1) {
+        document.body.classList.add('monday-theme');
     }
-
-    // Get the current day (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-        const currentDay = new Date().getDay();
-
-        // Get the body element
-        const bodyElement = document.getElementById('main-body');
-
-        // Change the text color to black if it's Monday (1)
-        if (currentDay === 1) {
-            bodyElement.style.color = 'black';
-        }
 </script>
 </html>
