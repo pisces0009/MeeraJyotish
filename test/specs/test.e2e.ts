@@ -271,17 +271,32 @@ const htmlContent = `
     <style>
 
          .top-header {
-            position: absolute;
+            position: relative; /* Changed to relative to allow flex item positioning */
+            display: flex; /* Enable flexbox */
+            align-items: center; /* Vertically center items */
+            justify-content: space-between; /* Space out items */
             top: 0;
-            left: 50%;
-            transform: translateX(-50%);
             margin: 0;
-            padding: 30px;
-            font-size: 2.5em;
+            padding: 20px 30px; /* Adjusted padding to ensure space */
+            font-size: 1.8em; /* Base font size for the header */
             width: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             box-shadow: 0 4px rgb(0, 0, 0, 0.1);
             animation: glow 1s ease-in-out infinite alternate;
+            color: #ffffff; /* Explicitly set color for top-header */
+            text-shadow: 0 0 10px rgba(255,255,255,0.5); /* Subtle glow for the main title */
+        }
+        .top-header span { /* Style the title text within the flex container */
+            flex-grow: 1; /* Allow title to take available space */
+            text-align: center; /* Center the title text */
+            font-size: 1em; /* Reset font size for the span - inherits from top-header */
+            line-height: 1; /* Adjust line height if necessary */
+        }
+        .top-header .burger-menu { /* Ensure burger menu is styled correctly within flex header */
+            position: static; /* Remove absolute positioning */
+            top: auto;
+            left: auto;
+            z-index: auto;
         }
 
         body {
@@ -305,12 +320,7 @@ const htmlContent = `
             width: 100%; /* Ensure all text starts from the same point */
             
         }
-        h1 {
-            font-size: 2em;
-            text-align: left; /* Align text to the left */
-            margin-left: 55px;
-            margin-top: -15px;
-        }
+
         .additional-text {
             font-weight: bold;
             color: red; /* Change the color black/red as desired */
@@ -351,20 +361,14 @@ const htmlContent = `
             margin-left: -5px;
         }
 
-        /* Burger Menu Icon */
-     .burger-menu {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        z-index: 1000;
-    }
+   
 
-    .burger-menu .burger-icon {
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-    }
-
+        .burger-menu .burger-icon {
+            width: 35px; /* Set a fixed width for the icon */
+            height: 35px; /* Set a fixed height for the icon */
+            cursor: pointer; /* Indicate it's clickable */
+            vertical-align: middle; /* Align with middle of text */
+        }
      /* Dropdown Menu */
      .hidden-menu {
         display: none;
@@ -407,20 +411,16 @@ const htmlContent = `
 </head>
 <body>
 
-    <h1 class="top-header">
-          
-    </h1>
-    
-     <!-- Burger Menu (click -> Home) -->
-  <div class="burger-menu">
-    <img src="./images/burger-icon.png"
-         alt="Menu Icon"
-         class="burger-icon"
-         onclick="window.location.href='index.html'">
-  </div>
-  
-     
-     <h1>||ॐ|| पंचांग ||卐||</h1>
+    <div class="top-header">
+         <!-- Burger Menu (click -> Home) -->
+         <div class="burger-menu">
+             <img src="./images/burger-icon.png"
+                  alt="Menu Icon"
+                  class="burger-icon"
+                  onclick="window.location.href='index.html'">
+         </div>
+         <span>||ॐ|| पंचांग ||卐||</span>
+     </div>
      <div class="additional-text">
         <p><strong>${todayDate}</strong></p>
     </div>
