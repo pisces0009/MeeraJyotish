@@ -87,8 +87,7 @@ describe('get all panchang details', () => {
 
         await browser.url('https://www.drikpanchang.com/panchang/day-panchang.html?lang=hi&geoname-id=1275339&time-format=24hour')
         await browser.pause(1000)
-    })
-
+    });
     it('should get all panchang details', async () => {
         const tithi1 = await panchangDetails.tithi.getText();
         const tithi2 = await panchangDetails.tithi2.getText();
@@ -212,56 +211,57 @@ const shaniGochaarFilePath = 'shaniGochaar.json';
 clearJsonFile(shaniGochaarFilePath);
 const data13 = { shaniGochaar };
 fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
-    })
-})
 
-// Read JSON files
-const tithiData = JSON.parse(fs.readFileSync('tithi.json', 'utf-8'))
-const nakshatraData = JSON.parse(fs.readFileSync('nakshatra.json', 'utf-8'))
-const yogaData = JSON.parse(fs.readFileSync('yoga.json', 'utf-8'))
-const karanData = JSON.parse(fs.readFileSync('karan.json', 'utf-8'))
-const varData = JSON.parse(fs.readFileSync('var.json', 'utf-8'))
-const rahuKaalData = JSON.parse(fs.readFileSync('rahuKaal.json', 'utf-8'))
-const rassiData = JSON.parse(fs.readFileSync('rassi.json', 'utf-8'))
-const savastarData = JSON.parse(fs.readFileSync('savastar.json', 'utf-8'))
-const dinmaanData = JSON.parse(fs.readFileSync('dinmaan.json', 'utf-8'))
-const rutuData = JSON.parse(fs.readFileSync('rutu.json', 'utf-8'))
-const aayanData = JSON.parse(fs.readFileSync('aayan.json', 'utf-8'))
-const sunGochaarData = JSON.parse(fs.readFileSync('sunGochaar.json', 'utf-8'))
-const guruGochaarData = JSON.parse(fs.readFileSync('guruGochaar.json', 'utf-8'))
-const shaniGochaarData = JSON.parse(fs.readFileSync('shaniGochaar.json', 'utf-8'))
+    });
+
+    after(async () => {
+        // Read JSON files
+        const tithiData = JSON.parse(fs.readFileSync('tithi.json', 'utf-8'))
+        const nakshatraData = JSON.parse(fs.readFileSync('nakshatra.json', 'utf-8'))
+        const yogaData = JSON.parse(fs.readFileSync('yoga.json', 'utf-8'))
+        const karanData = JSON.parse(fs.readFileSync('karan.json', 'utf-8'))
+        const varData = JSON.parse(fs.readFileSync('var.json', 'utf-8'))
+        const rahuKaalData = JSON.parse(fs.readFileSync('rahuKaal.json', 'utf-8'))
+        const rassiData = JSON.parse(fs.readFileSync('rassi.json', 'utf-8'))
+        const savastarData = JSON.parse(fs.readFileSync('savastar.json', 'utf-8'))
+        const dinmaanData = JSON.parse(fs.readFileSync('dinmaan.json', 'utf-8'))
+        const rutuData = JSON.parse(fs.readFileSync('rutu.json', 'utf-8'))
+        const aayanData = JSON.parse(fs.readFileSync('aayan.json', 'utf-8'))
+        const sunGochaarData = JSON.parse(fs.readFileSync('sunGochaar.json', 'utf-8'))
+        const guruGochaarData = JSON.parse(fs.readFileSync('guruGochaar.json', 'utf-8'))
+        const shaniGochaarData = JSON.parse(fs.readFileSync('shaniGochaar.json', 'utf-8'))
 
 
-// Translate data to Marathi
-const translatedData = {
-    tithi: `<strong>तिथी:</strong> ${tithiData.tithi}`,
-    nakshatra: `<strong>नक्षत्र:</strong> ${nakshatraData.nakshatra}`,
-    yoga: `<strong>योग:</strong> ${yogaData.yoga}`,
-    karan: `<strong>करण:</strong> ${karanData.karan}`,
-    var1: `<strong>वार:</strong> ${varData.var1}`,
-    rahuKaal: `<strong>राहू काळ:</strong> ${rahuKaalData.rahuKaal}`,
-    rassi: `<strong>राशी:</strong> ${rassiData.rassi}`,
-    savastar: `<strong>संवत:</strong> 1948 पराभव, शक संवत, ज्येष्ठ, ${savastarData.savastar}`,
-    dinmaan: `<strong>दिनमान:</strong> ${dinmaanData.dinmaan}`,
-    rutu: `<strong>ऋतु:</strong> ${rutuData.rutu}`,
-    aayan: `<strong>अयन:</strong> ${aayanData.aayan}`,
-    sunGochaar: `<strong>सूर्य:</strong> ${sunGochaarData.sunGochaar}`,
-    guruGochaar: `<strong>गुरु:</strong> ${guruGochaarData.guruGochaar}`,
-    shaniGochaar: `<strong>शनि:</strong> ${shaniGochaarData.shaniGochaar}`
+        // Translate data to Marathi
+        const translatedData = {
+            tithi: `<strong>तिथी:</strong> ${tithiData.tithi}`,
+            nakshatra: `<strong>नक्षत्र:</strong> ${nakshatraData.nakshatra}`,
+            yoga: `<strong>योग:</strong> ${yogaData.yoga}`,
+            karan: `<strong>करण:</strong> ${karanData.karan}`,
+            var1: `<strong>वार:</strong> ${varData.var1}`,
+            rahuKaal: `<strong>राहू काळ:</strong> ${rahuKaalData.rahuKaal}`,
+            rassi: `<strong>राशी:</strong> ${rassiData.rassi}`,
+            savastar: `<strong>संवत:</strong> 1948 पराभव, शक संवत, ज्येष्ठ, ${savastarData.savastar}`,
+            dinmaan: `<strong>दिनमान:</strong> ${dinmaanData.dinmaan}`,
+            rutu: `<strong>ऋतु:</strong> ${rutuData.rutu}`,
+            aayan: `<strong>अयन:</strong> ${aayanData.aayan}`,
+            sunGochaar: `<strong>सूर्य:</strong> ${sunGochaarData.sunGochaar}`,
+            guruGochaar: `<strong>गुरु:</strong> ${guruGochaarData.guruGochaar}`,
+            shaniGochaar: `<strong>शनि:</strong> ${shaniGochaarData.shaniGochaar}`
 
-};
+        };
 
-// Get today's date in DD MMM YYYY format
-const todayDate = getIndianDate();
+        // Get today's date in DD MMM YYYY format
+        const todayDate = getIndianDate();
 
-// Get the background image based on the day of the week in IST
-const backgroundImage = getBackgroundImage();
+        // Get the background image based on the day of the week in IST
+        const backgroundImage = getBackgroundImage();
 
-// Get the special details based on the date in IST
-const specialDetails = getSpecialDetails(todayDate);
+        // Get the special details based on the date in IST
+        const specialDetails = getSpecialDetails(todayDate);
 
-// Generate HTML content with a timestamp
-const htmlContent = `
+        // Generate HTML content with a timestamp
+        const htmlContent = `
 <!DOCTYPE html>
 <html lang="mr">
 <head>
@@ -353,6 +353,9 @@ const htmlContent = `
             font-weight: 600;
             margin-bottom: 20px;
             color: #ffc107; /* A nice highlight color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .panchang-grid {
@@ -423,7 +426,9 @@ const htmlContent = `
      </div>
 
     <div class="main-container">
-        <div class="date-header">${todayDate}</div>
+        <div class="date-header">
+            <span>${todayDate}</span>
+        </div>
         
         <div class="panchang-grid">
             <div class="panchang-detail">${translatedData.var1}</div>
@@ -466,7 +471,9 @@ const htmlContent = `
 </html>
 `
 
-// Write the HTML content to a file
-fs.writeFileSync('panchang.html', htmlContent)
+        // Write the HTML content to a file
+        fs.writeFileSync('panchang.html', htmlContent)
 
-console.log('HTML file generated successfully.')
+        console.log('HTML file generated successfully.');
+    });
+});

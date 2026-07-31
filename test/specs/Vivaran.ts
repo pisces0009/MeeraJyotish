@@ -22,7 +22,10 @@ describe('Screenshot Task', () => {
         console.log('Image URL:', imgSrc);
 
         // Convert blob URL to base64 inside the browser and return it
-        const base64Data = await browser.execute(async (blobUrl: string) => {
+        const base64Data = await browser.execute(async (blobUrl: string | null) => {
+            if (!blobUrl) {
+                throw new Error('Image source URL is null');
+            }
             const response = await fetch(blobUrl);
             const blob = await response.blob();
             return new Promise<string>((resolve) => {

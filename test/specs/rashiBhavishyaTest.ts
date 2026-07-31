@@ -1,31 +1,32 @@
 import rashiBhavishya from "../pageobjects/rashiBhavishya";
 import * as fs from 'fs';
 
-let rashiName: string;
-let rashiFal: string;
-let vrishabhaRashiName: string;
-let vrishabhaRashiFal: string;
-let mithunaRashiName: string;
-let mithunaRashiFal: string;
-let karkaRashiName: string;
-let karkaRashiFal: string;
-let simhaRashiName: string;
-let simhaRashiFal: string;
-let kanyaRashiName: string;
-let kanyaRashiFal: string;
-let tulaRashiName: string;
-let tulaRashiFal: string;
-let vrishchikaRashiName: string;
-let vrishchikaRashiFal: string;
-let dhanuRashiName: string;
-let dhanuRashiFal: string;
-let makarRashiName: string;
-let makarRashiFal: string;
-let kumbhaRashiName: string;
-let kumbhaRashiFal: string;
-let meenRashiName: string;
-let meenRashiFal: string;
+// Define an interface for the Rashi data structure
+interface RashiData {
+    name: string;
+    fal: string;
+    icon: string;
+}
+
+// Array to store all the fetched rashi data
+let allRashiData: RashiData[] = [];
 let getDateAndDay: string;
+
+// Configuration for all Rashis
+const rashiConfigs = [
+    { urlName: 'mesha', icon: 'mesh.jpg' },
+    { urlName: 'vrishabha', icon: 'vrishabha.jpg' },
+    { urlName: 'mithuna', icon: 'mithun.jpg' },
+    { urlName: 'karka', icon: 'kark.jpg' },
+    { urlName: 'simha', icon: 'singh.jpg' },
+    { urlName: 'kanya', icon: 'kanya.jpg' },
+    { urlName: 'tula', icon: 'tula.jpg' },
+    { urlName: 'vrishchika', icon: 'vrishchik.jpg' },
+    { urlName: 'dhanu', icon: 'dhanu.jpg' },
+    { urlName: 'makara', icon: 'makar.jpg' },
+    { urlName: 'kumbha', icon: 'kumbha.jpg' },
+    { urlName: 'meena', icon: 'meen.jpg' }
+];
 
 describe('get all rashi bhavishya', () => {
     before(async () => {
@@ -36,108 +37,39 @@ describe('get all rashi bhavishya', () => {
              console.log('Old data cleared from RashiBhavishya.html');
          }
 
-        await browser.url('https://www.drikpanchang.com/astrology/prediction/mesha-rashi/mesha-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        //await browser.pause(300)
+        // Navigate to the first page to get the date
+        await browser.url(`https://www.drikpanchang.com/astrology/prediction/${rashiConfigs[0].urlName}-rashi/${rashiConfigs[0].urlName}-rashi-daily-rashiphal.html?lang=mr&ck=1`);
         getDateAndDay = await rashiBhavishya.dayAndDate.getText(); 
-    })
+    });
 
     it('should get mesh rashi daily details', async () => {
-        rashiName = await rashiBhavishya.rashiName.getText();
-        console.log(rashiName);
-        rashiFal = await rashiBhavishya.rashiFal.getText();
-        console.log(rashiFal);
-        //await browser.refresh()
-        //await browser.pause(200)
-        
-        //vrishabha rashi
-        await browser.url('https://www.drikpanchang.com/astrology/prediction/vrishabha-rashi/vrishabha-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        //await browser.pause(100)
-        vrishabhaRashiName = await rashiBhavishya.rashiName.getText();
-        vrishabhaRashiFal = await rashiBhavishya.rashiFal.getText();
-        //await browser.refresh()
-        //await browser.pause(200)
-   
-        //mithun rashi
-        await browser.url('https://www.drikpanchang.com/astrology/prediction/mithuna-rashi/mithuna-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        //await browser.pause(100)
-        mithunaRashiName = await rashiBhavishya.rashiName.getText();
-        mithunaRashiFal = await rashiBhavishya.rashiFal.getText();
-        //await browser.refresh()
-        //await browser.pause(200)
+        for (const config of rashiConfigs) {
+            const url = `https://www.drikpanchang.com/astrology/prediction/${config.urlName}-rashi/${config.urlName}-rashi-daily-rashiphal.html?lang=mr&ck=1`;
+            await browser.url(url);
 
-        //karka rashi
-        await browser.url('https://www.drikpanchang.com/astrology/prediction/karka-rashi/karka-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        //await browser.pause(100)
-        karkaRashiName = await rashiBhavishya.rashiName.getText();
-        karkaRashiFal = await rashiBhavishya.rashiFal.getText();
-        //await browser.refresh()
-        //await browser.pause(200)
-        
-        //simha rashi
-        await browser.url('https://www.drikpanchang.com/astrology/prediction/simha-rashi/simha-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        //await browser.pause(100)
-        simhaRashiName = await rashiBhavishya.rashiName.getText();
-        simhaRashiFal = await rashiBhavishya.rashiFal.getText();
-        //await browser.refresh()
-        //await browser.pause(200)
+            const rashiName = await rashiBhavishya.rashiName.getText();
+            const rashiFal = await rashiBhavishya.rashiFal.getText();
 
-        //kanaya rashi
-        await browser.url('https://www.drikpanchang.com/astrology/prediction/kanya-rashi/kanya-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        //await browser.pause(100)
-        kanyaRashiName = await rashiBhavishya.rashiName.getText();
-        kanyaRashiFal = await rashiBhavishya.rashiFal.getText();
-        //await browser.refresh()
-        //await browser.pause(200)
-   
-        //tula rashi
-        await browser.url('https://www.drikpanchang.com/astrology/prediction/tula-rashi/tula-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        //await browser.pause(200)
-        tulaRashiName = await rashiBhavishya.rashiName.getText();
-        tulaRashiFal = await rashiBhavishya.rashiFal.getText();
-        //await browser.refresh()
-        //await browser.pause(200)
-   
-        //vrishchika rashi
-        await browser.url('https://www.drikpanchang.com/astrology/prediction/vrishchika-rashi/vrishchika-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        //await browser.pause(200)
-        vrishchikaRashiName = await rashiBhavishya.rashiName.getText();
-        vrishchikaRashiFal = await rashiBhavishya.rashiFal.getText();
-        //await browser.refresh()
-        //await browser.pause(200)
-  
-        //dhanu rashi
-        await browser.url('https://www.drikpanchang.com/astrology/prediction/dhanu-rashi/dhanu-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        //await browser.pause(200)
-        dhanuRashiName = await rashiBhavishya.rashiName.getText();
-        dhanuRashiFal = await rashiBhavishya.rashiFal.getText();
-        //await browser.refresh()
-        //await browser.pause(200)
-   
-        //makar rashi
-        await browser.url('https://www.drikpanchang.com/astrology/prediction/makara-rashi/makara-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        //await browser.pause(200)
-        makarRashiName = await rashiBhavishya.rashiName.getText();
-        makarRashiFal = await rashiBhavishya.rashiFal.getText();
-        //await browser.refresh()
-        //await browser.pause(200)
-    
-        //kumbha rashi
-        await browser.url('https://www.drikpanchang.com/astrology/prediction/kumbha-rashi/kumbha-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        //await browser.pause(200)
-        kumbhaRashiName = await rashiBhavishya.rashiName.getText();       
-        kumbhaRashiFal = await rashiBhavishya.rashiFal.getText();
-        //await browser.refresh()
-        //await browser.pause(200)
-   
-        //meen rashi
-        await browser.url('https://www.drikpanchang.com/astrology/prediction/meena-rashi/meena-rashi-daily-rashiphal.html?lang=mr&ck=1')
-        //await browser.pause(200)    
-        meenRashiName = await rashiBhavishya.rashiName.getText();
-        meenRashiFal = await rashiBhavishya.rashiFal.getText();
+            allRashiData.push({
+                name: rashiName,
+                fal: rashiFal,
+                icon: config.icon
+            });
+            console.log(`Fetched data for ${rashiName}`);
+        }
     });
 
     after(async () => {
-        // Generate HTML content
+        // Generate the HTML for each rashi card by looping through the data
+        const rashiCardsHtml = allRashiData.map(rashi => `
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/${rashi.icon}" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">${rashi.name}</div>
+                    <div class="rashi-fal">${rashi.fal}</div>
+                </div>
+        `).join('');
+
+        // Generate final HTML content
         const htmlContent = `
         <!DOCTYPE html>
         <html lang="mr">
@@ -236,7 +168,7 @@ describe('get all rashi bhavishya', () => {
                 .burger-menu {
                     position: absolute;
                     left: 0;
-                    top: 50%;
+                    top: 30%;
                     transform: translateY(-50%);
                     z-index: 1001;
                     cursor: pointer;
@@ -292,66 +224,7 @@ describe('get all rashi bhavishya', () => {
                 </div>
             </div>
             <div class="rashi-grid">
-                <div class="rashi-card">
-                    <img src="./images/rashiIcons/mesh.jpg" alt="Rashi Icon" class="rashi-icon">
-                    <div class="rashi-name">${rashiName}</div>
-                    <div class="rashi-fal">${rashiFal}</div>
-                </div>
-                <div class="rashi-card">
-                    <img src="./images/rashiIcons/vrishabha.jpg" alt="Rashi Icon" class="rashi-icon">
-                    <div class="rashi-name">${vrishabhaRashiName}</div>
-                    <div class="rashi-fal">${vrishabhaRashiFal}</div>
-                </div>
-                <div class="rashi-card">
-                    <img src="./images/rashiIcons/mithun.jpg" alt="Rashi Icon" class="rashi-icon">
-                    <div class="rashi-name">${mithunaRashiName}</div>
-                    <div class="rashi-fal">${mithunaRashiFal}</div>
-                </div>
-                <div class="rashi-card">
-                    <img src="./images/rashiIcons/kark.jpg" alt="Rashi Icon" class="rashi-icon">
-                    <div class="rashi-name">${karkaRashiName}</div>
-                    <div class="rashi-fal">${karkaRashiFal}</div>
-                </div>
-                <div class="rashi-card">
-                    <img src="./images/rashiIcons/singh.jpg" alt="Rashi Icon" class="rashi-icon">
-                    <div class="rashi-name">${simhaRashiName}</div>
-                    <div class="rashi-fal">${simhaRashiFal}</div>
-                </div>
-                <div class="rashi-card">
-                    <img src="./images/rashiIcons/kanya.jpg" alt="Rashi Icon" class="rashi-icon">
-                    <div class="rashi-name">${kanyaRashiName}</div>
-                    <div class="rashi-fal">${kanyaRashiFal}</div>
-                </div>
-                <div class="rashi-card">
-                    <img src="./images/rashiIcons/tula.jpg" alt="Rashi Icon" class="rashi-icon">
-                    <div class="rashi-name">${tulaRashiName}</div>
-                    <div class="rashi-fal">${tulaRashiFal}</div>
-                </div>
-                <div class="rashi-card">
-                    <img src="./images/rashiIcons/vrishchik.jpg" alt="Rashi Icon" class="rashi-icon">
-                    <div class="rashi-name">${vrishchikaRashiName}</div>
-                    <div class="rashi-fal">${vrishchikaRashiFal}</div>
-                </div>
-                <div class="rashi-card">
-                    <img src="./images/rashiIcons/dhanu.jpg" alt="Rashi Icon" class="rashi-icon">
-                    <div class="rashi-name">${dhanuRashiName}</div>
-                    <div class="rashi-fal">${dhanuRashiFal}</div>
-                </div>
-                <div class="rashi-card">
-                    <img src="./images/rashiIcons/makar.jpg" alt="Rashi Icon" class="rashi-icon">
-                    <div class="rashi-name">${makarRashiName}</div>
-                    <div class="rashi-fal">${makarRashiFal}</div>
-                </div>
-                <div class="rashi-card">
-                    <img src="./images/rashiIcons/kumbha.jpg" alt="Rashi Icon" class="rashi-icon">
-                    <div class="rashi-name">${kumbhaRashiName}</div>
-                    <div class="rashi-fal">${kumbhaRashiFal}</div>
-                </div>
-                <div class="rashi-card">
-                    <img src="./images/rashiIcons/meen.jpg" alt="Rashi Icon" class="rashi-icon">
-                    <div class="rashi-name">${meenRashiName}</div>
-                    <div class="rashi-fal">${meenRashiFal}</div>
-                </div>
+                ${rashiCardsHtml}
             </div>
         </body>
         </html>
