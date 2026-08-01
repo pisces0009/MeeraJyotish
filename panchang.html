@@ -18,7 +18,7 @@
         }
 
         body {
-            background-image: url('images/blue.jpg');
+            background-image: url('images/orange.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -239,7 +239,7 @@
 
     <div class="main-container">
         <div class="date-header">
-            01 Aug 2026
+            02 Aug 2026
         </div>
         
         <div class="panchang-grid">
@@ -248,7 +248,7 @@
                 <span class="panchang-icon">📅</span>
                 <div class="panchang-text">
                     <span class="panchang-label">वार:</span>
-                    <span class="panchang-value">शनिवार</span>
+                    <span class="panchang-value">रविवार</span>
                 </div>
             </div>
         
@@ -256,7 +256,7 @@
                 <span class="panchang-icon">📜</span>
                 <div class="panchang-text">
                     <span class="panchang-label">संवत:</span>
-                    <span class="panchang-value">1948 पराभव, शक संवत, ज्येष्ठ, कृष्ण पक्ष, तृतीया</span>
+                    <span class="panchang-value">1948 पराभव, शक संवत, ज्येष्ठ, कृष्ण पक्ष, चतुर्थी</span>
                 </div>
             </div>
         
@@ -264,7 +264,7 @@
                 <span class="panchang-icon">🌓</span>
                 <div class="panchang-text">
                     <span class="panchang-label">तिथी:</span>
-                    <span class="panchang-value">तृतीया - 23:07 तक | चतुर्थी</span>
+                    <span class="panchang-value">चतुर्थी - 23:15 तक | पञ्चमी</span>
                 </div>
             </div>
         
@@ -288,7 +288,7 @@
                 <span class="panchang-icon">✨</span>
                 <div class="panchang-text">
                     <span class="panchang-label">नक्षत्र:</span>
-                    <span class="panchang-value">शतभिषा - 20:45 तक</span>
+                    <span class="panchang-value">पूर्व भाद्रपद - 21:37 तक</span>
                 </div>
             </div>
         
@@ -296,7 +296,7 @@
                 <span class="panchang-icon">🌗</span>
                 <div class="panchang-text">
                     <span class="panchang-label">करण:</span>
-                    <span class="panchang-value">वणिज - 10:52 तक | विष्टि - 23:07 तक</span>
+                    <span class="panchang-value">बव - 11:14 तक | बालव - 23:15 तक</span>
                 </div>
             </div>
         
@@ -304,7 +304,7 @@
                 <span class="panchang-icon">🧘</span>
                 <div class="panchang-text">
                     <span class="panchang-label">योग:</span>
-                    <span class="panchang-value">शोभन - 23:23 तक</span>
+                    <span class="panchang-value">अतिगण्ड - 22:30 तक</span>
                 </div>
             </div>
         
@@ -312,7 +312,7 @@
                 <span class="panchang-icon">♋</span>
                 <div class="panchang-text">
                     <span class="panchang-label">राशी:</span>
-                    <span class="panchang-value">कुम्भ</span>
+                    <span class="panchang-value">कुम्भ - 15:26 तक</span>
                 </div>
             </div>
         
@@ -320,7 +320,7 @@
                 <span class="panchang-icon">⏳</span>
                 <div class="panchang-text">
                     <span class="panchang-label">दिनमान:</span>
-                    <span class="panchang-value">12 घण्टे 58 मिनट्स 59 सेकण्ड्स</span>
+                    <span class="panchang-value">12 घण्टे 58 मिनट्स 11 सेकण्ड्स</span>
                 </div>
             </div>
         
@@ -336,7 +336,7 @@
                 <span class="panchang-icon">⭐</span>
                 <div class="panchang-text">
                     <span class="panchang-label">दिनविशेष:</span>
-                    <span class="panchang-value">११ प. चांगला</span>
+                    <span class="panchang-value">no details available</span>
                 </div>
             </div>
         
@@ -356,4 +356,13 @@
      
 </body>
 <script>
-    
+    // Get the current day in IST
+    const date = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+    const currentDay = new Date(date).getDay();
+
+    // Change theme if it's Monday (1) for better readability on white background
+    if (currentDay === 1) {
+        document.body.classList.add('monday-theme');
+    }
+</script>
+</html>
