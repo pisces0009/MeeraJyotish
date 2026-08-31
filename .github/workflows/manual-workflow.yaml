@@ -1,3 +1,13 @@
+Here are the key issues and outdated/invalid action versions in your workflow:
+
+* **Non-existent Action Versions (`@v5`):** Official GitHub Actions for `checkout`, `setup-node`, and `upload-artifact` are currently on **`@v4`**. Referencing `@v5` causes the runner to fail to download the actions.
+* **Failure Handling & Missing Logs Directory:** If `🧪 Run Tests` fails, step execution halts. Because `📂 Create Logs Directory` had no failure condition, it gets skipped, potentially causing `📦 Upload Logs` to fail if the directory was never created. Moving log creation before the test run resolves this.
+* **Git Authentication:** The environment variable `G_TOKEN` is declared on the step, but standard Git commands do not read it automatically unless passed via the remote URL or configured directly in `actions/checkout`. Providing `token: ${{ secrets.GITHUB_TOKEN }}` (or `${{ secrets.G_TOKEN }}`) to `actions/checkout` handles Git authentication automatically.
+* **Git Stash Flow:** Stashing immediately after committing everything with `git add .` is redundant and can cause merge conflict halts during `git stash pop`.
+
+**Updated `.github/workflows/manual-workflow.yaml**`
+
+```yaml
 name: Manual Workflow
 
 on:
@@ -11,39 +21,44 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout Code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.G_TOKEN || secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: 🐢 Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         with:
-          node-version: '24.x' # Specify the desired Node.js version here
-      
+          node-version: '22.x' # Use '22.x' or '20.x' for stable LTS
+
       - name: 🏗️ Install Dependencies
         run: npm install
-
-      - name: 🧪 Run Tests
-        run: npm run wdio
 
       - name: 📂 Create Logs Directory
         run: mkdir -p logs
 
+      - name: 🧪 Run Tests
+        run: npm run wdio
+
       - name: 📦 Upload Logs
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: logs
           path: logs
 
       - name: 📤 Commit and Push Changes
+        if: always() # Runs even if tests fail, or remove if you only push on test success
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add . # Stage all changes
-          git commit -m "Automated commit by GitHub Actions" || echo "No changes to commit"
-          git stash || echo "Nothing to stash" # Stash any remaining changes
-          git pull --rebase origin main
-          git stash pop || echo "Nothing to pop" # Apply stashed changes if any
-          git push --force-with-lease
-        env:
-          G_TOKEN: ${{ secrets.G_TOKEN }}
-          
+          git add .
+          if ! git diff --cached --quiet; then
+            git commit -m "Automated commit by GitHub Actions"
+            git pull --rebase origin main
+            git push --force-with-lease
+          else
+            echo "No changes to commit"
+          fi
+
+```
