@@ -242,7 +242,7 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
 
         // Create an array of panchang items with labels, values, and icons
         const panchangItems = [
-            { label: 'वार', value: varData.var1, icon: '📅' },
+            { label: 'वार', value: varData.var1, icon: '<span class="calendar-month" aria-hidden="true"></span><span class="calendar-day" aria-hidden="true"></span>' },
             { label: 'संवत', value: `1948 पराभव, शक संवत, ज्येष्ठ, ${savastarData.savastar}`, icon: '📜' },
             { label: 'तिथी', value: tithiData.tithi, icon: '🌓' },
             { label: 'अयन', value: aayanData.aayan, icon: '☀️' },
@@ -265,7 +265,7 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
         // Generate HTML for the panchang grid
         const panchangGridHtml = panchangItems.map(item => `
             <div class="panchang-detail">
-                <span class="panchang-icon">${item.icon}</span>
+                <span class="panchang-icon${item.label === 'वार' ? ' calendar-icon' : ''}"${item.label === 'वार' ? ' aria-label="Current date"' : ''}>${item.icon}</span>
                 <div class="panchang-text">
                     <span class="panchang-label">${item.label}:</span>
                     <span class="panchang-value">${item.value}</span>
@@ -418,6 +418,41 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
             line-height: 1;
         }
 
+        .panchang-icon.calendar-icon {
+            width: 1em;
+            height: 1em;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            overflow: hidden;
+            border: 1px solid var(--accent-color);
+            border-radius: 0.2em;
+            font-family: Arial, sans-serif;
+            line-height: 1;
+        }
+
+        .calendar-month {
+            width: 100%;
+            padding: 0.15em 0;
+            background: var(--accent-color);
+            color: #fff;
+            font-size: 0.38em;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .calendar-day {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            font-size: 0.45em;
+            font-weight: 700;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
         .panchang-text {
             display: flex;
             flex-direction: column;
@@ -539,6 +574,19 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
      
 </body>
 <script>
+    const calendarDateParts = new Intl.DateTimeFormat('en', {
+        timeZone: 'Asia/Kolkata',
+        month: 'short',
+        day: '2-digit'
+    }).formatToParts(new Date());
+    const calendarMonth = calendarDateParts.find(part => part.type === 'month');
+    const calendarDay = calendarDateParts.find(part => part.type === 'day');
+    if (!calendarMonth || !calendarDay) {
+        throw new Error('Could not determine the current date for the calendar icon.');
+    }
+    document.querySelector('.calendar-month').textContent = calendarMonth.value.toUpperCase();
+    document.querySelector('.calendar-day').textContent = calendarDay.value;
+
     // Get the current day in IST
     const date = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
     const currentDay = new Date(date).getDay();
