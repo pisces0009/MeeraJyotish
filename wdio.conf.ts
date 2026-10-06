@@ -26,9 +26,7 @@ export const config: WebdriverIO.Config = {
         './test/specs/**/*.ts'
     ],
     // Patterns to exclude.
-    exclude: [
-        // 'path/to/excluded/files'
-    ],
+    exclude: process.env.VIVARAN_REFRESH === '1' ? [] : ['./test/specs/DatePanchang.ts'],
     //
     // ============
     // Capabilities

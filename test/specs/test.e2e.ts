@@ -31,45 +31,6 @@ function getBackgroundImage(): string {
     }
 }
 
-// Function to get the special details based on the date in IST
-function getSpecialDetails(date: string): string {
-    const specialDetails: { [key: string]: string } = {
-    '01 Jun 2025': 'चांगला दिवस',
-    '02 Jun 2025': 'उत्तम दिवस',
-    '03 Jun 2025': '९ नं.चांगला',
-    '04 Sep 2025': 'शुभ दिवस',
-    '05 Sep 2025': 'शुभ दिवस',
-    '06 Sep 2025': 'चांगला दिवस',
-    '07 Jun 2025': 'वृद्धितिथी',
-    '08 May 2025': '१२ नं. चांगला',
-    '09 May 2025': 'शुभ दिवस',
-    '10 Jun 2025': '१२प. चांगला',
-    '11 Jun 2025': 'ज्येष्ठा वर्ज्य',
-    '12 Jun 2025': 'चांगला दिवस',
-    '13 Jun 2025': 'उत्तम दिवस',
-    '14 Jun 2025': '१६ नं. चांगला',
-    '15 May 2025': 'ज्येष्ठा वर्ज्य',
-    '16 May 2025': 'उत्तम दिवस',
-    '17 Jun 2025': '१५ प. चांगला',
-    '18 Jun 2025': 'चांगला दिवस',
-    '19 Jun 2025': 'उत्तम दिवस',
-    '20 Jun 2025': 'उत्तम दिवस',
-    '21 Jun 2025': 'क्षयतिथी',
-    '22 May 2025': '१४ प. चांगला',
-    '23 May 2025': 'उत्तम दिवस',
-    '24 May 2025': '१९ प. चांगला',
-    '25 May 2025': 'त्रयोदशी वर्जय',
-    '26 May 2025': 'अमावास्या वर्ज्य',
-    '27 May 2025': 'क्षयतिथी',
-    '28 May 2025': 'शुभ दिवस',
-    '29 Jun 2025': '९ नं. चांगला',
-    '30 Jun 2025': '१७ प. चांगला',
-    '31 May 2025': 'चांगला दिवस',
-
-    };
-    return specialDetails[date] || 'no details available';
-}
-
 describe('get all panchang details', () => {
     before(async () => {
         // Clear all saved data
@@ -237,8 +198,17 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
         // Get the background image based on the day of the week in IST
         const backgroundImage = getBackgroundImage();
 
-        // Get the special details based on the date in IST
-        const specialDetails = getSpecialDetails(todayDate);
+        const dateVivaran: unknown = JSON.parse(
+            fs.readFileSync(path.resolve(__dirname, '../../DateVivaran.json'), 'utf-8')
+        );
+        if (
+            typeof dateVivaran !== 'object'
+            || dateVivaran === null
+            || !('vivaran' in dateVivaran)
+            || typeof dateVivaran.vivaran !== 'string'
+        ) {
+            throw new Error('DateVivaran.json must contain a string vivaran value.');
+        }
 
         // Create an array of panchang items with labels, values, and icons
         const panchangItems = [
@@ -253,7 +223,7 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
             { label: 'राशी', value: rassiData.rassi, icon: '♋' },
             { label: 'दिनमान', value: dinmaanData.dinmaan, icon: '⏳' },
             { label: 'राहू काळ', value: rahuKaalData.rahuKaal, icon: '🚫' },
-            { label: 'दिनविशेष', value: specialDetails, icon: '⭐' }
+            { label: 'दिनविशेष', value: dateVivaran.vivaran, icon: '⭐' }
         ];
 
         const gocharItems = [

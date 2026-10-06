@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "refresh-vivaran": "VIVARAN_REFRESH=1 wdio run ./wdio.conf.ts --spec ./test/specs/DatePanchang.ts --logLevel warn",
+    "pretest": "npm run refresh-vivaran",
+    "test": "wdio run ./wdio.conf.ts",
+    "prewdio": "npm run refresh-vivaran",
     "wdio": "wdio run ./wdio.conf.ts"
   },
   "keywords": [],
@@ -16,6 +19,7 @@
     "nodemailer": "^6.10.0",
     "open": "^10.1.0",
     "qrcode-terminal": "^0.12.0",
+    "tesseract.js": "^6.0.1",
     "twilio": "^5.4.5",
     "webdriverio": "^9.10.1",
     "whatsapp-web.js": "^1.23.0"
