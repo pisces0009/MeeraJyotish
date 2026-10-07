@@ -12,6 +12,20 @@ interface RashiData {
 let allRashiData: RashiData[] = [];
 let getDateAndDay: string;
 
+function getIndianDateParts(now: Date): { day: number; year: number } {
+    const parts = new Intl.DateTimeFormat('en', {
+        timeZone: 'Asia/Kolkata',
+        day: 'numeric',
+        year: 'numeric'
+    }).formatToParts(now);
+    const day = Number(parts.find(part => part.type === 'day')?.value);
+    const year = Number(parts.find(part => part.type === 'year')?.value);
+    if (!Number.isInteger(day) || !Number.isInteger(year)) {
+        throw new Error('Could not determine the current India date.');
+    }
+    return { day, year };
+}
+
 // Configuration for all Rashis
 const rashiConfigs = [
     { urlName: 'mesha', icon: 'mesh.jpg' },
@@ -38,13 +52,25 @@ describe('get all rashi bhavishya', () => {
          }
 
         // Navigate to the first page to get the date
-        await browser.url(`https://www.drikpanchang.com/astrology/prediction/${rashiConfigs[0].urlName}-rashi/${rashiConfigs[0].urlName}-rashi-daily-rashiphal.html?lang=mr&ck=1`);
+        await browser.setTimeZone('Asia/Kolkata');
+        await browser.url(`https://www.drikpanchang.com/astrology/prediction/${rashiConfigs[0].urlName}-rashi/${rashiConfigs[0].urlName}-rashi-daily-rashiphal.html?lang=mr&ck=1&geoname-id=1275339`);
         getDateAndDay = await rashiBhavishya.dayAndDate.getText(); 
+        const displayedDate = getDateAndDay.match(/(\d{1,2}),?\s+(\d{4})/);
+        if (!displayedDate) {
+            throw new Error(`Could not read the date from Drik Panchang: ${getDateAndDay}`);
+        }
+
+        const indiaDate = getIndianDateParts(new Date());
+        if (Number(displayedDate[1]) !== indiaDate.day || Number(displayedDate[2]) !== indiaDate.year) {
+            throw new Error(
+                `Drik Panchang shows ${getDateAndDay}, not today's India date (${indiaDate.day}/${indiaDate.year}).`
+            );
+        }
     });
 
     it('should get mesh rashi daily details', async () => {
         for (const config of rashiConfigs) {
-            const url = `https://www.drikpanchang.com/astrology/prediction/${config.urlName}-rashi/${config.urlName}-rashi-daily-rashiphal.html?lang=mr&ck=1`;
+            const url = `https://www.drikpanchang.com/astrology/prediction/${config.urlName}-rashi/${config.urlName}-rashi-daily-rashiphal.html?lang=mr&ck=1&geoname-id=1275339`;
             await browser.url(url);
 
             const rashiName = await rashiBhavishya.rashiName.getText();
