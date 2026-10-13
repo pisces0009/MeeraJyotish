@@ -87,9 +87,14 @@ describe('Date Panchang in Mumbai time', () => {
         const panchangImage = await $('img[alt="Panchang/Dinavishesha"]');
         await panchangImage.waitForDisplayed();
         const previousImageSource = await panchangImage.getAttribute('src');
-        const nextDayButton = await $('button:has(svg path[d^="M10 6L8.59"])');
-        await nextDayButton.waitForClickable();
-        await nextDayButton.click();
+        const currentHeading = (await dateHeading.getText()).trim();
+        const shouldAdvance = currentHeading !== expectedHeading;
+
+        if (shouldAdvance) {
+            const nextDayButton = await $('button:has(svg path[d^="M10 6L8.59"])');
+            await nextDayButton.waitForClickable();
+            await nextDayButton.click();
+        }
 
         await browser.waitUntil(
             async () => (await dateHeading.getText()).trim() === expectedHeading,
@@ -110,7 +115,8 @@ describe('Date Panchang in Mumbai time', () => {
                     );
                     return Boolean(image?.complete && image.naturalWidth > 0);
                 });
-                return currentImageSource !== previousImageSource && isLoaded;
+                const isSourceReady = Boolean(currentImageSource) && (!shouldAdvance || currentImageSource !== previousImageSource);
+                return isSourceReady && isLoaded;
             },
             {
                 timeout: 15000,
