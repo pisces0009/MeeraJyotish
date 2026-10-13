@@ -57,7 +57,14 @@ async function extractVivaran(image: Buffer): Promise<string> {
             .trim();
         const vivaran = vivaranOnLabelLine || lines[vivaranLineIndex + 1];
         assert.ok(vivaran, `Could not read the Vivaran value from Panchang image OCR:\n${data.text}`);
-        return vivaran.replace(/\s*(?:>|&gt;)\s*AN\s*$/i, '').trim();
+        return Array.from(vivaran)
+            .filter(character => /\s/u.test(character) || (
+                /\p{Script=Devanagari}/u.test(character)
+                && /[\p{L}\p{M}\p{N}]/u.test(character)
+            ))
+            .join('')
+            .replace(/\s+/g, ' ')
+            .trim();
     } finally {
         await worker.terminate();
     }
