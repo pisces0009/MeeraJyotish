@@ -54,17 +54,17 @@ describe('get all panchang details', () => {
         const tithi2 = await panchangDetails.tithi2.getText();
         const tithi = `${tithi1} | ${tithi2}`; // Combine both tithi1 and tithi2
         const nakshatra = await panchangDetails.nakshatra.getText();
-        let yoga = await panchangDetails.yoga.getText();
-        yoga = yoga.replace('\nⓘ', ''); // Remove \nⓘ from yoga
+//         let yoga = await panchangDetails.yoga.getText();
+//         yoga = yoga.replace('\nⓘ', ''); // Remove \nⓘ from yoga
         let var1 = await panchangDetails.var.getText();
         var1 = var1.replace('\nⓘ', ''); // Remove \nⓘ from var1
-        const rahuKaal = await panchangDetails.rahuKaal.getText();
-        const rassi = await panchangDetails.rassi.getText();
-        const karan1 = await panchangDetails.karan.getText();
-        let karan2 = await panchangDetails.karan2.getText();
-        karan2 = karan2.replace('\nⓘ', ''); // Remove \nⓘ from karan2
-        let karan = `${karan1} | ${karan2}`; // Combine both karan1 and karan2
-        karan = karan.replace('\nⓘ', ''); // Remove \nⓘ from karan
+//         const rahuKaal = await panchangDetails.rahuKaal.getText();
+//         const rassi = await panchangDetails.rassi.getText();
+//         const karan1 = await panchangDetails.karan.getText();
+//         let karan2 = await panchangDetails.karan2.getText();
+//         karan2 = karan2.replace('\nⓘ', ''); // Remove \nⓘ from karan2
+//         let karan = `${karan1} | ${karan2}`; // Combine both karan1 and karan2
+//         karan = karan.replace('\nⓘ', ''); // Remove \nⓘ from karan
         const savastar = await panchangDetails.savastar1.getText();
         //const savastar2 = await panchangDetails.savastar2.getText();
         //const savastar = `${savastar1} ${savastar2}`; // Combine both savastar1 and savastar2
@@ -101,17 +101,17 @@ clearJsonFile(nakshatraFilePath);
 const data1 = { nakshatra };
 fs.writeFileSync(nakshatraFilePath, JSON.stringify(data1, null, 2));
 
-// Store yoga in a JSON file
-const yogaFilePath = 'yoga.json';
-clearJsonFile(yogaFilePath);
-const data2 = { yoga };
-fs.writeFileSync(yogaFilePath, JSON.stringify(data2, null, 2));
+// // Store yoga in a JSON file
+// const yogaFilePath = 'yoga.json';
+// clearJsonFile(yogaFilePath);
+// const data2 = { yoga };
+// fs.writeFileSync(yogaFilePath, JSON.stringify(data2, null, 2));
 
-// Store karan in a JSON file
-const karanFilePath = 'karan.json';
-clearJsonFile(karanFilePath);
-const data3 = { karan };
-fs.writeFileSync(karanFilePath, JSON.stringify(data3, null, 2));
+// // Store karan in a JSON file
+// const karanFilePath = 'karan.json';
+// clearJsonFile(karanFilePath);
+// const data3 = { karan };
+// fs.writeFileSync(karanFilePath, JSON.stringify(data3, null, 2));
 
 // Store var in a JSON file
 const varFilePath = 'var.json';
@@ -119,17 +119,17 @@ clearJsonFile(varFilePath);
 const data4 = { var1 };
 fs.writeFileSync(varFilePath, JSON.stringify(data4, null, 2));
 
-// Store rahuKaal in a JSON file
-const rahuKaalFilePath = 'rahuKaal.json';
-clearJsonFile(rahuKaalFilePath);
-const data5 = { rahuKaal };
-fs.writeFileSync(rahuKaalFilePath, JSON.stringify(data5, null, 2));
+// // Store rahuKaal in a JSON file
+// const rahuKaalFilePath = 'rahuKaal.json';
+// clearJsonFile(rahuKaalFilePath);
+// const data5 = { rahuKaal };
+// fs.writeFileSync(rahuKaalFilePath, JSON.stringify(data5, null, 2));
 
-// Store rassi in a JSON file
-const rassiFilePath = 'rassi.json';
-clearJsonFile(rassiFilePath);
-const data6 = { rassi };
-fs.writeFileSync(rassiFilePath, JSON.stringify(data6, null, 2));
+// // Store rassi in a JSON file
+// const rassiFilePath = 'rassi.json';
+// clearJsonFile(rassiFilePath);
+// const data6 = { rassi };
+// fs.writeFileSync(rassiFilePath, JSON.stringify(data6, null, 2));
 
 // Store savastar in a JSON file
 const savastarFilePath = 'savastar.json';
@@ -179,11 +179,11 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
         // Read JSON files
         const tithiData = JSON.parse(fs.readFileSync('tithi.json', 'utf-8'))
         const nakshatraData = JSON.parse(fs.readFileSync('nakshatra.json', 'utf-8'))
-        const yogaData = JSON.parse(fs.readFileSync('yoga.json', 'utf-8'))
-        const karanData = JSON.parse(fs.readFileSync('karan.json', 'utf-8'))
+//         const yogaData = JSON.parse(fs.readFileSync('yoga.json', 'utf-8'))
+//         const karanData = JSON.parse(fs.readFileSync('karan.json', 'utf-8'))
         const varData = JSON.parse(fs.readFileSync('var.json', 'utf-8'))
-        const rahuKaalData = JSON.parse(fs.readFileSync('rahuKaal.json', 'utf-8'))
-        const rassiData = JSON.parse(fs.readFileSync('rassi.json', 'utf-8'))
+//         const rahuKaalData = JSON.parse(fs.readFileSync('rahuKaal.json', 'utf-8'))
+//         const rassiData = JSON.parse(fs.readFileSync('rassi.json', 'utf-8'))
         const savastarData = JSON.parse(fs.readFileSync('savastar.json', 'utf-8'))
         const dinmaanData = JSON.parse(fs.readFileSync('dinmaan.json', 'utf-8'))
         const rutuData = JSON.parse(fs.readFileSync('rutu.json', 'utf-8'))
@@ -198,16 +198,14 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
         // Get the background image based on the day of the week in IST
         const backgroundImage = getBackgroundImage();
 
-        const dateVivaran: unknown = JSON.parse(
+        // Vivaran, Rashi, Rahu Kaal, Yoga and Karan come from datepanchang.com (see DatePanchang.ts)
+        const dateVivaran: Record<'vivaran' | 'rashi' | 'rahuKaal' | 'yoga' | 'karan', string> = JSON.parse(
             fs.readFileSync(path.resolve(__dirname, '../../DateVivaran.json'), 'utf-8')
         );
-        if (
-            typeof dateVivaran !== 'object'
-            || dateVivaran === null
-            || !('vivaran' in dateVivaran)
-            || typeof dateVivaran.vivaran !== 'string'
-        ) {
-            throw new Error('DateVivaran.json must contain a string vivaran value.');
+        for (const key of ['vivaran', 'rashi', 'rahuKaal', 'yoga', 'karan'] as const) {
+            if (typeof dateVivaran[key] !== 'string' || !dateVivaran[key]) {
+                throw new Error(`DateVivaran.json must contain a string ${key} value.`);
+            }
         }
 
         // Create an array of panchang items with labels, values, and icons
@@ -218,11 +216,15 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
             { label: 'अयन', value: aayanData.aayan, icon: '☀️' },
             { label: 'ऋतु', value: rutuData.rutu, icon: '🍂' },
             { label: 'नक्षत्र', value: nakshatraData.nakshatra, icon: '✨' },
-            { label: 'करण', value: karanData.karan, icon: '🌗' },
-            { label: 'योग', value: yogaData.yoga, icon: '🧘' },
-            { label: 'राशी', value: rassiData.rassi, icon: '♋' },
+            // { label: 'करण', value: karanData.karan, icon: '🌗' },
+            // { label: 'योग', value: yogaData.yoga, icon: '🧘' },
+            // { label: 'राशी', value: rassiData.rassi, icon: '♋' },
+            { label: 'करण', value: dateVivaran.karan, icon: '🌗' },
+            { label: 'योग', value: dateVivaran.yoga, icon: '🧘' },
+            { label: 'राशी', value: dateVivaran.rashi, icon: '♋' },
             { label: 'दिनमान', value: dinmaanData.dinmaan, icon: '⏳' },
-            { label: 'राहू काळ', value: rahuKaalData.rahuKaal, icon: '🚫' },
+            // { label: 'राहू काळ', value: rahuKaalData.rahuKaal, icon: '🚫' },
+            { label: 'राहू काळ', value: dateVivaran.rahuKaal, icon: '🚫' },
             { label: 'दिनविशेष', value: dateVivaran.vivaran, icon: '⭐' }
         ];
 
@@ -233,8 +235,10 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
         ];
 
         // Generate HTML for the panchang grid
+        const highlightClass: Record<string, string> = { 'तिथी': ' highlight', 'नक्षत्र': ' highlight', 'राहू काळ': ' highlight highlight-rahu' };
+
         const panchangGridHtml = panchangItems.map(item => `
-            <div class="panchang-detail">
+            <div class="panchang-detail${highlightClass[item.label] ?? ''}">
                 <span class="panchang-icon${item.label === 'वार' ? ' calendar-icon' : ''}"${item.label === 'वार' ? ' aria-label="Current date"' : ''}>${item.icon}</span>
                 <div class="panchang-text">
                     <span class="panchang-label">${item.label}:</span>
@@ -289,6 +293,10 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
             --accent-glow: rgba(217, 0, 91, 0.4);
         }
 
+        .top-header, .main-container {
+            box-sizing: border-box;
+        }
+
         .top-header {
             width: 100%;
             max-width: 850px;
@@ -322,11 +330,14 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
             text-shadow: 0 0 5px var(--accent-glow);
         }
 
+        .top-header::after {
+            content: '';
+            width: 45px;
+            flex: none;
+        }
+
         .burger-menu {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            flex: none;
             cursor: pointer;
             padding: 5px;
         }
@@ -356,16 +367,28 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
             text-align: center;
             font-size: 1.6em;
             font-weight: 600;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             color: var(--accent-color);
             text-shadow: 0 0 8px var(--accent-glow);
         }
 
         .panchang-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
             margin-bottom: 30px;
+        }
+
+        .panchang-detail.highlight {
+            border-color: var(--accent-color);
+            background: linear-gradient(160deg, rgba(0, 217, 255, 0.16), rgba(255, 255, 255, 0.04));
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .panchang-detail.highlight-rahu {
+            border-color: #ff5c5c;
+            background: linear-gradient(160deg, rgba(255, 92, 92, 0.22), rgba(255, 255, 255, 0.04));
+            box-shadow: 0 0 12px rgba(255, 92, 92, 0.45);
         }
 
         .panchang-detail {
@@ -485,7 +508,7 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
                 font-size: 1.8em;
             }
             .panchang-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: minmax(0, 1fr);
             }
             .main-container {
                 padding: 20px;
@@ -497,7 +520,27 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
                 padding: 10px;
             }
             .page-title {
+                font-size: 1.15em;
+            }
+            .panchang-detail {
+                padding: 10px;
+            }
+            .panchang-icon {
                 font-size: 1.5em;
+                margin-right: 10px;
+            }
+            .panchang-value {
+                font-size: 0.92em;
+            }
+            .date-header {
+                font-size: 1.25em;
+            }
+            .burger-icon {
+                width: 28px;
+                height: 28px;
+            }
+            .top-header::after {
+                width: 38px;
             }
             .top-header {
                 padding: 10px 15px;
@@ -546,25 +589,15 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
 </body>
 <script src="archive-nav.js"></script>
 <script>
-    const calendarDateParts = new Intl.DateTimeFormat('en', {
-        timeZone: 'Asia/Kolkata',
-        month: 'short',
-        day: '2-digit'
-    }).formatToParts(new Date());
-    const calendarMonth = calendarDateParts.find(part => part.type === 'month');
-    const calendarDay = calendarDateParts.find(part => part.type === 'day');
-    if (!calendarMonth || !calendarDay) {
-        throw new Error('Could not determine the current date for the calendar icon.');
-    }
-    document.querySelector('.calendar-month').textContent = calendarMonth.value.toUpperCase();
-    document.querySelector('.calendar-day').textContent = calendarDay.value;
+    // Use the page's own date so archived pages show their day, not today's
+    const pageDate = new Date(document.querySelector('meta[name="page-date"]').content + 'T00:00:00Z');
+    document.querySelector('.calendar-month').textContent =
+        pageDate.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }).toUpperCase();
+    document.querySelector('.calendar-day').textContent =
+        String(pageDate.getUTCDate()).padStart(2, '0');
 
-    // Get the current day in IST
-    const date = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
-    const currentDay = new Date(date).getDay();
-
-    // Change theme if it's Monday (1) for better readability on white background
-    if (currentDay === 1) {
+    // Monday gets a lighter theme for better readability on the white background
+    if (pageDate.getUTCDay() === 1) {
         document.body.classList.add('monday-theme');
     }
 </script>

@@ -70,6 +70,61 @@ async function extractVivaran(image: Buffer): Promise<string> {
     }
 }
 
+const rowLabels = {
+    rashi: 'चंद्रराशि',
+    rahuKaal: 'राहुकाल',
+    yoga: 'योग',
+    karan: 'करण'
+} as const;
+
+// Keeps only Devanagari words (letters, digits, marks); OCR noise from the background is dropped.
+function cleanRowValue(text: string): string {
+    return text
+        .split(/\s+/)
+        .map(token => Array.from(token)
+            .filter(character => /\p{Script=Devanagari}/u.test(character) || /[:.]/.test(character))
+            .join(''))
+        .filter(token => /\p{Script=Devanagari}/u.test(token))
+        .join(' ')
+        .trim();
+}
+
+// Finds each row label, then reads only the value area to its right so the artwork doesn't confuse OCR.
+async function extractRowValues(image: Buffer): Promise<Record<keyof typeof rowLabels, string>> {
+    const worker = await createWorker('hin+eng');
+    try {
+        const { data } = await worker.recognize(image, {}, { blocks: true });
+        const words = (data.blocks ?? [])
+            .flatMap(block => block.paragraphs)
+            .flatMap(paragraph => paragraph.lines)
+            .flatMap(line => line.words);
+
+        await worker.setParameters({ tessedit_pageseg_mode: '7' as never });
+
+        const values = {} as Record<keyof typeof rowLabels, string>;
+        for (const [key, label] of Object.entries(rowLabels) as [keyof typeof rowLabels, string][]) {
+            const labelWord = words.find(word => word.text.replace(/[^\p{L}\p{M}]/gu, '') === label);
+            assert.ok(labelWord, `Could not find the ${label} label in Panchang image OCR:\n${data.text}`);
+
+            const { bbox } = labelWord;
+            const rowHeight = bbox.y1 - bbox.y0;
+            const row = await worker.recognize(image, {
+                rectangle: {
+                    left: bbox.x1 + 10,
+                    top: Math.max(0, bbox.y0 - 15),
+                    width: 520,
+                    height: rowHeight + 30
+                }
+            });
+            values[key] = cleanRowValue(row.data.text);
+            assert.ok(values[key], `Could not read the ${label} value from Panchang image OCR:\n${row.data.text}`);
+        }
+        return values;
+    } finally {
+        await worker.terminate();
+    }
+}
+
 describe('Date Panchang in Mumbai time', () => {
     it('updates the current India date, weekday, and Vivaran', async () => {
         const now = new Date();
@@ -152,13 +207,15 @@ describe('Date Panchang in Mumbai time', () => {
                 reader.readAsDataURL(blob);
             });
         }, imageSource);
-        const vivaran = await extractVivaran(Buffer.from(imageBase64, 'base64'));
+        const imageBuffer = Buffer.from(imageBase64, 'base64');
+        const vivaran = await extractVivaran(imageBuffer);
+        const rowValues = await extractRowValues(imageBuffer);
 
         fs.writeFileSync(
             vivaranFilePath,
-            `${JSON.stringify({ vivaran }, null, 2)}\n`,
+            `${JSON.stringify({ vivaran, ...rowValues }, null, 2)}\n`,
             'utf8'
         );
-        console.log(`Updated ${vivaranFilePath} for ${expectedHeading}: ${vivaran}`);
+        console.log(`Updated ${vivaranFilePath} for ${expectedHeading}: ${JSON.stringify({ vivaran, ...rowValues })}`);
     });
 });

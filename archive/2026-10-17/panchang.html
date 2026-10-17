@@ -41,6 +41,10 @@
             --accent-glow: rgba(217, 0, 91, 0.4);
         }
 
+        .top-header, .main-container {
+            box-sizing: border-box;
+        }
+
         .top-header {
             width: 100%;
             max-width: 850px;
@@ -74,11 +78,14 @@
             text-shadow: 0 0 5px var(--accent-glow);
         }
 
+        .top-header::after {
+            content: '';
+            width: 45px;
+            flex: none;
+        }
+
         .burger-menu {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            flex: none;
             cursor: pointer;
             padding: 5px;
         }
@@ -108,16 +115,28 @@
             text-align: center;
             font-size: 1.6em;
             font-weight: 600;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             color: var(--accent-color);
             text-shadow: 0 0 8px var(--accent-glow);
         }
 
         .panchang-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
             margin-bottom: 30px;
+        }
+
+        .panchang-detail.highlight {
+            border-color: var(--accent-color);
+            background: linear-gradient(160deg, rgba(0, 217, 255, 0.16), rgba(255, 255, 255, 0.04));
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .panchang-detail.highlight-rahu {
+            border-color: #ff5c5c;
+            background: linear-gradient(160deg, rgba(255, 92, 92, 0.22), rgba(255, 255, 255, 0.04));
+            box-shadow: 0 0 12px rgba(255, 92, 92, 0.45);
         }
 
         .panchang-detail {
@@ -237,7 +256,7 @@
                 font-size: 1.8em;
             }
             .panchang-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: minmax(0, 1fr);
             }
             .main-container {
                 padding: 20px;
@@ -249,7 +268,27 @@
                 padding: 10px;
             }
             .page-title {
+                font-size: 1.15em;
+            }
+            .panchang-detail {
+                padding: 10px;
+            }
+            .panchang-icon {
                 font-size: 1.5em;
+                margin-right: 10px;
+            }
+            .panchang-value {
+                font-size: 0.92em;
+            }
+            .date-header {
+                font-size: 1.25em;
+            }
+            .burger-icon {
+                width: 28px;
+                height: 28px;
+            }
+            .top-header::after {
+                width: 38px;
             }
             .top-header {
                 padding: 10px 15px;
@@ -297,7 +336,7 @@
                 </div>
             </div>
         
-            <div class="panchang-detail">
+            <div class="panchang-detail highlight">
                 <span class="panchang-icon">🌓</span>
                 <div class="panchang-text">
                     <span class="panchang-label">तिथी:</span>
@@ -322,7 +361,7 @@
                 </div>
             </div>
         
-            <div class="panchang-detail">
+            <div class="panchang-detail highlight">
                 <span class="panchang-icon">✨</span>
                 <div class="panchang-text">
                     <span class="panchang-label">नक्षत्र:</span>
@@ -334,7 +373,7 @@
                 <span class="panchang-icon">🌗</span>
                 <div class="panchang-text">
                     <span class="panchang-label">करण:</span>
-                    <span class="panchang-value">गर - 19:11 तक | वणिज - पूर्ण रात्रि तक</span>
+                    <span class="panchang-value">गरज १९:१२</span>
                 </div>
             </div>
         
@@ -342,7 +381,7 @@
                 <span class="panchang-icon">🧘</span>
                 <div class="panchang-text">
                     <span class="panchang-label">योग:</span>
-                    <span class="panchang-value">सुकर्मा</span>
+                    <span class="panchang-value">अतिगंड २३:०३</span>
                 </div>
             </div>
         
@@ -350,7 +389,7 @@
                 <span class="panchang-icon">♋</span>
                 <div class="panchang-text">
                     <span class="panchang-label">राशी:</span>
-                    <span class="panchang-value">कन्या - 19:57 तक</span>
+                    <span class="panchang-value">धनु</span>
                 </div>
             </div>
         
@@ -362,11 +401,11 @@
                 </div>
             </div>
         
-            <div class="panchang-detail">
+            <div class="panchang-detail highlight highlight-rahu">
                 <span class="panchang-icon">🚫</span>
                 <div class="panchang-text">
                     <span class="panchang-label">राहू काळ:</span>
-                    <span class="panchang-value">04:55 से 05:44</span>
+                    <span class="panchang-value">०९:२९ नं. १०:५७ प.</span>
                 </div>
             </div>
         
@@ -395,25 +434,15 @@
 </body>
 <script src="archive-nav.js"></script>
 <script>
-    const calendarDateParts = new Intl.DateTimeFormat('en', {
-        timeZone: 'Asia/Kolkata',
-        month: 'short',
-        day: '2-digit'
-    }).formatToParts(new Date());
-    const calendarMonth = calendarDateParts.find(part => part.type === 'month');
-    const calendarDay = calendarDateParts.find(part => part.type === 'day');
-    if (!calendarMonth || !calendarDay) {
-        throw new Error('Could not determine the current date for the calendar icon.');
-    }
-    document.querySelector('.calendar-month').textContent = calendarMonth.value.toUpperCase();
-    document.querySelector('.calendar-day').textContent = calendarDay.value;
+    // Use the page's own date so archived pages show their day, not today's
+    const pageDate = new Date(document.querySelector('meta[name="page-date"]').content + 'T00:00:00Z');
+    document.querySelector('.calendar-month').textContent =
+        pageDate.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }).toUpperCase();
+    document.querySelector('.calendar-day').textContent =
+        String(pageDate.getUTCDate()).padStart(2, '0');
 
-    // Get the current day in IST
-    const date = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
-    const currentDay = new Date(date).getDay();
-
-    // Change theme if it's Monday (1) for better readability on white background
-    if (currentDay === 1) {
+    // Monday gets a lighter theme for better readability on the white background
+    if (pageDate.getUTCDay() === 1) {
         document.body.classList.add('monday-theme');
     }
 </script>
