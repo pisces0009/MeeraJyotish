@@ -512,6 +512,7 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
         }
     </style>
 </head>
+<meta name="page-date" content="${new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kolkata' }).format(new Date())}">
 <body>
     
     <div class="top-header">
@@ -522,7 +523,7 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
      </div>
 
     <div class="main-container">
-        <div class="date-header">
+        <div class="date-header" id="date-nav">
             ${todayDate}
         </div>
         
@@ -543,6 +544,7 @@ fs.writeFileSync(shaniGochaarFilePath, JSON.stringify(data13, null, 2));
     </div>
      
 </body>
+<script src="archive-nav.js"></script>
 <script>
     const calendarDateParts = new Intl.DateTimeFormat('en', {
         timeZone: 'Asia/Kolkata',

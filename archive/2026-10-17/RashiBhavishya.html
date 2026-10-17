@@ -1,0 +1,234 @@
+
+        <!DOCTYPE html>
+        <html lang="mr">
+        <head>
+    <base href="../../">
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Rashi Bhavishya</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+            <style>
+                body {
+                    font-family: 'Roboto', sans-serif;
+                    background: #0f0c29;
+                    background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
+                    background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+                    color: #f0f0f0;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+
+                .header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    margin-bottom: 40px;
+                }
+
+                .header h1 {
+                    font-family: 'Orbitron', sans-serif;
+                    font-size: 3em;
+                    color: #e0e0e0;
+                    text-shadow: 0 0 10px rgba(0, 119, 230, 0.7), 0 0 18px rgba(0, 119, 230, 0.4);
+                    margin: 0;
+                }
+
+                .header .date {
+                    font-size: 1.5em;
+                    color: #a0a0a0;
+                    margin-top: 5px;
+                }
+
+                .header-content {
+                    text-align: center;
+                }
+
+                .rashi-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                    gap: 25px;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+
+                .rashi-card {
+                    background: rgba(255, 255, 255, 0.05);
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
+                    border-radius: 15px;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    padding: 25px;
+                    text-align: center;
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                }
+
+                .rashi-card:hover {
+                    transform: translateY(-10px);
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 119, 255, 0.5);
+                }
+
+                .rashi-icon {
+                    width: 80px;
+                    height: 80px;
+                    object-fit: cover;
+                    border-radius: 50%;
+                    margin-bottom: 15px;
+                    border: 3px solid rgba(255, 255, 255, 0.2);
+                }
+
+                .rashi-name {
+                    font-family: 'Orbitron', sans-serif;
+                    font-size: 1.8em;
+                    font-weight: 700;
+                    color: #fff;
+                    margin: 10px 0;
+                }
+
+                .rashi-fal {
+                    font-size: 1em;
+                    line-height: 1.6;
+                    color: #c0c0c0;
+                }
+
+                .burger-menu {
+                    position: absolute;
+                    left: 0;
+                    top: 30%;
+                    transform: translateY(-50%);
+                    z-index: 1001;
+                    cursor: pointer;
+                }
+                .burger-icon {
+                    width: 30px;
+                    height: 22px;
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                }
+                .burger-icon span {
+                    display: block;
+                    width: 100%;
+                    height: 3px;
+                    background-color: #ffffff;
+                    border-radius: 3px;
+                    transition: all 0.3s ease-in-out;
+                }
+                .burger-menu:hover .burger-icon span:nth-child(1) {
+                    transform: translateY(9.5px) rotate(45deg);
+                }
+                .burger-menu:hover .burger-icon span:nth-child(2) {
+                    opacity: 0;
+                }
+                .burger-menu:hover .burger-icon span:nth-child(3) {
+                    transform: translateY(-9.5px) rotate(-45deg);
+                }
+                @media (max-width: 768px) {
+                    .header h1 {
+                        font-size: 2.5em;
+                    }
+                    .rashi-grid {
+                        grid-template-columns: 1fr;
+                    }
+                }
+            </style>
+        </head>
+        <meta name="page-date" content="2026-10-17">
+        <body>
+
+            <div class="header">
+                <div class="burger-menu" onclick="window.location.href='index.html'" role="button" aria-label="Go to homepage">
+                    <div class="burger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="header-content">
+                    <h1>राशि भविष्य</h1>
+                    <div class="date" id="date-nav">शनिवार, ऑक्टोबर 17, 2026</div>
+                </div>
+            </div>
+            <div class="rashi-grid">
+                
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/mesh.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">मेष राशिफल</div>
+                    <div class="rashi-fal">व्यवसायातून मोठा आर्थिक फायदा होऊ शकतो. तुम्ही भूतकाळातील घटनांवर चिंतन कराल. तुम्हाला साहसी आणि जोखमीच्या गुंतवणुकींमध्ये रस वाटू शकतो. तुम्ही भविष्यासंबंधी महत्त्वाचे निर्णय घ्याल. मालमत्तेचे वाद वाढण्याची शक्यता आहे. तरुण लोक त्यांच्या करिअरसंदर्भात नवीन गोष्टी आजमावून पाहू शकतात.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/vrishabha.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">वृषभ राशिफल</div>
+                    <div class="rashi-fal">निरुपयोगी कामांवर वेळ वाया घालवू नका याची काळजी घ्या. आपल्या जोडीदाराच्या आरोग्याकडे लक्ष द्या. घरबांधणीतील अडथळे दूर होतील. तुम्ही घरगुती वापराच्या वस्तू खरेदी करू शकता. तुम्ही तुमच्या आवडीनुसार काम करण्यास प्राधान्य द्याल.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/mithun.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">मिथुन राशिफल</div>
+                    <div class="rashi-fal">आपल्या कुटुंबासोबत चांगले संबंध ठेवा. जीवनावश्यक वस्तू मिळवण्यासाठी तुम्हाला संघर्ष करावा लागू शकतो. तुम्हाला तुमचा दृष्टिकोन बदलण्याची गरज भासू शकते. तुमच्या वैवाहिक संबंधात काही मतभेद कायम राहू शकतात. तुम्ही मित्रांसोबत आनंदाचे क्षण अनुभवाल.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/kark.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">कर्क राशिफल</div>
+                    <div class="rashi-fal">उत्पन्नाचे स्रोत कमी होऊ शकतात. उच्च रक्तदाबाच्या रुग्णांनी आपल्या आरोग्याची काळजी घ्यावी. अति मसालेदार किंवा तिखट पदार्थ खाणे टाळा. दुसऱ्यांच्या कामात ढवळाढवळ करणे महागात पडू शकते. तुमच्या मनात काही शंका रेंगाळत राहतील.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/singh.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">सिंह राशिफल</div>
+                    <div class="rashi-fal">लोक तुमच्या वागणुकीची प्रशंसा करतील. आज तुम्ही तुमच्या आरोग्याबाबत खूप जागरूक राहाल. लोक तुमच्याकडून बरेच काही शिकण्याचा प्रयत्न करतील. तुम्ही तुमच्या जोडीदारासोबत चांगला वेळ घालवाल. कामातील अडथळ्यांमुळे निर्माण झालेली चिंता बऱ्याच अंशी कमी होईल. यामुळे तुमचा आत्मविश्वासही वाढेल.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/kanya.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">कन्या राशिफल</div>
+                    <div class="rashi-fal">आर्थिक व्यवहारांसाठी आजचा दिवस खूप चांगला राहील. तुम्हाला वरिष्ठांकडून पाठिंबा मिळेल. तुम्ही आज अपूर्ण राहिलेली कामे पुन्हा सुरू करण्याचा प्रयत्न कराल. तुमच्या भावंडांसोबतचे तुमचे संबंध सलोख्याचे राहतील. उष्णता आणि थंडीमुळे शरीराला सूज येऊ शकते. तुमचे मनोधैर्य उंचावलेले राहील. विद्यार्थी आपल्या अभ्यासावर लक्ष केंद्रित करतील.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/tula.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">तूळ राशिफल</div>
+                    <div class="rashi-fal">आज तुम्हाला आनंद आणि उत्साह वाटेल. ऑनलाइन पेमेंट करताना काळजी घ्या. तुमचा राग आणि उत्साह नियंत्रणात ठेवा. जीवनाबद्दलचा तुमचा सकारात्मक दृष्टिकोन वाढेल. अपचनामुळे ॲसिडिटीसारख्या समस्या उद्भवू शकतात.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/vrishchik.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">वृश्चिक राशिफल</div>
+                    <div class="rashi-fal">तुम्हाला व्यावसायिक दौऱ्यावर जावे लागू शकते. कुटुंबात काहीतरी अनुचित घडण्याची भीती कायम राहील. अनावश्यक वाद टाळा. तुमचे पालक तुमच्यावर अविश्वास दाखवतील. लोक तुमचा आत्मसन्मान दुखावू शकतात.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/dhanu.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">धनु राशिफल</div>
+                    <div class="rashi-fal">आज, तुमचे लक्ष तुमचे काम वेळेवर पूर्ण करण्यावर असेल. किरकोळ व्यवसायाशी संबंधित कामात चांगली प्रगती होईल. तुमची ध्येये साध्य करण्यासाठी तुमच्यावर दबाव असेल. अनुभवी लोकांकडून सल्ला घेणे फायदेशीर ठरेल. तीव्र सूर्यप्रकाशात थेट जाणे टाळा, कारण त्यामुळे डोकेदुखी होऊ शकते.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/makar.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">मकर राशिफल</div>
+                    <div class="rashi-fal">तरुण-तरुणींच्या लग्नाची चर्चा पुढे जाऊ शकते. तुम्हाला तुमच्या मुलांच्या यशाचा अभिमान वाटेल. पैशाच्या कमतरतेमुळे समस्या निर्माण होऊ शकतात. रक्तदाब कमी होण्याची शक्यता आहे. तुमचा व्यवसाय वाढवण्यासाठी तुम्हाला कर्ज घेण्याची गरज भासू शकते.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/kumbha.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">कुंभ राशिफल</div>
+                    <div class="rashi-fal">रखडलेले प्रकल्प वेगाने पुढे सरकतील. शिकवण्याच्या क्षेत्रात असलेल्यांना अधिक प्रसिद्धी मिळेल. तुम्ही इतरांना मदत करण्याचा प्रयत्न कराल. तुम्हाला नवीन व्यवसाय सुरू करण्याची प्रेरणा मिळू शकते. तुम्ही तुमच्या जोडीदारासोबत एक चित्रपट बनवण्याची योजना करू शकता.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/meen.jpg" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">मीन राशिफल</div>
+                    <div class="rashi-fal">परदेशात राहणाऱ्यांना काही समस्यांना सामोरे जावे लागेल. तुम्हाला तुमच्या मुलांची काळजी वाटू शकते. पाठदुखीचा त्रास होऊ शकतो. आज महत्त्वाच्या कामांना विलंब होऊ शकतो. आपले विचार इतरांवर लादणे टाळा. शेअर बाजारात सावधगिरीने गुंतवणूक करा.</div>
+                </div>
+        
+            </div>
+            <script src="archive-nav.js"></script>
+        </body>
+        </html>
+        

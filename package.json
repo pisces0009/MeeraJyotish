@@ -7,7 +7,9 @@
     "pretest": "npm run refresh-vivaran",
     "test": "wdio run ./wdio.conf.ts",
     "prewdio": "npm run refresh-vivaran",
-    "wdio": "wdio run ./wdio.conf.ts"
+    "wdio": "wdio run ./wdio.conf.ts",
+    "postwdio": "npm run archive",
+    "archive": "node scripts/archive-daily.js"
   },
   "keywords": [],
   "author": "",

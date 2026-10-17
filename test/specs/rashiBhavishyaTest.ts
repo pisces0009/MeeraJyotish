@@ -234,6 +234,7 @@ describe('get all rashi bhavishya', () => {
                 }
             </style>
         </head>
+        <meta name="page-date" content="${new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kolkata' }).format(new Date())}">
         <body>
 
             <div class="header">
@@ -246,12 +247,13 @@ describe('get all rashi bhavishya', () => {
                 </div>
                 <div class="header-content">
                     <h1>राशि भविष्य</h1>
-                    <div class="date">${getDateAndDay}</div>
+                    <div class="date" id="date-nav">${getDateAndDay}</div>
                 </div>
             </div>
             <div class="rashi-grid">
                 ${rashiCardsHtml}
             </div>
+            <script src="archive-nav.js"></script>
         </body>
         </html>
         `;
