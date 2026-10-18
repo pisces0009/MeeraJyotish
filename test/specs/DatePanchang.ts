@@ -103,10 +103,33 @@ async function extractRowValues(image: Buffer): Promise<Record<keyof typeof rowL
 
         const values = {} as Record<keyof typeof rowLabels, string>;
         for (const [key, label] of Object.entries(rowLabels) as [keyof typeof rowLabels, string][]) {
-            const labelWord = words.find(word => word.text.replace(/[^\p{L}\p{M}]/gu, '') === label);
-            assert.ok(labelWord, `Could not find the ${label} label in Panchang image OCR:\n${data.text}`);
+            const findLabelWord = (rowLabel: string) => words.find(
+                word => word.text.replace(/[^\p{L}\p{M}]/gu, '') === rowLabel
+            );
+            const labelWord = findLabelWord(label);
+            let bbox = labelWord?.bbox;
+            if (!bbox && key === 'yoga') {
+                const nakshatraWord = findLabelWord('नक्षत्र');
+                const karanWord = findLabelWord(rowLabels.karan);
+                assert.ok(nakshatraWord && karanWord, `Could not locate Yoga row in Panchang image OCR:\n${data.text}`);
 
-            const { bbox } = labelWord;
+                const rowHeight = Math.min(
+                    nakshatraWord.bbox.y1 - nakshatraWord.bbox.y0,
+                    karanWord.bbox.y1 - karanWord.bbox.y0
+                );
+                const rowCenter = (
+                    (nakshatraWord.bbox.y0 + nakshatraWord.bbox.y1)
+                    + (karanWord.bbox.y0 + karanWord.bbox.y1)
+                ) / 2;
+                bbox = {
+                    x0: Math.min(nakshatraWord.bbox.x0, karanWord.bbox.x0),
+                    x1: Math.max(nakshatraWord.bbox.x1, karanWord.bbox.x1),
+                    y0: rowCenter - rowHeight / 2,
+                    y1: rowCenter + rowHeight / 2
+                };
+            }
+            assert.ok(bbox, `Could not find the ${label} label in Panchang image OCR:\n${data.text}`);
+
             const rowHeight = bbox.y1 - bbox.y0;
             const row = await worker.recognize(image, {
                 rectangle: {
