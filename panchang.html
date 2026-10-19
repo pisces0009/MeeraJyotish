@@ -77,6 +77,43 @@
             text-shadow: 0 0 5px var(--accent-glow);
         }
 
+        .page-title { position: relative; }
+        .page-title .om, .page-title .swastik {
+            display: inline-block;
+            color: #ffb703;
+            text-shadow: 0 0 10px #ffb703, 0 0 22px #ff7b00;
+            animation: symbolPulse 2.4s ease-in-out infinite;
+        }
+        .page-title .swastik { animation: swastikSpin 8s linear infinite; }
+        .page-title .title-text {
+            background: linear-gradient(100deg, #fff 0%, #fff 35%, #00d9ff 50%, #fff 65%, #fff 100%);
+            background-size: 250% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+            filter: drop-shadow(0 0 8px var(--accent-glow));
+            animation: titleShimmer 4s linear infinite;
+        }
+        body.monday-theme .page-title .title-text {
+            background-image: linear-gradient(100deg, var(--accent-color) 0%, var(--accent-color) 35%, #ff7b00 50%, var(--accent-color) 65%, var(--accent-color) 100%);
+            background-size: 250% 100%;
+        }
+        .page-title::after {
+            content: '';
+            position: absolute;
+            left: 50%; bottom: -6px;
+            width: 0; height: 2px;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, transparent, #ffb703, transparent);
+            animation: underlineGrow 3s ease-in-out infinite;
+        }
+        @keyframes symbolPulse { 0%,100% { transform: scale(1); opacity: .85; } 50% { transform: scale(1.2); opacity: 1; } }
+        @keyframes swastikSpin { to { transform: rotate(360deg); } }
+        @keyframes titleShimmer { from { background-position: 150% 0; } to { background-position: -100% 0; } }
+        @keyframes underlineGrow { 0%,100% { width: 0; } 50% { width: 80%; } }
+        @media (prefers-reduced-motion: reduce) { .page-title *, .page-title::after { animation: none !important; } }
+
         .top-header::after {
             content: '';
             width: 45px;
@@ -309,7 +346,7 @@
          <div class="burger-menu" onclick="window.location.href='index.html'">
              <img src="./images/burger-icon.png" alt="Menu Icon" class="burger-icon">
          </div>
-         <h1 class="page-title">||ॐ|| पंचांग ||卐||</h1>
+         <h1 class="page-title">||<span class="om">ॐ</span>|| <span class="title-text">पंचांग</span> ||<span class="swastik">卐</span>||</h1>
      </div>
 
     <div class="main-container">
