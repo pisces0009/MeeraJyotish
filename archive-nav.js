@@ -11,16 +11,16 @@
     style.textContent =
         '#date-nav{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:nowrap}' +
         '#date-nav .nav-label{flex:0 1 auto;min-width:0;text-align:center;line-height:1.3}' +
-        '#date-nav .nav-btn{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.25);' +
-        'background:rgba(255,255,255,.12);color:#fff;font-size:16px;line-height:1;cursor:pointer;padding:0;' +
+        '#date-nav .nav-btn{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid currentColor;' +
+        'background:rgba(128,128,128,.2);color:var(--text-color,#fff);font-size:16px;line-height:1;cursor:pointer;padding:0;' +
         'display:inline-flex;align-items:center;justify-content:center;transition:background .2s,transform .2s}' +
-        '#date-nav .nav-btn:hover:not(:disabled){background:rgba(255,255,255,.28);transform:scale(1.08)}' +
+        '#date-nav .nav-btn:hover:not(:disabled){background:rgba(128,128,128,.4);transform:scale(1.08)}' +
         '#date-nav .nav-btn:focus-visible{outline:2px solid #00d9ff;outline-offset:2px}' +
         '#date-nav .nav-btn:disabled{opacity:.25;cursor:default}' +
         '#date-nav .nav-pick{position:relative}' +
         '#date-nav .nav-pick input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}' +
         '.today-link{display:block;width:max-content;margin:10px auto 0;padding:6px 18px;border-radius:999px;' +
-        'background:rgba(0,217,255,.15);border:1px solid rgba(0,217,255,.5);color:#fff;text-decoration:none;font-size:.9rem}' +
+        'background:rgba(0,217,255,.15);border:1px solid rgba(0,217,255,.5);color:var(--text-color,#fff);text-decoration:none;font-size:.9rem}' +
         '.today-link:hover{background:rgba(0,217,255,.3)}';
     document.head.appendChild(style);
 
