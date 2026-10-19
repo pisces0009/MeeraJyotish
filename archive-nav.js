@@ -5,7 +5,6 @@
 
     var current = meta.content;
     var file = location.pathname.split('/').pop() || 'panchang.html';
-    var inArchive = location.pathname.indexOf('/archive/') !== -1;
 
     var style = document.createElement('style');
     style.textContent =
@@ -18,10 +17,7 @@
         '#date-nav .nav-btn:focus-visible{outline:2px solid #00d9ff;outline-offset:2px}' +
         '#date-nav .nav-btn:disabled{opacity:.25;cursor:default}' +
         '#date-nav .nav-pick{position:relative}' +
-        '#date-nav .nav-pick input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}' +
-        '.today-link{display:block;width:max-content;margin:10px auto 0;padding:6px 18px;border-radius:999px;' +
-        'background:rgba(0,217,255,.15);border:1px solid rgba(0,217,255,.5);color:var(--text-color,#fff);text-decoration:none;font-size:.9rem}' +
-        '.today-link:hover{background:rgba(0,217,255,.3)}';
+        '#date-nav .nav-pick input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}';
     document.head.appendChild(style);
 
     var label = document.createElement('span');
@@ -57,14 +53,6 @@
     el.appendChild(label);
     el.appendChild(pick);
     el.appendChild(next);
-
-    if (inArchive) {
-        var today = document.createElement('a');
-        today.className = 'today-link';
-        today.href = file;
-        today.textContent = 'आज (Today)';
-        el.insertAdjacentElement('afterend', today);
-    }
 
     function go(date) {
         location.href = 'archive/' + date + '/' + file;
