@@ -89,6 +89,39 @@ function cleanRowValue(text: string): string {
         .trim();
 }
 
+const devanagariDigits = '०१२३४५६७८९';
+
+// Rahu Kaal is always about 1.5 hours long, which lets us reject OCR digit mistakes like २५:२७.
+function isPlausibleRahuKaal(value: string): boolean {
+    const times = Array.from(value.matchAll(/([०-९]{2}):([०-९]{2})/g)).map(match => {
+        const toNumber = (digits: string) => Number(Array.from(digits).map(digit => devanagariDigits.indexOf(digit)).join(''));
+        return toNumber(match[1]) * 60 + toNumber(match[2]);
+    });
+    if (times.length !== 2) {
+        return false;
+    }
+    const minutes = times[1] - times[0];
+    return minutes >= 60 && minutes <= 120;
+}
+
+// The whole-image line read and the row-crop read each make different mistakes, so pick the better one.
+function pickRowValue(key: keyof typeof rowLabels, lineValue: string, cropValue: string): string {
+    // Yoga and Karan are a name followed by a time; anything after the time is background noise.
+    const trimAfterTime = (value: string): string => {
+        const tokens = value.split(' ');
+        const timeIndex = tokens.findIndex(token => /[०-९]{2}:[०-९]{2}/.test(token));
+        return timeIndex === -1 || key === 'rahuKaal' || key === 'rashi' ? value : tokens.slice(0, timeIndex + 1).join(' ');
+    };
+    const candidates = [lineValue, cropValue].filter(Boolean).map(trimAfterTime);
+    if (key === 'rahuKaal') {
+        const plausible = candidates.find(isPlausibleRahuKaal);
+        assert.ok(plausible, `Could not read a valid Rahu Kaal time (got: ${candidates.join(' / ')})`);
+        return plausible;
+    }
+    const wordCount = (value: string) => value.split(' ').length;
+    return candidates.sort((a, b) => wordCount(b) - wordCount(a))[0] ?? '';
+}
+
 // Finds each row label, then reads only the value area to its right so the artwork doesn't confuse OCR.
 async function extractRowValues(image: Buffer): Promise<Record<keyof typeof rowLabels, string>> {
     const worker = await createWorker('hin+eng');
@@ -103,8 +136,10 @@ async function extractRowValues(image: Buffer): Promise<Record<keyof typeof rowL
 
         const values = {} as Record<keyof typeof rowLabels, string>;
         for (const [key, label] of Object.entries(rowLabels) as [keyof typeof rowLabels, string][]) {
+            // OCR often adds stray vowel marks (e.g. चंद्रराशिं), so compare base letters only.
+            const baseLetters = (text: string) => text.replace(/[^\p{L}]/gu, '');
             const findLabelWord = (rowLabel: string) => words.find(
-                word => word.text.replace(/[^\p{L}\p{M}]/gu, '') === rowLabel
+                word => baseLetters(word.text) === baseLetters(rowLabel)
             );
             const labelWord = findLabelWord(label);
             let bbox = labelWord?.bbox;
@@ -131,6 +166,17 @@ async function extractRowValues(image: Buffer): Promise<Record<keyof typeof rowL
             assert.ok(bbox, `Could not find the ${label} label in Panchang image OCR:\n${data.text}`);
 
             const rowHeight = bbox.y1 - bbox.y0;
+            const rowBounds = bbox;
+            const lineValue = cleanRowValue(
+                words
+                    .filter(word => {
+                        const centerY = (word.bbox.y0 + word.bbox.y1) / 2;
+                        return word.bbox.x0 >= rowBounds.x1 - 5 && centerY >= rowBounds.y0 && centerY <= rowBounds.y1;
+                    })
+                    .sort((a, b) => a.bbox.x0 - b.bbox.x0)
+                    .map(word => word.text)
+                    .join(' ')
+            );
             const row = await worker.recognize(image, {
                 rectangle: {
                     left: bbox.x1 + 10,
@@ -139,7 +185,8 @@ async function extractRowValues(image: Buffer): Promise<Record<keyof typeof rowL
                     height: rowHeight + 30
                 }
             });
-            values[key] = cleanRowValue(row.data.text);
+            const cropValue = cleanRowValue(row.data.text);
+            values[key] = pickRowValue(key, lineValue, cropValue);
             assert.ok(values[key], `Could not read the ${label} value from Panchang image OCR:\n${row.data.text}`);
         }
         return values;
