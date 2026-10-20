@@ -89,7 +89,7 @@ describe('get all rashi bhavishya', () => {
         // Generate the HTML for each rashi card by looping through the data
         const rashiCardsHtml = allRashiData.map(rashi => `
                 <div class="rashi-card">
-                    <img src="./images/rashiIcons/${rashi.icon}" alt="Rashi Icon" class="rashi-icon">
+                    <img src="./images/rashiIcons/${rashi.icon}?v=2" alt="Rashi Icon" class="rashi-icon">
                     <div class="rashi-name">${rashi.name}</div>
                     <div class="rashi-fal">${rashi.fal}</div>
                 </div>
@@ -334,7 +334,7 @@ describe('get all rashi bhavishya', () => {
                     </div>
                 </div>
                 <div class="header-content">
-                    <h1><img class="zodiac" id="zodiac-l" src="images/rashiIcons/mesh.jpg" alt=""> राशि भविष्य <img class="zodiac" id="zodiac-r" src="images/rashiIcons/tula.jpg" alt=""></h1>
+                    <h1><img class="zodiac" id="zodiac-l" src="images/rashiIcons/mesh.jpg?v=2" alt=""> राशि भविष्य <img class="zodiac" id="zodiac-r" src="images/rashiIcons/tula.jpg?v=2" alt=""></h1>
                     <div class="date" id="date-nav">${getDateAndDay}</div>
                 </div>
             </div>
@@ -344,7 +344,7 @@ describe('get all rashi bhavishya', () => {
             <script src="archive-nav.js"></script>
             <script>
                 (function () {
-                    var signs = ['mesh', 'vrishabha', 'mithun', 'kark', 'singh', 'kanya', 'tula', 'vrishchik', 'dhanu', 'makar', 'kumbha', 'meen'].map(function (n) { return 'images/rashiIcons/' + n + '.jpg'; });
+                    var signs = ['mesh', 'vrishabha', 'mithun', 'kark', 'singh', 'kanya', 'tula', 'vrishchik', 'dhanu', 'makar', 'kumbha', 'meen'].map(function (n) { return 'images/rashiIcons/' + n + '.jpg?v=2'; });
                     var l = document.getElementById('zodiac-l'), r = document.getElementById('zodiac-r');
                     if (!l || !r || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
                     var i = 0;
