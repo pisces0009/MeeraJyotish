@@ -21,43 +21,57 @@
                     box-sizing: border-box;
                 }
 
-                .header {
+                .top-header {
+                    width: 100%;
+                    max-width: 1200px;
+                    margin: 0 auto 20px;
+                    box-sizing: border-box;
                     display: flex;
                     align-items: center;
-                    justify-content: space-between;
-                    gap: 10px;
-                    max-width: 1200px;
-                    margin: 0 auto 30px;
+                    justify-content: center;
+                    padding: 15px 20px;
+                    background: rgba(0, 0, 0, 0.4);
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                    border-radius: 15px;
+                    border: 1px solid rgba(255, 255, 255, 0.15);
+                    position: relative;
+                    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
                 }
-
-                .header::after {
+                .top-header::after {
                     content: '';
-                    width: 30px;
+                    width: 45px;
                     flex: none;
                 }
-
-                .header h1 {
+                .page-title {
                     font-family: 'Orbitron', sans-serif;
-                    font-size: 2.6em;
-                    color: #e0e0e0;
-                    text-shadow: 0 0 10px rgba(0, 119, 230, 0.7), 0 0 18px rgba(0, 119, 230, 0.4);
+                    font-size: 2em;
+                    font-weight: 600;
                     margin: 0;
+                    flex-grow: 1;
+                    text-align: center;
+                    color: #fff;
+                    position: relative;
+                    text-shadow: 0 0 8px rgba(0, 217, 255, .6), 0 0 15px rgba(0, 217, 255, .6), 0 0 25px rgba(0, 217, 255, .6);
                 }
-
-                .header h1 .zodiac {
-                    display: inline-block;
-                    color: #ffb703;
-                    text-shadow: 0 0 10px #ffb703, 0 0 22px #ff7b00;
+                .page-title .title-text {
+                    background: linear-gradient(100deg, #fff 0%, #fff 35%, #00d9ff 50%, #fff 65%, #fff 100%);
+                    background-size: 250% 100%;
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    text-shadow: none;
+                    filter: drop-shadow(0 0 8px rgba(0, 217, 255, .6));
+                    animation: titleShimmer 4s linear infinite;
                 }
-                .header h1 .zodiac {
+                .page-title .zodiac {
                     width: 1.05em; height: 1.05em; border-radius: 50%; object-fit: cover;
                     vertical-align: middle; border: 2px solid #ffb703;
-                    box-shadow: 0 0 10px #ffb703, 0 0 22px rgba(255, 123, 0, .6);
+                    box-shadow: 0 0 3px #ffb703, 0 0 6px rgba(255, 123, 0, .35);
                     transition: opacity .35s ease, transform .35s ease;
                 }
-                .header h1 .zodiac.swap { opacity: 0; transform: scale(.4) rotate(-90deg); }
-                .header h1 { position: relative; display: inline-block; }
-                .header h1::after {
+                .page-title .zodiac.swap { opacity: 0; transform: scale(.4) rotate(-90deg); }
+                .page-title::after {
                     content: '';
                     position: absolute;
                     left: 50%; bottom: -6px;
@@ -66,18 +80,32 @@
                     background: linear-gradient(90deg, transparent, #ffb703, transparent);
                     animation: underlineGrow 3s ease-in-out infinite;
                 }
+                @keyframes titleShimmer { from { background-position: 150% 0; } to { background-position: -100% 0; } }
                 @keyframes underlineGrow { 0%,100% { width: 0; } 50% { width: 80%; } }
-                @media (prefers-reduced-motion: reduce) { .header h1 .zodiac { transition: none !important; } .header h1::after { animation: none !important; width: 60%; } }
+                @media (prefers-reduced-motion: reduce) { .page-title *, .page-title::after { animation: none !important; transition: none !important; } .page-title::after { width: 60%; } }
 
-                .header .date {
-                    font-size: 1.2em;
-                    color: #00d9ff;
-                    margin-top: 10px;
+                .burger-menu {
+                    flex: none;
+                    cursor: pointer;
+                    padding: 5px;
+                }
+                .burger-icon {
+                    width: 35px;
+                    height: 35px;
+                    transition: transform 0.3s ease;
+                }
+                .burger-menu:hover .burger-icon {
+                    transform: scale(1.1);
                 }
 
-                .header-content {
+                .date-bar {
+                    max-width: 1200px;
+                    margin: 0 auto 25px;
                     text-align: center;
-                    min-width: 0;
+                }
+                .date-bar .date {
+                    font-size: 1.2em;
+                    color: #00d9ff;
                 }
 
                 .rashi-grid {
@@ -127,119 +155,34 @@
                     color: #d0d0d0;
                 }
 
-                .rashi-fal.clamped {
-                    display: -webkit-box;
-                    -webkit-line-clamp: 6;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                }
-
-                .read-more {
-                    margin-top: 10px;
-                    padding: 6px 16px;
-                    border-radius: 999px;
-                    border: 1px solid rgba(0, 217, 255, 0.5);
-                    background: rgba(0, 217, 255, 0.12);
-                    color: #fff;
-                    font-family: inherit;
-                    cursor: pointer;
-                }
-
-                .burger-menu {
-                    flex: none;
-                    cursor: pointer;
-                    padding: 5px;
-                }
-                .burger-icon {
-                    width: 30px;
-                    height: 22px;
-                    position: relative;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                }
-                .burger-icon span {
-                    display: block;
-                    width: 100%;
-                    height: 3px;
-                    background-color: #ffffff;
-                    border-radius: 3px;
-                    transition: all 0.3s ease-in-out;
-                }
-                .burger-menu:hover .burger-icon span:nth-child(1) {
-                    transform: translateY(9.5px) rotate(45deg);
-                }
-                .burger-menu:hover .burger-icon span:nth-child(2) {
-                    opacity: 0;
-                }
-                .burger-menu:hover .burger-icon span:nth-child(3) {
-                    transform: translateY(-9.5px) rotate(-45deg);
-                }
                 @media (max-width: 768px) {
-                    .header h1 {
-                        font-size: 1.9em;
-                    }
-                    .header .date {
-                        font-size: 0.95em;
-                    }
+                    .page-title { font-size: 1.6em; }
+                    .date-bar .date { font-size: 0.95em; }
                 }
                 @media (max-width: 480px) {
-                    body {
-                        padding: 12px;
-                    }
-                    .header {
-                        flex-direction: column;
-                        align-items: stretch;
-                        gap: 6px;
-                        margin-bottom: 20px;
-                    }
-                    .header::after {
-                        display: none;
-                    }
-                    .burger-menu {
-                        align-self: flex-start;
-                    }
-                    .header-content {
-                        width: 100%;
-                    }
-                    .header h1 {
-                        font-size: 1.5em;
-                        white-space: nowrap;
-                    }
-                    .header .date {
-                        font-size: 0.85em;
-                        margin-top: 14px;
-                        white-space: nowrap;
-                    }
-                    #date-nav {
-                        gap: 6px !important;
-                    }
-                    #date-nav .nav-btn {
-                        width: 34px !important;
-                        height: 34px !important;
-                        font-size: 13px !important;
-                    }
-                    .rashi-grid {
-                        grid-template-columns: 1fr;
-                    }
+                    body { padding: 12px; }
+                    .burger-icon { width: 28px; height: 28px; }
+                    .top-header::after { width: 38px; }
+                    .top-header { padding: 10px 15px; }
+                    .page-title { font-size: 1.3em; white-space: nowrap; }
+                    .date-bar .date { font-size: 0.85em; white-space: nowrap; }
+                    #date-nav { gap: 6px !important; }
+                    #date-nav .nav-btn { width: 34px !important; height: 34px !important; font-size: 13px !important; }
+                    .rashi-grid { grid-template-columns: 1fr; }
                 }
             </style>
         </head>
         <meta name="page-date" content="2026-10-17">
         <body>
 
-            <div class="header">
+            <div class="top-header">
                 <div class="burger-menu" onclick="window.location.href='index.html'" role="button" aria-label="Go to homepage">
-                    <div class="burger-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+                    <img src="./images/burger-icon.png" alt="Menu Icon" class="burger-icon">
                 </div>
-                <div class="header-content">
-                    <h1><img class="zodiac" id="zodiac-l" src="images/rashiIcons/mesh.jpg?v=2" alt=""> राशि भविष्य <img class="zodiac" id="zodiac-r" src="images/rashiIcons/tula.jpg?v=2" alt=""></h1>
-                    <div class="date" id="date-nav">शनिवार, ऑक्टोबर 17, 2026</div>
-                </div>
+                <h1 class="page-title"><img class="zodiac" id="zodiac-l" src="images/rashiIcons/mesh.jpg?v=2" alt=""> <span class="title-text">राशि भविष्य</span> <img class="zodiac" id="zodiac-r" src="images/rashiIcons/tula.jpg?v=2" alt=""></h1>
+            </div>
+            <div class="date-bar">
+                <div class="date" id="date-nav">शनिवार, ऑक्टोबर 17, 2026</div>
             </div>
             <div class="rashi-grid">
                 
@@ -332,24 +275,6 @@
                         }, 350);
                     }, 1800);
                 })();
-            </script>
-            <script>
-                document.querySelectorAll('.rashi-fal').forEach(function (fal) {
-                    fal.classList.add('clamped');
-                    if (fal.scrollHeight <= fal.clientHeight + 1) {
-                        fal.classList.remove('clamped');
-                        return;
-                    }
-                    var btn = document.createElement('button');
-                    btn.type = 'button';
-                    btn.className = 'read-more';
-                    btn.textContent = 'अधिक वाचा';
-                    btn.onclick = function () {
-                        var open = fal.classList.toggle('clamped');
-                        btn.textContent = open ? 'अधिक वाचा' : 'कमी दाखवा';
-                    };
-                    fal.insertAdjacentElement('afterend', btn);
-                });
             </script>
         </body>
         </html>
