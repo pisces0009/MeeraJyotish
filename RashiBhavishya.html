@@ -43,6 +43,31 @@
                     margin: 0;
                 }
 
+                .header h1 .zodiac {
+                    display: inline-block;
+                    color: #ffb703;
+                    text-shadow: 0 0 10px #ffb703, 0 0 22px #ff7b00;
+                }
+                .header h1 .zodiac {
+                    width: 1.05em; height: 1.05em; border-radius: 50%; object-fit: cover;
+                    vertical-align: middle; border: 2px solid #ffb703;
+                    box-shadow: 0 0 10px #ffb703, 0 0 22px rgba(255, 123, 0, .6);
+                    transition: opacity .35s ease, transform .35s ease;
+                }
+                .header h1 .zodiac.swap { opacity: 0; transform: scale(.4) rotate(-90deg); }
+                .header h1 { position: relative; display: inline-block; }
+                .header h1::after {
+                    content: '';
+                    position: absolute;
+                    left: 50%; bottom: -6px;
+                    width: 0; height: 2px;
+                    transform: translateX(-50%);
+                    background: linear-gradient(90deg, transparent, #ffb703, transparent);
+                    animation: underlineGrow 3s ease-in-out infinite;
+                }
+                @keyframes underlineGrow { 0%,100% { width: 0; } 50% { width: 80%; } }
+                @media (prefers-reduced-motion: reduce) { .header h1 .zodiac { transition: none !important; } .header h1::after { animation: none !important; width: 60%; } }
+
                 .header .date {
                     font-size: 1.2em;
                     color: #00d9ff;
@@ -183,7 +208,7 @@
                     </div>
                 </div>
                 <div class="header-content">
-                    <h1>राशि भविष्य</h1>
+                    <h1><img class="zodiac" id="zodiac-l" src="images/rashiIcons/mesh.jpg" alt=""> राशि भविष्य <img class="zodiac" id="zodiac-r" src="images/rashiIcons/tula.jpg" alt=""></h1>
                     <div class="date" id="date-nav">मंगळवार, ऑक्टोबर 20, 2026</div>
                 </div>
             </div>
@@ -263,6 +288,22 @@
         
             </div>
             <script src="archive-nav.js"></script>
+            <script>
+                (function () {
+                    var signs = ['mesh', 'vrishabha', 'mithun', 'kark', 'singh', 'kanya', 'tula', 'vrishchik', 'dhanu', 'makar', 'kumbha', 'meen'].map(function (n) { return 'images/rashiIcons/' + n + '.jpg'; });
+                    var l = document.getElementById('zodiac-l'), r = document.getElementById('zodiac-r');
+                    if (!l || !r || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                    var i = 0;
+                    setInterval(function () {
+                        l.classList.add('swap'); r.classList.add('swap');
+                        setTimeout(function () {
+                            i = (i + 1) % 12;
+                            l.src = signs[i]; r.src = signs[(i + 6) % 12];
+                            l.classList.remove('swap'); r.classList.remove('swap');
+                        }, 350);
+                    }, 1800);
+                })();
+            </script>
             <script>
                 document.querySelectorAll('.rashi-fal').forEach(function (fal) {
                     fal.classList.add('clamped');
