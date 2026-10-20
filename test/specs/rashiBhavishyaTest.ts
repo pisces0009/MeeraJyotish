@@ -284,9 +284,37 @@ describe('get all rashi bhavishya', () => {
                     body {
                         padding: 12px;
                     }
+                    .header {
+                        flex-direction: column;
+                        align-items: stretch;
+                        gap: 6px;
+                        margin-bottom: 20px;
+                    }
+                    .header::after {
+                        display: none;
+                    }
+                    .burger-menu {
+                        align-self: flex-start;
+                    }
+                    .header-content {
+                        width: 100%;
+                    }
                     .header h1 {
                         font-size: 1.5em;
                         white-space: nowrap;
+                    }
+                    .header .date {
+                        font-size: 0.85em;
+                        margin-top: 14px;
+                        white-space: nowrap;
+                    }
+                    #date-nav {
+                        gap: 6px !important;
+                    }
+                    #date-nav .nav-btn {
+                        width: 34px !important;
+                        height: 34px !important;
+                        font-size: 13px !important;
                     }
                     .rashi-grid {
                         grid-template-columns: 1fr;
