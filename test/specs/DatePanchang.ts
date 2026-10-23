@@ -138,9 +138,20 @@ async function extractRowValues(image: Buffer): Promise<Record<keyof typeof rowL
         for (const [key, label] of Object.entries(rowLabels) as [keyof typeof rowLabels, string][]) {
             // OCR often adds stray vowel marks (e.g. चंद्रराशिं), so compare base letters only.
             const baseLetters = (text: string) => text.replace(/[^\p{L}]/gu, '');
-            const findLabelWord = (rowLabel: string) => words.find(
-                word => baseLetters(word.text) === baseLetters(rowLabel)
-            );
+            const findLabelWord = (rowLabel: string) => {
+                const expected = baseLetters(rowLabel);
+                const expectedLetters = Array.from(expected);
+                const exactMatch = words.find(word => baseLetters(word.text) === expected);
+                if (exactMatch || expected.length < 6) {
+                    return exactMatch;
+                }
+
+                return words.find(word => {
+                    const actualLetters = Array.from(baseLetters(word.text));
+                    return actualLetters.length === expectedLetters.length
+                        && actualLetters.filter((letter, index) => letter !== expectedLetters[index]).length <= 1;
+                });
+            };
             const labelWord = findLabelWord(label);
             let bbox = labelWord?.bbox;
             if (!bbox && key === 'yoga') {
