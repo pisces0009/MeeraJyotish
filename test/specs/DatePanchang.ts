@@ -91,6 +91,25 @@ function cleanRowValue(text: string): string {
 
 const devanagariDigits = '०१२३४५६७८९';
 
+function getEditDistance(left: string, right: string): number {
+    const leftCharacters = Array.from(left);
+    const rightCharacters = Array.from(right);
+    let previousRow = Array.from({ length: rightCharacters.length + 1 }, (_, index) => index);
+
+    for (let leftIndex = 0; leftIndex < leftCharacters.length; leftIndex++) {
+        const currentRow = [leftIndex + 1];
+        for (let rightIndex = 0; rightIndex < rightCharacters.length; rightIndex++) {
+            currentRow.push(Math.min(
+                currentRow[rightIndex] + 1,
+                previousRow[rightIndex + 1] + 1,
+                previousRow[rightIndex] + (leftCharacters[leftIndex] === rightCharacters[rightIndex] ? 0 : 1)
+            ));
+        }
+        previousRow = currentRow;
+    }
+    return previousRow[rightCharacters.length];
+}
+
 // Rahu Kaal is always about 1.5 hours long, which lets us reject OCR digit mistakes like २५:२७.
 function isPlausibleRahuKaal(value: string): boolean {
     const times = Array.from(value.matchAll(/([०-९]{2}):([०-९]{2})/g)).map(match => {
@@ -138,9 +157,19 @@ async function extractRowValues(image: Buffer): Promise<Record<keyof typeof rowL
         for (const [key, label] of Object.entries(rowLabels) as [keyof typeof rowLabels, string][]) {
             // OCR often adds stray vowel marks (e.g. चंद्रराशिं), so compare base letters only.
             const baseLetters = (text: string) => text.replace(/[^\p{L}]/gu, '');
-            const findLabelWord = (rowLabel: string) => words.find(
-                word => baseLetters(word.text) === baseLetters(rowLabel)
-            );
+            const findLabelWord = (rowLabel: string) => {
+                const expected = baseLetters(rowLabel);
+                const exactMatch = words.find(word => baseLetters(word.text) === expected);
+                if (exactMatch) {
+                    return exactMatch;
+                }
+
+                const maxDistance = Math.max(1, Math.floor(Array.from(expected).length * 0.2));
+                return words
+                    .map(word => ({ word, distance: getEditDistance(baseLetters(word.text), expected) }))
+                    .filter(candidate => candidate.distance <= maxDistance)
+                    .sort((left, right) => left.distance - right.distance)[0]?.word;
+            };
             const labelWord = findLabelWord(label);
             let bbox = labelWord?.bbox;
             if (!bbox && key === 'yoga') {
