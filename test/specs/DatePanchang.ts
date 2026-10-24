@@ -142,7 +142,7 @@ async function extractRowValues(image: Buffer): Promise<Record<keyof typeof rowL
                 const expected = baseLetters(rowLabel);
                 const expectedLetters = Array.from(expected);
                 const exactMatch = words.find(word => baseLetters(word.text) === expected);
-                if (exactMatch || expected.length < 6) {
+                if (exactMatch || key !== 'rashi') {
                     return exactMatch;
                 }
 
