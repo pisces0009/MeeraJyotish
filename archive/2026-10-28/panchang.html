@@ -1,0 +1,485 @@
+
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <base href="../../">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panchang Details</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --text-color: #f0f0f0;
+            --card-bg: rgba(0, 0, 0, 0.35);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --card-shadow: rgba(0, 0, 0, 0.25);
+            --accent-color: #00d9ff; /* A vibrant cyan */
+            --accent-glow: rgba(0, 217, 255, 0.5);
+        }
+
+        body {
+            background-image: url('images/green.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        body.monday-theme {
+            --text-color: #1a1a1a;
+            --card-bg: rgba(255, 255, 255, 0.6);
+            --card-border: rgba(0, 0, 0, 0.1);
+            --accent-color: #d9005b;
+            --accent-glow: rgba(217, 0, 91, 0.4);
+        }
+
+        .top-header, .main-container {
+            box-sizing: border-box;
+        }
+
+        .top-header {
+            width: 100%;
+            max-width: 850px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 15px;
+            border: 1px solid var(--card-border);
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 4px 30px var(--card-shadow);
+        }
+        
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2em;
+            font-weight: 600;
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 0 8px var(--accent-glow), 0 0 15px var(--accent-glow), 0 0 25px var(--accent-glow);
+        }
+
+        body.monday-theme .page-title {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+
+        .page-title { position: relative; }
+        .page-title .om, .page-title .swastik {
+            display: inline-block;
+            color: #ffb703;
+            text-shadow: 0 0 10px #ffb703, 0 0 22px #ff7b00;
+            animation: symbolPulse 2.4s ease-in-out infinite;
+        }
+        .page-title .swastik { animation: swastikSpin 8s linear infinite; }
+        .page-title .title-text {
+            background: linear-gradient(100deg, #fff 0%, #fff 35%, #00d9ff 50%, #fff 65%, #fff 100%);
+            background-size: 250% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+            filter: drop-shadow(0 0 8px var(--accent-glow));
+            animation: titleShimmer 4s linear infinite;
+        }
+        body.monday-theme .page-title .title-text {
+            background-image: linear-gradient(100deg, var(--accent-color) 0%, var(--accent-color) 35%, #ff7b00 50%, var(--accent-color) 65%, var(--accent-color) 100%);
+            background-size: 250% 100%;
+        }
+        .page-title::after {
+            content: '';
+            position: absolute;
+            left: 50%; bottom: -6px;
+            width: 0; height: 2px;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, transparent, #ffb703, transparent);
+            animation: underlineGrow 3s ease-in-out infinite;
+        }
+        @keyframes symbolPulse { 0%,100% { transform: scale(1); opacity: .85; } 50% { transform: scale(1.2); opacity: 1; } }
+        @keyframes swastikSpin { to { transform: rotate(360deg); } }
+        @keyframes titleShimmer { from { background-position: 150% 0; } to { background-position: -100% 0; } }
+        @keyframes underlineGrow { 0%,100% { width: 0; } 50% { width: 80%; } }
+        @media (prefers-reduced-motion: reduce) { .page-title *, .page-title::after { animation: none !important; } }
+
+        .top-header::after {
+            content: '';
+            width: 45px;
+            flex: none;
+        }
+
+        .burger-menu {
+            flex: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .burger-icon {
+            width: 35px;
+            height: 35px;
+            transition: transform 0.3s ease;
+        }
+        .burger-menu:hover .burger-icon {
+            transform: scale(1.1);
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 850px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 15px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 30px var(--card-shadow);
+            padding: 25px 35px;
+        }
+
+        .date-header {
+            text-align: center;
+            font-size: 1.6em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        .panchang-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+
+        .panchang-detail.highlight {
+            border-color: var(--accent-color);
+            background: linear-gradient(160deg, rgba(0, 217, 255, 0.16), rgba(255, 255, 255, 0.04));
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .panchang-detail.highlight-rahu {
+            border-color: #ff5c5c;
+            background: linear-gradient(160deg, rgba(255, 92, 92, 0.22), rgba(255, 255, 255, 0.04));
+            box-shadow: 0 0 12px rgba(255, 92, 92, 0.45);
+        }
+
+        .panchang-detail {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s, transform 0.3s;
+        }
+        .panchang-detail:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .panchang-icon {
+            font-size: 1.8em;
+            margin-right: 15px;
+            line-height: 1;
+        }
+
+        .panchang-icon.calendar-icon {
+            width: 1em;
+            height: 1em;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            overflow: hidden;
+            border: 1px solid var(--accent-color);
+            border-radius: 0.2em;
+            font-family: Arial, sans-serif;
+            line-height: 1;
+        }
+
+        .calendar-month {
+            width: 100%;
+            padding: 0.15em 0;
+            background: var(--accent-color);
+            color: #fff;
+            font-size: 0.38em;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .calendar-day {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            font-size: 0.45em;
+            font-weight: 700;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .panchang-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panchang-label {
+            font-weight: 600;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .panchang-value {
+            font-size: 1em;
+            line-height: 1.4;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5em;
+            font-weight: 600;
+            text-align: center;
+            margin: 35px 0 20px 0;
+            border-top: 1px solid var(--card-border);
+            padding-top: 25px;
+            color: var(--accent-color);
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        .gochar-details {
+            text-align: center;
+            font-size: 1.1em;
+            line-height: 1.7;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .gochar-item {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        .jyotishacharya-details {
+            text-align: center;
+            font-size: 1.1em;
+            line-height: 1.7;
+        }
+
+        .jyotishacharya-details p {
+            margin: 5px 0;
+        }
+        .jyotishacharya-details .name {
+            font-weight: 600;
+            font-size: 1.2em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 1.8em;
+            }
+            .panchang-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+            .main-container {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .page-title {
+                font-size: 1.15em;
+            }
+            .panchang-detail {
+                padding: 10px;
+            }
+            .panchang-icon {
+                font-size: 1.5em;
+                margin-right: 10px;
+            }
+            .panchang-value {
+                font-size: 0.92em;
+            }
+            .date-header {
+                font-size: 1.25em;
+            }
+            .burger-icon {
+                width: 28px;
+                height: 28px;
+            }
+            .top-header::after {
+                width: 38px;
+            }
+            .top-header {
+                padding: 10px 15px;
+            }
+            .main-container {
+                max-width: 100%;
+            }
+            .gochar-details {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<meta name="page-date" content="2026-10-28">
+<body>
+    
+    <div class="top-header">
+         <div class="burger-menu" onclick="window.location.href='index.html'">
+             <img src="./images/burger-icon.png" alt="Menu Icon" class="burger-icon">
+         </div>
+         <h1 class="page-title">||<span class="om">ॐ</span>|| <span class="title-text">पंचांग</span> ||<span class="swastik">卐</span>||</h1>
+     </div>
+
+    <div class="main-container">
+        <div class="date-header" id="date-nav">
+            28 Oct 2026
+        </div>
+        
+        <div class="panchang-grid">
+            
+            <div class="panchang-detail">
+                <span class="panchang-icon calendar-icon" aria-label="Current date"><span class="calendar-month" aria-hidden="true"></span><span class="calendar-day" aria-hidden="true"></span></span>
+                <div class="panchang-text">
+                    <span class="panchang-label">वार:</span>
+                    <span class="panchang-value">बुधवार</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">📜</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">संवत:</span>
+                    <span class="panchang-value">1948 पराभव, शक संवत, ज्येष्ठ, कृष्ण पक्ष, तृतीया</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail highlight">
+                <span class="panchang-icon">🌓</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">तिथी:</span>
+                    <span class="panchang-value">तृतीया - 01:06, अक्टूबर 29 तक | चतुर्थी</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">☀️</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">अयन:</span>
+                    <span class="panchang-value">दक्षिणायण</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">🍂</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">ऋतु:</span>
+                    <span class="panchang-value">हेमन्त</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail highlight">
+                <span class="panchang-icon">✨</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">नक्षत्र:</span>
+                    <span class="panchang-value">कृत्तिका - 13:26 तक</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">🌗</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">करण:</span>
+                    <span class="panchang-value">तैतिल १७:३६</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">🧘</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">योग:</span>
+                    <span class="panchang-value">सिद्धि १०:५३</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">♋</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">राशी:</span>
+                    <span class="panchang-value">२१:०७ २९:०७ नं नं वृषभ किक</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">⏳</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">दिनमान:</span>
+                    <span class="panchang-value">11 घण्टे 30 मिनट्स 10 सेकण्ड्स</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail highlight highlight-rahu">
+                <span class="panchang-icon">🚫</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">राहू काळ:</span>
+                    <span class="panchang-value">१५:१५ नं. १६:४१ प.</span>
+                </div>
+            </div>
+        
+            <div class="panchang-detail">
+                <span class="panchang-icon">⭐</span>
+                <div class="panchang-text">
+                    <span class="panchang-label">दिनविशेष:</span>
+                    <span class="panchang-value">क्षयतिथी</span>
+                </div>
+            </div>
+        
+        </div>
+
+        <div class="section-title">गोचर</div>
+        <div class="gochar-details">
+            <span class="gochar-item"><strong>सूर्य:</strong> तुला</span><span class="gochar-item"><strong>गुरु:</strong> कर्क</span><span class="gochar-item"><strong>शनि:</strong> मीन</span>
+        </div>
+
+        <div class="section-title">ज्योतिषाचार्य</div>
+        <div class="jyotishacharya-details">
+            <p class="name">डॉ सौ.मीरा.बी.काळे</p>
+            <p>(वेदांग ज्योतिष)</p>
+        </div>
+    </div>
+     
+</body>
+<script src="archive-nav.js"></script>
+<script>
+    // Use the page's own date so archived pages show their day, not today's
+    const pageDate = new Date(document.querySelector('meta[name="page-date"]').content + 'T00:00:00Z');
+    document.querySelector('.calendar-month').textContent =
+        pageDate.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }).toUpperCase();
+    document.querySelector('.calendar-day').textContent =
+        String(pageDate.getUTCDate()).padStart(2, '0');
+
+    // Monday gets a lighter theme for better readability on the white background
+    if (pageDate.getUTCDay() === 1) {
+        document.body.classList.add('monday-theme');
+    }
+</script>
+</html>
