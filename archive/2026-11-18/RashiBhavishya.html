@@ -1,0 +1,281 @@
+
+        <!DOCTYPE html>
+        <html lang="mr">
+        <head>
+    <base href="../../">
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Rashi Bhavishya</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+            <style>
+                body {
+                    font-family: 'Poppins', sans-serif;
+                    background: #0f0c29;
+                    background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
+                    background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+                    color: #f0f0f0;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+
+                .top-header {
+                    width: 100%;
+                    max-width: 1200px;
+                    margin: 0 auto 20px;
+                    box-sizing: border-box;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 15px 20px;
+                    background: rgba(0, 0, 0, 0.4);
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                    border-radius: 15px;
+                    border: 1px solid rgba(255, 255, 255, 0.15);
+                    position: relative;
+                    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+                }
+                .top-header::after {
+                    content: '';
+                    width: 45px;
+                    flex: none;
+                }
+                .page-title {
+                    font-family: 'Orbitron', sans-serif;
+                    font-size: 2em;
+                    font-weight: 600;
+                    margin: 0;
+                    flex-grow: 1;
+                    text-align: center;
+                    color: #fff;
+                    position: relative;
+                    text-shadow: 0 0 8px rgba(0, 217, 255, .6), 0 0 15px rgba(0, 217, 255, .6), 0 0 25px rgba(0, 217, 255, .6);
+                }
+                .page-title .title-text {
+                    background: linear-gradient(100deg, #fff 0%, #fff 35%, #00d9ff 50%, #fff 65%, #fff 100%);
+                    background-size: 250% 100%;
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    text-shadow: none;
+                    filter: drop-shadow(0 0 8px rgba(0, 217, 255, .6));
+                    animation: titleShimmer 4s linear infinite;
+                }
+                .page-title .zodiac {
+                    width: 1.05em; height: 1.05em; border-radius: 50%; object-fit: cover;
+                    vertical-align: middle; border: 2px solid #ffb703;
+                    box-shadow: 0 0 3px #ffb703, 0 0 6px rgba(255, 123, 0, .35);
+                    transition: opacity .35s ease, transform .35s ease;
+                }
+                .page-title .zodiac.swap { opacity: 0; transform: scale(.4) rotate(-90deg); }
+                .page-title::after {
+                    content: '';
+                    position: absolute;
+                    left: 50%; bottom: -6px;
+                    width: 0; height: 2px;
+                    transform: translateX(-50%);
+                    background: linear-gradient(90deg, transparent, #ffb703, transparent);
+                    animation: underlineGrow 3s ease-in-out infinite;
+                }
+                @keyframes titleShimmer { from { background-position: 150% 0; } to { background-position: -100% 0; } }
+                @keyframes underlineGrow { 0%,100% { width: 0; } 50% { width: 80%; } }
+                @media (prefers-reduced-motion: reduce) { .page-title *, .page-title::after { animation: none !important; transition: none !important; } .page-title::after { width: 60%; } }
+
+                .burger-menu {
+                    flex: none;
+                    cursor: pointer;
+                    padding: 5px;
+                }
+                .burger-icon {
+                    width: 35px;
+                    height: 35px;
+                    transition: transform 0.3s ease;
+                }
+                .burger-menu:hover .burger-icon {
+                    transform: scale(1.1);
+                }
+
+                .date-bar {
+                    max-width: 1200px;
+                    margin: 0 auto 25px;
+                    text-align: center;
+                }
+                .date-bar .date {
+                    font-size: 1.2em;
+                    color: #00d9ff;
+                }
+
+                .rashi-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                    gap: 25px;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+
+                .rashi-card {
+                    background: rgba(255, 255, 255, 0.05);
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
+                    border-radius: 15px;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    padding: 25px;
+                    text-align: center;
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                }
+
+                .rashi-card:hover {
+                    transform: translateY(-10px);
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 119, 255, 0.5);
+                }
+
+                .rashi-icon {
+                    width: 80px;
+                    height: 80px;
+                    object-fit: cover;
+                    border-radius: 50%;
+                    margin-bottom: 15px;
+                    border: 3px solid rgba(255, 255, 255, 0.2);
+                }
+
+                .rashi-name {
+                    font-family: 'Orbitron', sans-serif;
+                    font-size: 1.8em;
+                    font-weight: 700;
+                    color: #fff;
+                    margin: 10px 0;
+                }
+
+                .rashi-fal {
+                    font-size: 1em;
+                    line-height: 1.6;
+                    color: #d0d0d0;
+                }
+
+                @media (max-width: 768px) {
+                    .page-title { font-size: 1.6em; }
+                    .date-bar .date { font-size: 0.95em; }
+                }
+                @media (max-width: 480px) {
+                    body { padding: 12px; }
+                    .burger-icon { width: 28px; height: 28px; }
+                    .top-header::after { width: 38px; }
+                    .top-header { padding: 10px 15px; }
+                    .page-title { font-size: 1.3em; white-space: nowrap; }
+                    .date-bar .date { font-size: 0.85em; white-space: nowrap; }
+                    #date-nav { gap: 6px !important; }
+                    #date-nav .nav-btn { width: 34px !important; height: 34px !important; font-size: 13px !important; }
+                    .rashi-grid { grid-template-columns: 1fr; }
+                }
+            </style>
+        </head>
+        <meta name="page-date" content="2026-11-18">
+        <body>
+
+            <div class="top-header">
+                <div class="burger-menu" onclick="window.location.href='index.html'" role="button" aria-label="Go to homepage">
+                    <img src="./images/burger-icon.png" alt="Menu Icon" class="burger-icon">
+                </div>
+                <h1 class="page-title"><img class="zodiac" id="zodiac-l" src="images/rashiIcons/mesh.jpg?v=2" alt=""> <span class="title-text">राशि भविष्य</span> <img class="zodiac" id="zodiac-r" src="images/rashiIcons/tula.jpg?v=2" alt=""></h1>
+            </div>
+            <div class="date-bar">
+                <div class="date" id="date-nav">बुधवार, नोव्हेंबर 18, 2026</div>
+            </div>
+            <div class="rashi-grid">
+                
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/mesh.jpg?v=2" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">मेष राशिफल</div>
+                    <div class="rashi-fal">आज तुमच्यावर कामाचा मोठा भार असेल. तुम्ही उच्च शिक्षणात मोठे यश मिळवाल. तुम्ही नवीन माहिती आणि ज्ञान मिळवण्यात व्यस्त राहाल. तुमचा सामाजिक कार्यांमधील सहभाग वाढेल. प्रियकरांमधील आकर्षण आणि तीव्रता वाढेल.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/vrishabha.jpg?v=2" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">वृषभ राशिफल</div>
+                    <div class="rashi-fal">अविवाहित लोकांना शुभ विवाह प्रस्ताव मिळण्याची शक्यता आहे. हट्टीपणा टाळा. तुम्ही तुमच्या जीवनशैलीत सकारात्मक बदल करण्याचा प्रयत्न करू शकता. प्रलंबित कामे आज सहजपणे पूर्ण होतील. तुम्ही तुमच्या प्रतिस्पर्धकांवर मात कराल आणि कामाच्या ठिकाणी असलेले अडथळे दूर होतील.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/mithun.jpg?v=2" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">मिथुन राशिफल</div>
+                    <div class="rashi-fal">विद्यार्थी उच्च शिक्षणात उत्कृष्ट कामगिरी करतील. दैनंदिन दिनचर्या सुव्यवस्थित ठेवा. तुम्हाला कार्यालयात अधिक मेहनत करावी लागू शकते. व्यावसायिक समस्या सुटतील. राग आणि घाईच्या प्रतिक्रिया टाळा. प्रेमसंबंध अधिक सौहार्दपूर्ण होतील. सेवेत असलेल्यांना इच्छित बदली मिळण्याची शक्यता आहे.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/kark.jpg?v=2" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">कर्क राशिफल</div>
+                    <div class="rashi-fal">घरी नवीन पाहुण्यांच्या आगमनामुळे काहीसा त्रास होऊ शकतो. तुमच्या जोडीदारासोबत तुमचा समन्वय अत्यंत सौहार्दपूर्ण राहील. नवीन नोकरीशी संबंधित बाबींमध्ये अत्यंत सावधगिरी बाळगा. तुमचे आरोग्य काहीसे कमजोर असू शकते. इतरांच्या अंतर्गत बाबींमध्ये हस्तक्षेप करणे उचित नाही.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/singh.jpg?v=2" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">सिंह राशिफल</div>
+                    <div class="rashi-fal">तुम्ही नवीन व्यवसाय सुरू करू शकता. तुमच्या भावनांमध्ये चढ-उतार होऊ शकतो. तुम्हाला शुभ आणि मंगल प्रसंगांवर पैसे खर्च करावे लागतील. तुम्हाला उत्साही वाटेल. मालमत्तेत गुंतवणूक करण्यासाठी हा अनुकूल काळ आहे. कौटुंबिक संबंध दृढ होतील आणि तुम्हाला वडीलधाऱ्यांचे आशीर्वाद व पाठिंबा मिळेल.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/kanya.jpg?v=2" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">कन्या राशिफल</div>
+                    <div class="rashi-fal">शासकीय कामे सुरळीतपणे पूर्ण होतील. उत्पन्नाचे नवीन स्रोत निर्माण होतील. राजकारणात असलेल्यांची कीर्ती आणि प्रतिष्ठा वाढेल. सकाळपासूनच तुमचे मन प्रफुल्लित राहील. तात्विक चिंतन आणि अध्यात्मामध्ये तुमची रुची वाढेल. तुम्ही प्रत्येक आव्हानाला धैर्याने सामोरे जाल.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/tula.jpg?v=2" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">तूळ राशिफल</div>
+                    <div class="rashi-fal">प्रियकरांमध्ये अविश्वास टाळा. घरी धार्मिक विधी किंवा समारंभ होण्याची शक्यता आहे. गंभीर चर्चा होतील. आपल्या वाईट सवयी सोडण्याचा संकल्प करा. तुम्हाला कामाच्या ठिकाणी अतिरिक्त काम करावे लागू शकते. छातीत जळजळ किंवा अपचन होण्याची शक्यता आहे.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/vrishchik.jpg?v=2" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">वृश्चिक राशिफल</div>
+                    <div class="rashi-fal">तुम्ही तुमच्या मुलांसोबत एखाद्या सुंदर ठिकाणी सहलीची योजना आखू शकता. तुम्हाला तुमच्या आर्थिक परिस्थितीबद्दल थोडी चिंता वाटू शकते. कोणत्याही गोष्टीत घाई करणे टाळा. संवाद साधताना तुमच्या बोलण्यावर नियंत्रण ठेवा. तुम्हाला तुमच्या कुटुंबाकडून उत्तम पाठिंबा मिळेल. आज, तुम्ही कोणाच्याही निर्देशानुसार किंवा नियंत्रणाखाली काम करण्याच्या मनःस्थितीत नसाल.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/dhanu.jpg?v=2" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">धनु राशिफल</div>
+                    <div class="rashi-fal">तुम्ही वैवाहिक जीवनाचा पुरेपूर आनंद घ्याल. तुमच्या पत्नीचे आरोग्य उत्तम राहील. तुम्ही सहलीचे किंवा प्रवासाचे नियोजन करू शकता. तुमच्या जोडीदाराप्रती तुमचे वर्तन अत्यंत सौम्य आणि प्रेमळ असेल. तुमच्या सल्ल्याने, इतरांची अवघड कामेसुद्धा सहजपणे सुटतील. तुम्ही तुमची ठरवलेली ध्येये वेळेवर साध्य करण्यात यशस्वी व्हाल.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/makar.jpg?v=2" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">मकर राशिफल</div>
+                    <div class="rashi-fal">तुमचे आरोग्य उत्तम राहील. परदेश प्रवासाची दाट शक्यता आहे. कामाच्या ठिकाणी तुम्हाला तुमच्या सहकाऱ्यांकडून पूर्ण सहकार्य मिळेल. तुमच्या मूळ तत्त्वांशी कधीही तडजोड करू नका. तुमचे वरिष्ठही तुम्हाला सर्वतोपरी मदत करतील. मित्रांच्या मदतीने तुम्हाला आर्थिक आणि इतर लाभ मिळतील.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/kumbha.jpg?v=2" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">कुंभ राशिफल</div>
+                    <div class="rashi-fal">तुमच्या मुलांच्या भविष्याबद्दल आणि करिअरबद्दल काही चिंता असू शकते. काही लोक तुमच्यावर निराधार किंवा खोटे आरोप करू शकतात. घरात आनंदाचे आणि उत्साहाचे वातावरण राहील. तुम्ही अत्यंत धैर्याने आणि संयमाने काम केले पाहिजे. तुमच्या समस्या तुमच्या जोडीदारासोबत शेअर करणे फायदेशीर ठरेल.</div>
+                </div>
+        
+                <div class="rashi-card">
+                    <img src="./images/rashiIcons/meen.jpg?v=2" alt="Rashi Icon" class="rashi-icon">
+                    <div class="rashi-name">मीन राशिफल</div>
+                    <div class="rashi-fal">नकारात्मक प्रवृत्तीच्या लोकांपासून सुरक्षित अंतर ठेवा. आपले आचरण आणि वर्तन संतुलित ठेवा. तुम्हाला काही काळ नैराश्य येऊ शकते. अतिआत्मविश्वासामुळे मोठी व्यावहारिक चूक होऊ शकते. आपली रोगप्रतिकारशक्ती मजबूत ठेवा.</div>
+                </div>
+        
+            </div>
+            <script src="archive-nav.js"></script>
+            <script>
+                (function () {
+                    var signs = ['mesh', 'vrishabha', 'mithun', 'kark', 'singh', 'kanya', 'tula', 'vrishchik', 'dhanu', 'makar', 'kumbha', 'meen'].map(function (n) { return 'images/rashiIcons/' + n + '.jpg?v=2'; });
+                    var l = document.getElementById('zodiac-l'), r = document.getElementById('zodiac-r');
+                    if (!l || !r || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                    var i = 0;
+                    setInterval(function () {
+                        l.classList.add('swap'); r.classList.add('swap');
+                        setTimeout(function () {
+                            i = (i + 1) % 12;
+                            l.src = signs[i]; r.src = signs[(i + 6) % 12];
+                            l.classList.remove('swap'); r.classList.remove('swap');
+                        }, 350);
+                    }, 1800);
+                })();
+            </script>
+        </body>
+        </html>
+        
